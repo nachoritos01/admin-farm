@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn () => hasModule('customer_portal') ? route('customer.login') : route('filament.admin.auth.login'));
         $middleware->appendToGroup('web', [
             \App\Http\Middleware\EnsureTenant::class,
+            \App\Http\Middleware\SetLocale::class,
         ]);
         $middleware->alias([
             'tenant' => \App\Http\Middleware\EnsureTenant::class,

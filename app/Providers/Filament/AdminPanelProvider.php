@@ -73,7 +73,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->renderHook(
                 PanelsRenderHook::USER_MENU_BEFORE,
-                fn (): string => Blade::render('@livewire(\'tenant-switcher\')'),
+                fn (): string => Blade::render('@livewire(\'language-switcher\')') . Blade::render('@livewire(\'tenant-switcher\')'),
             )
             ->renderHook(
                 PanelsRenderHook::BODY_START,
