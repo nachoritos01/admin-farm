@@ -11,7 +11,7 @@
 | Track | Status | Detail |
 |-------|--------|--------|
 | **Generic SaaS Template** | **COMPLETE** | All 22 phases done, v1.2.0 |
-| **Farm Conversion (Guadalupana)** | **COMPLETE** | All 4 phases implemented |
+| **Farm Conversion (Guadalupana)** | **COMPLETE** | All 4 phases + Phase 5 PoC gap alignment |
 
 ## Farm Conversion — Granja La Guadalupana
 
@@ -25,8 +25,23 @@
 | **Phase 2 — Core Domain** | #47 Production, #50 Shipment, #51 Expense, #56 HenHealth, #59 Item ext | **Done** |
 | **Phase 3 — Aggregation** | #52 Dashboard, #53 Inventory, #57 Accounts Receivable, #58 Roles/Seeders | **Done** |
 | **Phase 4 — Reports** | #55 Advanced Reports | **Done** |
+| **Phase 5 — PoC Gap Alignment** | #60–#73 (14 features) | **Done** |
 
-### What Was Added
+### Phase 5 — What Was Added
+
+**New Models (1):** Purchase
+**New Enums (7):** Breed, DeathCause, DeliveryType, UnitType, SupplierStatus, PurchaseUnit, SupplierStatus
+**New Resources (1):** PurchaseResource (+ pages + relation manager)
+**New Pages (1):** FarmCalendar
+**New Service (1):** PricingService
+**Modified Enums (4):** HenBatchStatus (+Quarantine), PaymentMethod (+CashOnDelivery), CustomerType (+Restaurant, NaturalStore), EggSize (+Mixed)
+**Modified Models (8):** ProductionRecord (+dirty), HenBatch (+acquisition_date, age accessor), HenMovement (+death_cause), Customer (+preferred_price), Order (+delivery fields, shipping_cost), OrderLine (+egg_size, unit_type), Supplier (is_active→status, +address, products, rating), Shipment (+vehicle, route)
+**Modified Pages (1):** TenantSettings (+farm config, egg price matrix)
+**Modified Widget (1):** StatsOverview (+goal tracking)
+**New Migrations (9):** dirty eggs, acquisition date, death cause, preferred price, delivery fields, egg fields on order lines, supplier extension, purchases table, vehicle/route on shipments
+**New Plugin (1):** purchases
+
+### What Was Added (Phases 1–4)
 
 **New Models (8):** HenBatch, HenMovement, ProductionRecord, Supplier, Expense, Shipment, PriceHistory, HenHealthRecord
 **New Enums (9):** CustomerType, HenBatchStatus, HenMovementType, QualityGrade, EggSize, SupplierCategory, ExpenseCategory, ShipmentStatus, HealthRecordType
@@ -43,7 +58,7 @@
 | Branch | Purpose | Status |
 |--------|---------|--------|
 | `develop` | Integration | Stable — v1.2.0 |
-| `feature/farm-phase1-foundation` | Farm conversion (all 4 phases) | Ready for PR |
+| `feature/farm-phase1-foundation` | Farm conversion (all 5 phases) | Ready for PR |
 
 ---
 *Update this file at the start and end of each development session.*
