@@ -13,13 +13,16 @@ class TenantSettings extends Page
 {
     use WithFileUploads;
 
-    protected static ?string $title = 'Business Settings';
-
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
     protected static ?int $navigationSort = 97;
 
     protected static string $view = 'filament.pages.tenant-settings';
+
+    public function getTitle(): string
+    {
+        return __('Business Settings');
+    }
 
     public string $businessName = '';
 
@@ -129,7 +132,7 @@ class TenantSettings extends Page
         $tenant->update(['settings' => $settings]);
 
         Notification::make()
-            ->title('Settings saved')
+            ->title(__('Settings saved'))
             ->success()
             ->send();
     }
@@ -153,7 +156,7 @@ class TenantSettings extends Page
         $this->existingLogoPath = null;
 
         Notification::make()
-            ->title('Logo removed')
+            ->title(__('Logo removed'))
             ->success()
             ->send();
     }
@@ -162,7 +165,7 @@ class TenantSettings extends Page
     {
         return [
             Action::make('save')
-                ->label('Save')
+                ->label(__('Save'))
                 ->action('save'),
         ];
     }

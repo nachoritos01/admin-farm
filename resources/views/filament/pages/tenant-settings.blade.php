@@ -88,43 +88,43 @@
                     <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ __('farm.daily_egg_goal') }}</label>
                     <input type="number" wire:model="dailyEggGoal" min="0"
                         class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                        placeholder="e.g., 500">
+                        placeholder="{{ __('farm.placeholder_egg_goal') }}">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ __('farm.monthly_income_goal') }}</label>
                     <input type="number" wire:model="monthlyIncomeGoal" min="0" step="0.01"
                         class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                        placeholder="e.g., 5000.00">
+                        placeholder="{{ __('farm.placeholder_income_goal') }}">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ __('farm.tray_price') }}</label>
                     <input type="number" wire:model="trayPrice" min="0" step="0.01"
                         class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                        placeholder="Price per tray (30 eggs)">
+                        placeholder="{{ __('farm.placeholder_tray_price') }}">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ __('farm.kilogram_price') }}</label>
                     <input type="number" wire:model="kgPrice" min="0" step="0.01"
                         class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                        placeholder="Price per kilogram">
+                        placeholder="{{ __('farm.placeholder_kg_price') }}">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ __('farm.standard_shipping_cost') }}</label>
                     <input type="number" wire:model="standardShippingCost" min="0" step="0.01"
                         class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                        placeholder="Default shipping cost">
+                        placeholder="{{ __('farm.placeholder_shipping_cost') }}">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ __('farm.responsible_name') }}</label>
                     <input type="text" wire:model="responsibleName"
                         class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                        placeholder="Farm manager name">
+                        placeholder="{{ __('farm.placeholder_responsible') }}">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ __('farm.municipality') }}</label>
                     <input type="text" wire:model="municipality"
                         class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
-                        placeholder="e.g., Guadalupe, N.L.">
+                        placeholder="{{ __('farm.placeholder_municipality') }}">
                 </div>
             </div>
         </x-filament::section>

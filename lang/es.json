@@ -509,5 +509,8 @@
     ":name has been removed from the team.": ":name ha sido eliminado del equipo.",
     ":current of :max users": ":current de :max usuarios",
     ":count users (unlimited)": ":count usuarios (ilimitado)",
-    "Upgrade Plan": "Mejorar Plan"
+    "Upgrade Plan": "Mejorar Plan",
+    "Business Settings": "Configuración del Negocio",
+    "Settings saved": "Configuración guardada",
+    "Logo removed": "Logo eliminado"
 }

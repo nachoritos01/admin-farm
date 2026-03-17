@@ -65,6 +65,13 @@ return [
     'egg_price_matrix_hint' => 'Establezca precios por defecto por tamaño de huevo. Estos se usan para auto-llenar los precios de líneas de pedido.',
     'price_per_unit' => '$ por unidad',
     'save_settings' => 'Guardar Configuración',
+    'placeholder_egg_goal' => 'ej., 500',
+    'placeholder_income_goal' => 'ej., 5000.00',
+    'placeholder_tray_price' => 'Precio por reja (30 huevos)',
+    'placeholder_kg_price' => 'Precio por kilogramo',
+    'placeholder_shipping_cost' => 'Costo de envío predeterminado',
+    'placeholder_responsible' => 'Nombre del responsable de la granja',
+    'placeholder_municipality' => 'ej., Guadalupe, N.L.',
 
     // Farm Calendar page
     'production' => 'Producción',

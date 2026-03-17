@@ -65,6 +65,13 @@ return [
     'egg_price_matrix_hint' => 'Set default prices per egg size. These are used to auto-fill order line prices.',
     'price_per_unit' => '$ per unit',
     'save_settings' => 'Save Settings',
+    'placeholder_egg_goal' => 'e.g., 500',
+    'placeholder_income_goal' => 'e.g., 5000.00',
+    'placeholder_tray_price' => 'Price per tray (30 eggs)',
+    'placeholder_kg_price' => 'Price per kilogram',
+    'placeholder_shipping_cost' => 'Default shipping cost',
+    'placeholder_responsible' => 'Farm manager name',
+    'placeholder_municipality' => 'e.g., Guadalupe, N.L.',
 
     // Farm Calendar page
     'production' => 'Production',
