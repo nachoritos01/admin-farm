@@ -97,16 +97,17 @@ class AdvancedReports extends Page
                 $q->whereBetween('created_at', [$from, $to . ' 23:59:59'])
                     ->whereNotIn('status', ['cancelled', 'draft']);
             }], 'total')
-            ->having('total_revenue', '>', 0)
-            ->orderByDesc('total_revenue')
-            ->limit(10)
             ->get()
+            ->filter(fn ($c) => ($c->total_revenue ?? 0) > 0)
+            ->sortByDesc('total_revenue')
+            ->take(10)
             ->map(fn ($c) => [
                 'name' => $c->name,
                 'type' => $c->customer_type->label(),
                 'zone' => $c->zone,
                 'revenue' => $c->total_revenue ?? 0,
-            ]);
+            ])
+            ->values();
 
         // Monthly comparison (current vs previous)
         $currentMonthStart = now()->startOfMonth()->toDateString();
