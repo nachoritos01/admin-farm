@@ -79,8 +79,8 @@ class ApiSettings extends Page
         $this->tokenName = '';
 
         Notification::make()
-            ->title('Token generated')
-            ->body('Copy the token now. It will not be shown again.')
+            ->title(__('Token generated'))
+            ->body(__('Copy the token now. It will not be shown again.'))
             ->warning()
             ->send();
     }
@@ -98,7 +98,7 @@ class ApiSettings extends Page
             ->delete();
 
         Notification::make()
-            ->title('Token revoked')
+            ->title(__('Token revoked'))
             ->success()
             ->send();
     }
