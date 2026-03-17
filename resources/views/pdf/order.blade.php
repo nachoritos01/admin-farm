@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order #{{ $order->id }}</title>
+    <title>{{ __('Order') }} #{{ $order->id }}</title>
     <style>
         * {
             margin: 0;
@@ -162,7 +162,7 @@
 <body>
     <div class="header">
         <div class="order-number">
-            <h2>Order #{{ $order->id }}</h2>
+            <h2>{{ __('Order') }} #{{ $order->id }}</h2>
             <p>{{ $generatedAt }}</p>
             @php
                 $statusColors = [
@@ -190,21 +190,21 @@
 
     {{-- Customer --}}
     <div class="section">
-        <div class="section-title">Customer</div>
+        <div class="section-title">{{ __('Customer') }}</div>
         <div class="info-grid">
             <div class="row">
-                <span class="label">Name:</span>
+                <span class="label">{{ __('Name') }}:</span>
                 <span class="value">{{ $order->customer_name }}</span>
             </div>
             @if($order->customer_phone)
             <div class="row">
-                <span class="label">Phone:</span>
+                <span class="label">{{ __('Phone') }}:</span>
                 <span class="value">{{ $order->customer_phone }}</span>
             </div>
             @endif
             @if($order->customer_email)
             <div class="row">
-                <span class="label">Email:</span>
+                <span class="label">{{ __('Email') }}:</span>
                 <span class="value">{{ $order->customer_email }}</span>
             </div>
             @endif
@@ -214,15 +214,15 @@
     {{-- Location --}}
     @if($order->location)
     <div class="section">
-        <div class="section-title">Location</div>
+        <div class="section-title">{{ __('Location') }}</div>
         <div class="info-grid">
             <div class="row">
-                <span class="label">Name:</span>
+                <span class="label">{{ __('Name') }}:</span>
                 <span class="value">{{ $order->location->name }}</span>
             </div>
             @if($order->location->address)
             <div class="row">
-                <span class="label">Address:</span>
+                <span class="label">{{ __('Address') }}:</span>
                 <span class="value">{{ $order->location->address }}, {{ $order->location->city }}</span>
             </div>
             @endif
@@ -235,7 +235,7 @@
     <div class="section">
         <div class="info-grid">
             <div class="row">
-                <span class="label">Priority:</span>
+                <span class="label">{{ __('Priority') }}:</span>
                 <span class="value">{{ $order->priority->label() }}</span>
             </div>
         </div>
@@ -244,14 +244,14 @@
 
     {{-- Items --}}
     <div class="section">
-        <div class="section-title">Items</div>
+        <div class="section-title">{{ __('Items') }}</div>
         <table>
             <thead>
                 <tr>
-                    <th>Item</th>
-                    <th class="text-center">Qty</th>
-                    <th class="text-right">Unit Price</th>
-                    <th class="text-right">Subtotal</th>
+                    <th>{{ __('Item') }}</th>
+                    <th class="text-center">{{ __('Quantity') }}</th>
+                    <th class="text-right">{{ __('Unit Price') }}</th>
+                    <th class="text-right">{{ __('Subtotal') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -272,32 +272,32 @@
         <div class="totals">
             <table>
                 <tr>
-                    <td class="label">Subtotal:</td>
+                    <td class="label">{{ __('Subtotal') }}:</td>
                     <td class="amount">${{ number_format($order->subtotal, 2) }}</td>
                 </tr>
                 @if($order->tax > 0)
                 <tr>
-                    <td class="label">Tax:</td>
+                    <td class="label">{{ __('Tax') }}:</td>
                     <td class="amount">${{ number_format($order->tax, 2) }}</td>
                 </tr>
                 @endif
                 @if($order->discount_amount > 0)
                 <tr>
-                    <td class="label">Discount:</td>
+                    <td class="label">{{ __('Discount') }}:</td>
                     <td class="amount" style="color: #16a34a;">-${{ number_format($order->discount_amount, 2) }}</td>
                 </tr>
                 @endif
                 <tr class="total-row">
-                    <td class="label">TOTAL:</td>
+                    <td class="label">{{ __('Total') }}:</td>
                     <td class="amount">${{ number_format($order->total, 2) }}</td>
                 </tr>
                 <tr>
-                    <td class="label">Paid:</td>
+                    <td class="label">{{ __('Paid') }}:</td>
                     <td class="amount">${{ number_format($order->total_paid, 2) }}</td>
                 </tr>
                 @php $balance = (float) $order->total - (float) $order->total_paid; @endphp
                 <tr class="balance-row">
-                    <td class="label">Balance:</td>
+                    <td class="label">{{ __('Balance') }}:</td>
                     <td class="amount {{ $balance > 0 ? 'balance-positive' : 'balance-zero' }}">
                         ${{ number_format($balance, 2) }}
                     </td>
@@ -309,13 +309,13 @@
     {{-- Payments --}}
     @if($order->payments->isNotEmpty())
     <div class="section">
-        <div class="section-title">Payments</div>
+        <div class="section-title">{{ __('Payments') }}</div>
         <table class="payments-table">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Method</th>
-                    <th class="text-right">Amount</th>
+                    <th>{{ __('Date') }}</th>
+                    <th>{{ __('Payment Method') }}</th>
+                    <th class="text-right">{{ __('Amount') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -334,7 +334,7 @@
     {{-- Notes --}}
     @if($order->notes)
     <div class="section">
-        <div class="section-title">Notes</div>
+        <div class="section-title">{{ __('Notes') }}</div>
         <div class="notes-box">
             {{ $order->notes }}
         </div>

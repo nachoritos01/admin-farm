@@ -6,19 +6,19 @@
                 <input type="checkbox" wire:model.live="showProduction"
                     class="rounded border-gray-300 text-green-600 focus:ring-green-500">
                 <span class="inline-block w-3 h-3 rounded-full bg-green-500"></span>
-                Production
+                {{ __('farm.production') }}
             </label>
             <label class="inline-flex items-center gap-2 text-sm">
                 <input type="checkbox" wire:model.live="showOrders"
                     class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                 <span class="inline-block w-3 h-3 rounded-full bg-blue-500"></span>
-                Orders
+                {{ __('farm.orders') }}
             </label>
             <label class="inline-flex items-center gap-2 text-sm">
                 <input type="checkbox" wire:model.live="showShipments"
                     class="rounded border-gray-300 text-orange-600 focus:ring-orange-500">
                 <span class="inline-block w-3 h-3 rounded-full bg-orange-500"></span>
-                Shipments
+                {{ __('farm.shipments') }}
             </label>
         </div>
 

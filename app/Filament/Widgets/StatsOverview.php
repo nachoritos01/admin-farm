@@ -59,35 +59,35 @@ class StatsOverview extends BaseWidget
             ];
         });
 
-        $todayProdStat = Stat::make("Today's Production", number_format($stats['today_production']) . ' eggs')
+        $todayProdStat = Stat::make(__('farm.todays_production'), number_format($stats['today_production']) . ' ' . __('farm.eggs'))
             ->icon('heroicon-o-chart-bar')
             ->color('success');
         if ($dailyGoal && $dailyGoal > 0) {
             $pct = round(($stats['today_production'] / $dailyGoal) * 100);
-            $todayProdStat->description("{$pct}% of daily goal");
+            $todayProdStat->description("{$pct}% " . __('farm.of_daily_goal'));
         }
 
-        $monthRevStat = Stat::make('Monthly Revenue', '$' . number_format($stats['month_revenue'], 2))
+        $monthRevStat = Stat::make(__('farm.monthly_revenue'), '$' . number_format($stats['month_revenue'], 2))
             ->icon('heroicon-o-currency-dollar')
             ->color('success');
         if ($monthlyGoal && $monthlyGoal > 0) {
             $pct = round(($stats['month_revenue'] / $monthlyGoal) * 100);
-            $monthRevStat->description("{$pct}% of monthly goal");
+            $monthRevStat->description("{$pct}% " . __('farm.of_monthly_goal'));
         }
 
         return [
             $todayProdStat,
-            Stat::make('Monthly Production', number_format($stats['month_production']) . ' eggs')
+            Stat::make(__('Production') . ' ' . __('This Month'), number_format($stats['month_production']) . ' ' . __('farm.eggs'))
                 ->icon('heroicon-o-calendar')
                 ->color('info'),
-            Stat::make('Active Hens', number_format($stats['active_hens']))
+            Stat::make(__('farm.active_batches'), number_format($stats['active_hens']))
                 ->icon('heroicon-o-bug-ant')
                 ->color('primary'),
-            Stat::make('Pending Orders', $stats['pending_orders'])
+            Stat::make(__('farm.pending_orders'), $stats['pending_orders'])
                 ->icon('heroicon-o-shopping-bag')
                 ->color($stats['pending_orders'] > 0 ? 'warning' : 'success'),
             $monthRevStat,
-            Stat::make('Monthly Expenses', '$' . number_format($stats['month_expenses'], 2))
+            Stat::make(__('Expenses') . ' ' . __('This Month'), '$' . number_format($stats['month_expenses'], 2))
                 ->icon('heroicon-o-banknotes')
                 ->color('danger'),
         ];

@@ -10,7 +10,12 @@ use Filament\Widgets\TableWidget as BaseWidget;
 
 class LatestOrders extends BaseWidget
 {
-    protected static ?string $heading = 'Latest Orders';
+    protected static ?string $heading = null;
+
+    public function getHeading(): ?string
+    {
+        return __('farm.latest_orders');
+    }
 
     protected static ?int $sort = 4;
 
@@ -25,21 +30,21 @@ class LatestOrders extends BaseWidget
                     ->label('#')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('customer_name')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('customer_phone')
-                    ->label('Phone')
+                    ->label(__('Phone'))
                     ->copyable(),
                 Tables\Columns\TextColumn::make('total')
-                    ->label('Total')
+                    ->label(__('Total'))
                     ->money(),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn (OrderStatus $state): string => $state->color())
                     ->formatStateUsing(fn (OrderStatus $state): string => $state->label()),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->since(),
             ])
             ->paginated(false);

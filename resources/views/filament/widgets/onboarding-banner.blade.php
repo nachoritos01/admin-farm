@@ -4,17 +4,17 @@
             <x-heroicon-o-rocket-launch class="w-6 h-6 text-primary-500" />
             <div class="flex-1">
                 <p class="font-semibold text-primary-800 dark:text-primary-200">
-                    Complete your account setup
+                    {{ __('Complete your account setup') }}
                 </p>
                 <p class="text-sm text-primary-700 dark:text-primary-300">
-                    {{ $this->getCompletedSteps() }}/{{ $this->getTotalSteps() }} steps completed
+                    {{ $this->getCompletedSteps() }}/{{ $this->getTotalSteps() }} {{ __('steps completed') }}
                 </p>
             </div>
             <a
                 href="{{ url('/admin/onboarding') }}"
                 class="inline-flex items-center gap-1.5 rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-500 transition"
             >
-                Continue
+                {{ __('Continue') }}
                 <x-heroicon-m-arrow-right class="w-4 h-4" />
             </a>
         </div>

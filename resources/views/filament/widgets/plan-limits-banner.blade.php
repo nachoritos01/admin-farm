@@ -36,7 +36,7 @@
                     </div>
                     <a href="{{ route('filament.admin.pages.billing') }}"
                        class="text-sm font-medium {{ $textClasses }} underline hover:no-underline shrink-0">
-                        View plans
+                        {{ __('View plans') }}
                     </a>
                 </div>
             </div>

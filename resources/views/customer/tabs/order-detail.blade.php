@@ -2,11 +2,11 @@
     {{-- Back link --}}
     <a href="{{ route('customer.orders') }}" class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-primary-600 mb-4 transition-colors">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-        Back to orders
+        {{ __('portal.back_to_orders') }}
     </a>
 
     <div class="flex items-start justify-between mb-6">
-        <h2 class="text-xl font-bold text-gray-900">Order #{{ $order->id }}</h2>
+        <h2 class="text-xl font-bold text-gray-900">{{ __('portal.order') }} #{{ $order->id }}</h2>
         <div class="flex items-center gap-2">
             @if($order->status !== \App\Enums\OrderStatus::Cancelled)
                 <a href="{{ route('customer.order.pdf', $order) }}"
@@ -23,13 +23,13 @@
 
     {{-- Timeline --}}
     <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
-        <h3 class="text-sm font-semibold text-gray-900 mb-4">Timeline</h3>
+        <h3 class="text-sm font-semibold text-gray-900 mb-4">{{ __('portal.timeline') }}</h3>
         @php
             $steps = [
-                ['key' => 'pending', 'label' => 'Pending', 'date' => $order->created_at, 'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
-                ['key' => 'confirmed', 'label' => 'Confirmed', 'date' => $order->confirmed_at, 'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
-                ['key' => 'in_progress', 'label' => 'In Progress', 'date' => null, 'icon' => 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'],
-                ['key' => 'completed', 'label' => 'Completed', 'date' => $order->completed_at, 'icon' => 'M5 13l4 4L19 7'],
+                ['key' => 'pending', 'label' => __('Pending'), 'date' => $order->created_at, 'icon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
+                ['key' => 'confirmed', 'label' => __('portal.confirmed'), 'date' => $order->confirmed_at, 'icon' => 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'],
+                ['key' => 'in_progress', 'label' => __('portal.in_progress'), 'date' => null, 'icon' => 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'],
+                ['key' => 'completed', 'label' => __('portal.completed'), 'date' => $order->completed_at, 'icon' => 'M5 13l4 4L19 7'],
             ];
             $statusOrder = ['draft', 'pending', 'confirmed', 'in_progress', 'completed'];
             $currentStatusValue = $order->status->value;
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-sm font-medium text-red-600">Cancelled</p>
+                        <p class="text-sm font-medium text-red-600">{{ __('portal.cancelled') }}</p>
                         @if($order->cancelled_at)
                             <p class="text-xs text-gray-500">{{ $order->cancelled_at->format('Y-m-d H:i') }}</p>
                         @endif
@@ -88,7 +88,7 @@
 
     {{-- Items --}}
     <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
-        <h3 class="text-sm font-semibold text-gray-900 mb-4">Items</h3>
+        <h3 class="text-sm font-semibold text-gray-900 mb-4">{{ __('Items') }}</h3>
         <div class="divide-y divide-gray-100">
             @foreach($order->lines as $line)
                 <div class="py-3 flex items-start gap-4 {{ $loop->first ? 'pt-0' : '' }}">
@@ -97,7 +97,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium text-gray-900">{{ $line->item?->name ?? $line->description ?? 'Item' }}</p>
-                        <p class="text-xs text-gray-500">Qty: {{ $line->quantity }}</p>
+                        <p class="text-xs text-gray-500">{{ __('portal.qty') }}: {{ $line->quantity }}</p>
                     </div>
                     <span class="text-sm font-semibold text-gray-900">${{ number_format($line->subtotal, 2) }}</span>
                 </div>
@@ -108,7 +108,7 @@
     {{-- Location --}}
     @if($order->location)
     <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
-        <h3 class="text-sm font-semibold text-gray-900 mb-4">Location</h3>
+        <h3 class="text-sm font-semibold text-gray-900 mb-4">{{ __('Location') }}</h3>
         <div class="flex items-start gap-3">
             <svg class="w-5 h-5 text-gray-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
             <div>
@@ -123,7 +123,7 @@
 
     {{-- Payment summary --}}
     <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
-        <h3 class="text-sm font-semibold text-gray-900 mb-4">Payments</h3>
+        <h3 class="text-sm font-semibold text-gray-900 mb-4">{{ __('Payments') }}</h3>
 
         @if($order->payments->isNotEmpty())
             <div class="space-y-2 mb-4">
@@ -143,32 +143,32 @@
 
         <div class="border-t border-gray-100 pt-3 space-y-1">
             <div class="flex justify-between text-sm">
-                <span class="text-gray-500">Subtotal</span>
+                <span class="text-gray-500">{{ __('Subtotal') }}</span>
                 <span class="text-gray-900">${{ number_format(($order->subtotal ?? $order->total), 2) }}</span>
             </div>
             @if($order->tax > 0)
                 <div class="flex justify-between text-sm">
-                    <span class="text-gray-500">Tax</span>
+                    <span class="text-gray-500">{{ __('Tax') }}</span>
                     <span class="text-gray-900">${{ number_format($order->tax, 2) }}</span>
                 </div>
             @endif
             @if($order->discount_amount > 0)
                 <div class="flex justify-between text-sm">
-                    <span class="text-gray-500">Discount</span>
+                    <span class="text-gray-500">{{ __('Discount') }}</span>
                     <span class="text-green-600">-${{ number_format($order->discount_amount, 2) }}</span>
                 </div>
             @endif
             <div class="flex justify-between text-sm font-semibold">
-                <span class="text-gray-900">Total</span>
+                <span class="text-gray-900">{{ __('Total') }}</span>
                 <span class="text-gray-900">${{ number_format($order->total, 2) }}</span>
             </div>
             <div class="flex justify-between text-sm">
-                <span class="text-gray-500">Paid</span>
+                <span class="text-gray-500">{{ __('Paid') }}</span>
                 <span class="text-green-600">${{ number_format($order->total_paid, 2) }}</span>
             </div>
             @if($order->balance > 0)
                 <div class="flex justify-between text-sm font-semibold">
-                    <span class="text-amber-600">Outstanding balance</span>
+                    <span class="text-amber-600">{{ __('portal.outstanding_balance') }}</span>
                     <span class="text-amber-600">${{ number_format($order->balance, 2) }}</span>
                 </div>
             @endif
@@ -177,7 +177,7 @@
 
     @if($order->notes)
         <div class="bg-white rounded-2xl shadow-sm p-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-2">Notes</h3>
+            <h3 class="text-sm font-semibold text-gray-900 mb-2">{{ __('Notes') }}</h3>
             <p class="text-sm text-gray-600">{{ $order->notes }}</p>
         </div>
     @endif

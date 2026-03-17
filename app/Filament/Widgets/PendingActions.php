@@ -11,7 +11,12 @@ use Filament\Widgets\TableWidget as BaseWidget;
 
 class PendingActions extends BaseWidget
 {
-    protected static ?string $heading = 'Pending Actions';
+    protected static ?string $heading = null;
+
+    public function getHeading(): ?string
+    {
+        return __('farm.pending_actions');
+    }
 
     protected static ?int $sort = 5;
 
@@ -41,24 +46,24 @@ class PendingActions extends BaseWidget
                 Tables\Columns\TextColumn::make('id')
                     ->label('#'),
                 Tables\Columns\TextColumn::make('customer_name')
-                    ->label('Customer'),
+                    ->label(__('Customer')),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn (OrderStatus $state): string => $state->color())
                     ->formatStateUsing(fn (OrderStatus $state): string => $state->label()),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Since')
+                    ->label(__('Date'))
                     ->since(),
             ])
             ->actions([
                 Action::make('next_step')
                     ->label(fn (Order $record): string => match ($record->status) {
-                        OrderStatus::Draft => 'Submit',
-                        OrderStatus::Pending => 'Confirm',
-                        OrderStatus::Confirmed => 'Start',
-                        OrderStatus::InProgress => 'Complete',
-                        default => 'Action',
+                        OrderStatus::Draft => __('Confirm'),
+                        OrderStatus::Pending => __('Confirm'),
+                        OrderStatus::Confirmed => __('Start Processing'),
+                        OrderStatus::InProgress => __('Complete'),
+                        default => __('Actions'),
                     })
                     ->icon(fn (Order $record): string => match ($record->status) {
                         OrderStatus::Draft, OrderStatus::Pending => 'heroicon-o-check',

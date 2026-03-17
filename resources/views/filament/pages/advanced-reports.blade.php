@@ -1,11 +1,11 @@
 <x-filament-panels::page>
     <div class="mb-4 flex items-center gap-4">
-        <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Period:</label>
+        <label class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('farm.period') }}</label>
         <select wire:model.live="period" class="rounded-lg border-gray-300 text-sm shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white">
-            <option value="week">This Week</option>
-            <option value="month">This Month</option>
-            <option value="quarter">This Quarter</option>
-            <option value="year">This Year</option>
+            <option value="week">{{ __('farm.this_week') }}</option>
+            <option value="month">{{ __('farm.this_month') }}</option>
+            <option value="quarter">{{ __('farm.this_quarter') }}</option>
+            <option value="year">{{ __('farm.this_year') }}</option>
         </select>
     </div>
 
@@ -13,11 +13,11 @@
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <x-filament::section>
             <div class="text-center">
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Current Month Production</p>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('farm.current_month_production') }}</p>
                 <p class="text-2xl font-bold text-primary-600">{{ number_format($monthlyComparison['current_production'] ?? 0) }}</p>
                 @if(($monthlyComparison['production_change'] ?? 0) != 0)
                     <p class="text-xs {{ ($monthlyComparison['production_change'] ?? 0) > 0 ? 'text-success-600' : 'text-danger-600' }}">
-                        {{ ($monthlyComparison['production_change'] ?? 0) > 0 ? '+' : '' }}{{ $monthlyComparison['production_change'] ?? 0 }}% vs last month
+                        {{ ($monthlyComparison['production_change'] ?? 0) > 0 ? '+' : '' }}{{ $monthlyComparison['production_change'] ?? 0 }}% {{ __('farm.vs_last_month') }}
                     </p>
                 @endif
             </div>
@@ -25,18 +25,18 @@
 
         <x-filament::section>
             <div class="text-center">
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Previous Month Production</p>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('farm.previous_month_production') }}</p>
                 <p class="text-2xl font-bold text-gray-600 dark:text-gray-300">{{ number_format($monthlyComparison['prev_production'] ?? 0) }}</p>
             </div>
         </x-filament::section>
 
         <x-filament::section>
             <div class="text-center">
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Current Month Expenses</p>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('farm.current_month_expenses') }}</p>
                 <p class="text-2xl font-bold text-danger-600">${{ number_format($monthlyComparison['current_expenses'] ?? 0, 2) }}</p>
                 @if(($monthlyComparison['expenses_change'] ?? 0) != 0)
                     <p class="text-xs {{ ($monthlyComparison['expenses_change'] ?? 0) < 0 ? 'text-success-600' : 'text-danger-600' }}">
-                        {{ ($monthlyComparison['expenses_change'] ?? 0) > 0 ? '+' : '' }}{{ $monthlyComparison['expenses_change'] ?? 0 }}% vs last month
+                        {{ ($monthlyComparison['expenses_change'] ?? 0) > 0 ? '+' : '' }}{{ $monthlyComparison['expenses_change'] ?? 0 }}% {{ __('farm.vs_last_month') }}
                     </p>
                 @endif
             </div>
@@ -44,7 +44,7 @@
 
         <x-filament::section>
             <div class="text-center">
-                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Previous Month Expenses</p>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ __('farm.previous_month_expenses') }}</p>
                 <p class="text-2xl font-bold text-gray-600 dark:text-gray-300">${{ number_format($monthlyComparison['prev_expenses'] ?? 0, 2) }}</p>
             </div>
         </x-filament::section>
@@ -52,16 +52,16 @@
 
     {{-- Production by Batch --}}
     <x-filament::section>
-        <x-slot name="heading">Production by Batch</x-slot>
+        <x-slot name="heading">{{ __('farm.production_by_batch') }}</x-slot>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
                     <tr class="border-b border-gray-200 dark:border-gray-700">
-                        <th class="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Batch</th>
-                        <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">Total Eggs</th>
-                        <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">Broken</th>
-                        <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">Days</th>
-                        <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">Avg/Day</th>
+                        <th class="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">{{ __('Batch') }}</th>
+                        <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">{{ __('farm.total_eggs') }}</th>
+                        <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">{{ __('farm.broken') }}</th>
+                        <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">{{ __('farm.days') }}</th>
+                        <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">{{ __('farm.avg_day') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -75,7 +75,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">No production data for this period.</td>
+                            <td colspan="5" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">{{ __('farm.no_production_data') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -86,14 +86,14 @@
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {{-- Expenses by Category --}}
         <x-filament::section>
-            <x-slot name="heading">Expenses by Category</x-slot>
+            <x-slot name="heading">{{ __('farm.expenses_by_category') }}</x-slot>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <th class="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Category</th>
-                            <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">Count</th>
-                            <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">Total</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">{{ __('Category') }}</th>
+                            <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">{{ __('farm.count') }}</th>
+                            <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">{{ __('Total') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -105,7 +105,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">No expenses for this period.</td>
+                                <td colspan="3" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">{{ __('farm.no_expenses_data') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -115,14 +115,14 @@
 
         {{-- Top Customers --}}
         <x-filament::section>
-            <x-slot name="heading">Top Customers by Revenue</x-slot>
+            <x-slot name="heading">{{ __('farm.top_customers_revenue') }}</x-slot>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-gray-200 dark:border-gray-700">
-                            <th class="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Customer</th>
-                            <th class="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">Type</th>
-                            <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">Revenue</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">{{ __('Customer') }}</th>
+                            <th class="px-4 py-3 text-left font-medium text-gray-500 dark:text-gray-400">{{ __('Type') }}</th>
+                            <th class="px-4 py-3 text-right font-medium text-gray-500 dark:text-gray-400">{{ __('farm.revenue') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -134,7 +134,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">No revenue data for this period.</td>
+                                <td colspan="3" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">{{ __('farm.no_revenue_data') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

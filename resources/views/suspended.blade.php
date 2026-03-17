@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Account Suspended</title>
+    <title>{{ __('Account Suspended') }}</title>
     @vite(['resources/css/app.css'])
 </head>
 <body class="bg-gray-50 min-h-screen font-sans antialiased">
@@ -15,9 +15,9 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 16.5c-.77.833.192 2.5 1.732 2.5z" />
                 </svg>
             </div>
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">Your trial period has ended</h1>
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ __('Your trial period has ended') }}</h1>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                Your account has been suspended. Your data is safe — subscribe to a plan to reactivate your account.
+                {{ __('Your account has been suspended. Your data is safe — subscribe to a plan to reactivate your account.') }}
             </p>
         </div>
 
@@ -32,7 +32,7 @@
                 <div class="rounded-2xl border {{ $isGrowth ? 'border-blue-500 ring-2 ring-blue-500' : 'border-gray-200' }} bg-white p-8 shadow-sm">
                     @if ($isGrowth)
                         <span class="inline-block rounded-full bg-blue-500 px-4 py-1 text-xs font-semibold text-white mb-3">
-                            Popular
+                            {{ __('Popular') }}
                         </span>
                     @endif
 
@@ -46,29 +46,29 @@
                     <ul class="space-y-3 mb-8 text-sm text-gray-600">
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            {{ $plan['max_orders'] ? $plan['max_orders'] . ' orders/month' : 'Unlimited orders' }}
+                            {{ $plan['max_orders'] ? $plan['max_orders'] . ' ' . __('orders/month') : __('Unlimited orders') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            {{ $plan['max_users'] ? $plan['max_users'] . ' users' : 'Unlimited users' }}
+                            {{ $plan['max_users'] ? $plan['max_users'] . ' ' . __('users') : __('Unlimited users') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            {{ $plan['max_locations'] ? $plan['max_locations'] . ($plan['max_locations'] === 1 ? ' location' : ' locations') : 'Unlimited locations' }}
+                            {{ $plan['max_locations'] ? $plan['max_locations'] . ' ' . ($plan['max_locations'] === 1 ? __('location') : __('locations')) : __('Unlimited locations') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            {{ $plan['max_items'] ? $plan['max_items'] . ' items' : 'Unlimited items' }}
+                            {{ $plan['max_items'] ? $plan['max_items'] . ' ' . __('items') : __('Unlimited items') }}
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="h-4 w-4 text-green-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            {{ $plan['max_customers'] ? number_format($plan['max_customers']) . ' customers' : 'Unlimited customers' }}
+                            {{ $plan['max_customers'] ? number_format($plan['max_customers']) . ' ' . __('customers') : __('Unlimited customers') }}
                         </li>
                     </ul>
 
                     <a href="{{ route('billing.checkout', ['plan' => $planKey, 'period' => 'monthly']) }}"
                        class="block w-full text-center rounded-lg px-4 py-3 text-sm font-semibold transition {{ $isGrowth ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-gray-900 text-white hover:bg-gray-800' }}">
-                        Subscribe to {{ $plan['label'] ?? ucfirst($planKey) }}
+                        {{ __('Subscribe to') }} {{ $plan['label'] ?? ucfirst($planKey) }}
                     </a>
                 </div>
             @endforeach
@@ -77,13 +77,13 @@
         {{-- Footer links --}}
         <div class="text-center space-y-4">
             <p class="text-gray-500 text-sm">
-                Need help?
-                <a href="mailto:{{ config('business.contact.email') }}" class="text-blue-600 hover:underline">Contact support</a>
+                {{ __('Need help?') }}
+                <a href="mailto:{{ config('business.contact.email') }}" class="text-blue-600 hover:underline">{{ __('Contact support') }}</a>
             </p>
             <form method="POST" action="{{ route('filament.admin.auth.logout') }}" class="inline">
                 @csrf
                 <button type="submit" class="text-sm text-gray-400 hover:text-gray-600 underline">
-                    Sign out
+                    {{ __('portal.sign_out') }}
                 </button>
             </form>
         </div>

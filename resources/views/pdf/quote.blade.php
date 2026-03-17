@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote #{{ $quote->id }}</title>
+    <title>{{ __('Quote') }} #{{ $quote->id }}</title>
     <style>
         * {
             margin: 0;
@@ -143,7 +143,7 @@
 <body>
     <div class="header">
         <div class="quote-number">
-            <h2>Quote #{{ $quote->id }}</h2>
+            <h2>{{ __('Quote') }} #{{ $quote->id }}</h2>
             <p>{{ $generatedAt }}</p>
         </div>
         @if(!empty($business['logo_path']) && file_exists(storage_path('app/public/' . $business['logo_path'])))
@@ -156,17 +156,17 @@
 
     @if($quote->customer_name || $quote->customer_phone)
     <div class="section">
-        <div class="section-title">Customer</div>
+        <div class="section-title">{{ __('Customer') }}</div>
         <table>
             @if($quote->customer_name)
             <tr>
-                <td><strong>Name:</strong></td>
+                <td><strong>{{ __('Name') }}:</strong></td>
                 <td>{{ $quote->customer_name }}</td>
             </tr>
             @endif
             @if($quote->customer_phone)
             <tr>
-                <td><strong>Phone:</strong></td>
+                <td><strong>{{ __('Phone') }}:</strong></td>
                 <td>{{ $quote->customer_phone }}</td>
             </tr>
             @endif
@@ -175,14 +175,14 @@
     @endif
 
     <div class="section">
-        <div class="section-title">Quote Details</div>
+        <div class="section-title">{{ __('Quote Details') }}</div>
         <table>
             <thead>
                 <tr>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Subtotal</th>
+                    <th>{{ __('Description') }}</th>
+                    <th>{{ __('Quantity') }}</th>
+                    <th>{{ __('Unit Price') }}</th>
+                    <th>{{ __('Subtotal') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -203,11 +203,11 @@
         <div class="totals">
             <table>
                 <tr>
-                    <td class="label">Subtotal:</td>
+                    <td class="label">{{ __('Subtotal') }}:</td>
                     <td class="amount">${{ number_format($quote->subtotal, 2) }} {{ config('business.currency') }}</td>
                 </tr>
                 <tr class="total-row">
-                    <td class="label">TOTAL:</td>
+                    <td class="label">{{ __('Total') }}:</td>
                     <td class="amount">${{ number_format($quote->subtotal, 2) }} {{ config('business.currency') }}</td>
                 </tr>
             </table>
@@ -215,7 +215,7 @@
     </div>
 
     <div class="section">
-        <div class="section-title">Terms and Conditions</div>
+        <div class="section-title">{{ __('portal.terms_conditions') }}</div>
         <div class="terms">
             <ul>
                 @foreach($business['terms'] as $term)
@@ -228,12 +228,12 @@
     <div class="footer">
         <p><strong>{{ $business['name'] }}</strong></p>
         <div class="contact">
-            <p>📱 Phone: {{ $business['phone'] }}</p>
+            <p>{{ __('Phone') }}: {{ $business['phone'] }}</p>
             <p>📧 {{ $business['email'] }}</p>
             <p>📍 {{ $business['address'] }}</p>
         </div>
         <p style="margin-top: 15px; font-style: italic;">
-            Thank you for your quote!
+            {{ __('Thank you for your quote!') }}
         </p>
     </div>
 </body>
