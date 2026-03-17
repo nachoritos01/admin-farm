@@ -1,7 +1,7 @@
 # Feature #74 — i18n: Multi-Language Support (es/en)
 
 **Priority:** HIGH
-**Status:** Pending
+**Status:** Done
 **Depends on:** None
 **Phase:** Post-conversion
 

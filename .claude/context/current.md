@@ -4,6 +4,7 @@
 **Branch:** feature/farm-phase1-foundation
 **Latest Release:** v1.2.0
 **Tests:** 351 tests, 893 assertions — ALL PASSING (0 failures)
+**i18n:** es/en support — default es, per-user locale, language switcher
 **PHPStan:** Level 5, 0 errors (baseline — larastan false positives)
 
 ## Project State
@@ -58,7 +59,7 @@
 | Branch | Purpose | Status |
 |--------|---------|--------|
 | `develop` | Integration | Stable — v1.2.0 |
-| `feature/farm-phase1-foundation` | Farm conversion (all 5 phases) | Ready for PR |
+| `feature/farm-phase1-foundation` | Farm conversion (5 phases) + i18n | Ready for PR |
 
 ---
 *Update this file at the start and end of each development session.*
