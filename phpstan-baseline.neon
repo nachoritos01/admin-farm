@@ -25,6 +25,36 @@ parameters:
 			path: app/Filament/Pages/AccountsReceivable.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\ProductionRecord\:\:\$days\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ProductionRecord\:\:\$total_broken\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ProductionRecord\:\:\$total_production\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\ProductionRecord\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
 			message: '#^Parameter \#1 \$rules of method Filament\\Pages\\BasePage\:\:validate\(\) expects array\<string, array\<mixed\>\>\|null, array\<string, string\> given\.$#'
 			identifier: argument.type
 			count: 1
