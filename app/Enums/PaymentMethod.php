@@ -8,6 +8,7 @@ enum PaymentMethod: string
     case Card = 'card';
     case Transfer = 'transfer';
     case Other = 'other';
+    case CashOnDelivery = 'cash_on_delivery';
 
     public function label(): string
     {
@@ -16,6 +17,7 @@ enum PaymentMethod: string
             self::Card => 'Card',
             self::Transfer => 'Transfer',
             self::Other => 'Other',
+            self::CashOnDelivery => 'Cash on Delivery',
         };
     }
 
@@ -26,6 +28,7 @@ enum PaymentMethod: string
             self::Card => 'primary',
             self::Transfer => 'info',
             self::Other => 'gray',
+            self::CashOnDelivery => 'warning',
         };
     }
 
@@ -36,6 +39,7 @@ enum PaymentMethod: string
             self::Card => 'bg-blue-100 text-blue-700',
             self::Transfer => 'bg-cyan-100 text-cyan-700',
             self::Other => 'bg-gray-100 text-gray-700',
+            self::CashOnDelivery => 'bg-yellow-100 text-yellow-700',
         };
     }
 

@@ -9,6 +9,7 @@ enum HenBatchStatus: string
     case Molting = 'molting';
     case Retired = 'retired';
     case Sold = 'sold';
+    case Quarantine = 'quarantine';
 
     public function label(): string
     {
@@ -18,6 +19,7 @@ enum HenBatchStatus: string
             self::Molting => 'Molting',
             self::Retired => 'Retired',
             self::Sold => 'Sold',
+            self::Quarantine => 'Cuarentena',
         };
     }
 
@@ -29,6 +31,7 @@ enum HenBatchStatus: string
             self::Molting => 'info',
             self::Retired => 'gray',
             self::Sold => 'danger',
+            self::Quarantine => 'danger',
         };
     }
 
@@ -40,6 +43,7 @@ enum HenBatchStatus: string
             self::Molting => 'heroicon-o-arrow-path',
             self::Retired => 'heroicon-o-archive-box',
             self::Sold => 'heroicon-o-banknotes',
+            self::Quarantine => 'heroicon-o-shield-exclamation',
         };
     }
 
