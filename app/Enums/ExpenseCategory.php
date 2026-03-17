@@ -17,15 +17,15 @@ enum ExpenseCategory: string
     public function label(): string
     {
         return match ($this) {
-            self::Feed => 'Feed',
-            self::Medicine => 'Medicine',
-            self::Equipment => 'Equipment',
-            self::Packaging => 'Packaging',
-            self::Labor => 'Labor',
-            self::Utilities => 'Utilities',
-            self::Transport => 'Transport',
-            self::Maintenance => 'Maintenance',
-            self::Other => 'Other',
+            self::Feed => __('enums.expense_category.feed'),
+            self::Medicine => __('enums.expense_category.medicine'),
+            self::Equipment => __('enums.expense_category.equipment'),
+            self::Packaging => __('enums.expense_category.packaging'),
+            self::Labor => __('enums.expense_category.labor'),
+            self::Utilities => __('enums.expense_category.utilities'),
+            self::Transport => __('enums.expense_category.transport'),
+            self::Maintenance => __('enums.expense_category.maintenance'),
+            self::Other => __('enums.expense_category.other'),
         };
     }
 

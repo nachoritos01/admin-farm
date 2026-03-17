@@ -13,11 +13,11 @@ enum HenMovementType: string
     public function label(): string
     {
         return match ($this) {
-            self::Addition => 'Addition',
-            self::Removal => 'Removal',
-            self::Death => 'Death',
-            self::Transfer => 'Transfer',
-            self::Sale => 'Sale',
+            self::Addition => __('enums.hen_movement_type.addition'),
+            self::Removal => __('enums.hen_movement_type.removal'),
+            self::Death => __('enums.hen_movement_type.death'),
+            self::Transfer => __('enums.hen_movement_type.transfer'),
+            self::Sale => __('enums.hen_movement_type.sale'),
         };
     }
 

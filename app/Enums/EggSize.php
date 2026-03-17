@@ -14,12 +14,12 @@ enum EggSize: string
     public function label(): string
     {
         return match ($this) {
-            self::Small => 'Small',
-            self::Medium => 'Medium',
-            self::Large => 'Large',
-            self::ExtraLarge => 'Extra Large',
-            self::Jumbo => 'Jumbo',
-            self::Mixed => 'Mixed',
+            self::Small => __('enums.egg_size.small'),
+            self::Medium => __('enums.egg_size.medium'),
+            self::Large => __('enums.egg_size.large'),
+            self::ExtraLarge => __('enums.egg_size.extra_large'),
+            self::Jumbo => __('enums.egg_size.jumbo'),
+            self::Mixed => __('enums.egg_size.mixed'),
         };
     }
 

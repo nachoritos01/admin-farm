@@ -14,12 +14,12 @@ enum PurchaseUnit: string
     public function label(): string
     {
         return match ($this) {
-            self::Kilogram => 'Kilogramo',
-            self::Liter => 'Litro',
-            self::Piece => 'Pieza',
-            self::Sack => 'Costal',
-            self::Ton => 'Tonelada',
-            self::Other => 'Otro',
+            self::Kilogram => __('enums.purchase_unit.kilogram'),
+            self::Liter => __('enums.purchase_unit.liter'),
+            self::Piece => __('enums.purchase_unit.piece'),
+            self::Sack => __('enums.purchase_unit.sack'),
+            self::Ton => __('enums.purchase_unit.ton'),
+            self::Other => __('enums.purchase_unit.other'),
         };
     }
 

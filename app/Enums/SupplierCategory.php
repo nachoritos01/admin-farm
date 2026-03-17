@@ -13,11 +13,11 @@ enum SupplierCategory: string
     public function label(): string
     {
         return match ($this) {
-            self::Feed => 'Feed',
-            self::Medicine => 'Medicine',
-            self::Equipment => 'Equipment',
-            self::Packaging => 'Packaging',
-            self::Other => 'Other',
+            self::Feed => __('enums.supplier_category.feed'),
+            self::Medicine => __('enums.supplier_category.medicine'),
+            self::Equipment => __('enums.supplier_category.equipment'),
+            self::Packaging => __('enums.supplier_category.packaging'),
+            self::Other => __('enums.supplier_category.other'),
         };
     }
 

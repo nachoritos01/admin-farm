@@ -12,10 +12,10 @@ enum HealthRecordType: string
     public function label(): string
     {
         return match ($this) {
-            self::Vaccination => 'Vaccination',
-            self::Treatment => 'Treatment',
-            self::Observation => 'Observation',
-            self::Mortality => 'Mortality',
+            self::Vaccination => __('enums.health_record_type.vaccination'),
+            self::Treatment => __('enums.health_record_type.treatment'),
+            self::Observation => __('enums.health_record_type.observation'),
+            self::Mortality => __('enums.health_record_type.mortality'),
         };
     }
 

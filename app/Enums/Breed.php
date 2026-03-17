@@ -13,11 +13,11 @@ enum Breed: string
     public function label(): string
     {
         return match ($this) {
-            self::RhodeIslandRed => 'Rhode Island Red',
-            self::Leghorn => 'Leghorn',
-            self::PlymouthRock => 'Plymouth Rock',
-            self::Araucana => 'Araucana',
-            self::Other => 'Other',
+            self::RhodeIslandRed => __('enums.breed.rhode_island_red'),
+            self::Leghorn => __('enums.breed.leghorn'),
+            self::PlymouthRock => __('enums.breed.plymouth_rock'),
+            self::Araucana => __('enums.breed.araucana'),
+            self::Other => __('enums.breed.other'),
         };
     }
 

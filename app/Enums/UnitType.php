@@ -11,9 +11,9 @@ enum UnitType: string
     public function label(): string
     {
         return match ($this) {
-            self::Tray => 'Tray (30)',
-            self::Kilogram => 'Kilogram',
-            self::Piece => 'Piece',
+            self::Tray => __('enums.unit_type.tray'),
+            self::Kilogram => __('enums.unit_type.kilogram'),
+            self::Piece => __('enums.unit_type.piece'),
         };
     }
 

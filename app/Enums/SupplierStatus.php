@@ -11,9 +11,9 @@ enum SupplierStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Active => 'Active',
-            self::Inactive => 'Inactive',
-            self::Suspended => 'Suspended',
+            self::Active => __('enums.supplier_status.active'),
+            self::Inactive => __('enums.supplier_status.inactive'),
+            self::Suspended => __('enums.supplier_status.suspended'),
         };
     }
 

@@ -13,11 +13,11 @@ enum CancellationReason: string
     public function label(): string
     {
         return match ($this) {
-            self::Price => 'Too expensive',
-            self::MissingFeatures => 'Missing features',
-            self::ClosedBusiness => 'Closed business',
-            self::Competitor => 'Switched to competitor',
-            self::Other => 'Other',
+            self::Price => __('enums.cancellation_reason.price'),
+            self::MissingFeatures => __('enums.cancellation_reason.missing_features'),
+            self::ClosedBusiness => __('enums.cancellation_reason.closed_business'),
+            self::Competitor => __('enums.cancellation_reason.competitor'),
+            self::Other => __('enums.cancellation_reason.other'),
         };
     }
 

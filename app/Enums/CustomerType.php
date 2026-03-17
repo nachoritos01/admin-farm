@@ -13,11 +13,11 @@ enum CustomerType: string
     public function label(): string
     {
         return match ($this) {
-            self::Retail => 'Retail',
-            self::Wholesale => 'Wholesale',
-            self::Store => 'Store',
-            self::Restaurant => 'Restaurant',
-            self::NaturalStore => 'Natural Store',
+            self::Retail => __('enums.customer_type.retail'),
+            self::Wholesale => __('enums.customer_type.wholesale'),
+            self::Store => __('enums.customer_type.store'),
+            self::Restaurant => __('enums.customer_type.restaurant'),
+            self::NaturalStore => __('enums.customer_type.natural_store'),
         };
     }
 

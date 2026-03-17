@@ -14,12 +14,12 @@ enum HenBatchStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Active => 'Active',
-            self::Resting => 'Resting',
-            self::Molting => 'Molting',
-            self::Retired => 'Retired',
-            self::Sold => 'Sold',
-            self::Quarantine => 'Cuarentena',
+            self::Active => __('enums.hen_batch_status.active'),
+            self::Resting => __('enums.hen_batch_status.resting'),
+            self::Molting => __('enums.hen_batch_status.molting'),
+            self::Retired => __('enums.hen_batch_status.retired'),
+            self::Sold => __('enums.hen_batch_status.sold'),
+            self::Quarantine => __('enums.hen_batch_status.quarantine'),
         };
     }
 

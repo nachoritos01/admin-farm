@@ -10,8 +10,8 @@ enum DeliveryType: string
     public function label(): string
     {
         return match ($this) {
-            self::Pickup => 'Recoger en tienda',
-            self::Delivery => 'Entrega a domicilio',
+            self::Pickup => __('enums.delivery_type.pickup'),
+            self::Delivery => __('enums.delivery_type.delivery'),
         };
     }
 

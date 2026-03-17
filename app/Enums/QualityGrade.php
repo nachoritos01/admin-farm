@@ -11,9 +11,9 @@ enum QualityGrade: string
     public function label(): string
     {
         return match ($this) {
-            self::A => 'Grade A',
-            self::B => 'Grade B',
-            self::C => 'Grade C',
+            self::A => __('enums.quality_grade.a'),
+            self::B => __('enums.quality_grade.b'),
+            self::C => __('enums.quality_grade.c'),
         };
     }
 

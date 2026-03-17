@@ -12,10 +12,10 @@ enum ShipmentStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Scheduled => 'Scheduled',
-            self::InTransit => 'In Transit',
-            self::Delivered => 'Delivered',
-            self::Cancelled => 'Cancelled',
+            self::Scheduled => __('enums.shipment_status.scheduled'),
+            self::InTransit => __('enums.shipment_status.in_transit'),
+            self::Delivered => __('enums.shipment_status.delivered'),
+            self::Cancelled => __('enums.shipment_status.cancelled'),
         };
     }
 

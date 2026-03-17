@@ -12,10 +12,10 @@ enum DeathCause: string
     public function label(): string
     {
         return match ($this) {
-            self::Natural => 'Natural',
-            self::Disease => 'Enfermedad',
-            self::Accident => 'Accidente',
-            self::Unknown => 'Desconocida',
+            self::Natural => __('enums.death_cause.natural'),
+            self::Disease => __('enums.death_cause.disease'),
+            self::Accident => __('enums.death_cause.accident'),
+            self::Unknown => __('enums.death_cause.unknown'),
         };
     }
 

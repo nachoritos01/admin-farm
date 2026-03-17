@@ -13,11 +13,11 @@ enum PaymentMethod: string
     public function label(): string
     {
         return match ($this) {
-            self::Cash => 'Cash',
-            self::Card => 'Card',
-            self::Transfer => 'Transfer',
-            self::Other => 'Other',
-            self::CashOnDelivery => 'Cash on Delivery',
+            self::Cash => __('enums.payment_method.cash'),
+            self::Card => __('enums.payment_method.card'),
+            self::Transfer => __('enums.payment_method.transfer'),
+            self::Other => __('enums.payment_method.other'),
+            self::CashOnDelivery => __('enums.payment_method.cash_on_delivery'),
         };
     }
 
