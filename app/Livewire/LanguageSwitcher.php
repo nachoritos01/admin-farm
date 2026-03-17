@@ -12,7 +12,7 @@ class LanguageSwitcher extends Component
     public function mount(): void
     {
         $user = auth()->user();
-        $this->locale = $user ? $user->locale : config('app.locale', 'es');
+        $this->locale = ($user ? $user->locale : null) ?? config('app.locale') ?? 'es';
     }
 
     public function switchLocale(string $locale): void
