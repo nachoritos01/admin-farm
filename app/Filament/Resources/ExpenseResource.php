@@ -19,15 +19,27 @@ class ExpenseResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
-    protected static ?string $navigationLabel = 'Expenses';
-
-    protected static ?string $modelLabel = 'Expense';
-
-    protected static ?string $pluralModelLabel = 'Expenses';
-
-    protected static ?string $navigationGroup = 'Farm';
-
     protected static ?int $navigationSort = 50;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Expenses');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Expense');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Expenses');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Farm');
+    }
 
     public static function canAccess(): bool
     {

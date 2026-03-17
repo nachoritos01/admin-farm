@@ -18,13 +18,22 @@ class CustomerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
-    protected static ?string $navigationLabel = 'Customers';
-
-    protected static ?string $modelLabel = 'Customer';
-
-    protected static ?string $pluralModelLabel = 'Customers';
-
     protected static ?int $navigationSort = 3;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Customers');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Customer');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Customers');
+    }
 
     public static function canAccess(): bool
     {

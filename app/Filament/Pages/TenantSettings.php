@@ -17,10 +17,6 @@ class TenantSettings extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
-    protected static ?string $navigationLabel = 'My Business';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 97;
 
     protected static string $view = 'filament.pages.tenant-settings';
@@ -169,5 +165,15 @@ class TenantSettings extends Page
                 ->label('Save')
                 ->action('save'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('My Business');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

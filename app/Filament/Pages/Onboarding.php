@@ -17,8 +17,6 @@ class Onboarding extends Page
 
     protected static ?string $title = 'Getting Started';
 
-    protected static ?string $navigationLabel = 'Getting Started';
-
     protected static ?int $navigationSort = -1;
 
     public ?array $data = [];
@@ -115,5 +113,10 @@ class Onboarding extends Page
             ->send();
 
         $this->redirect('/admin');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Getting Started');
     }
 }

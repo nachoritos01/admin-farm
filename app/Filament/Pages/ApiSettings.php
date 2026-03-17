@@ -12,10 +12,6 @@ class ApiSettings extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-code-bracket';
 
-    protected static ?string $navigationLabel = 'API';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 99;
 
     protected static string $view = 'filament.pages.api-settings';
@@ -110,5 +106,15 @@ class ApiSettings extends Page
     public function dismissToken(): void
     {
         $this->newToken = null;
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('API');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

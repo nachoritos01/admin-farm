@@ -21,15 +21,27 @@ class PurchaseResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-cart';
 
-    protected static ?string $navigationLabel = 'Purchases';
-
-    protected static ?string $modelLabel = 'Purchase';
-
-    protected static ?string $pluralModelLabel = 'Purchases';
-
-    protected static ?string $navigationGroup = 'Farm';
-
     protected static ?int $navigationSort = 45;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Purchases');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Purchase');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Purchases');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Farm');
+    }
 
     public static function canAccess(): bool
     {

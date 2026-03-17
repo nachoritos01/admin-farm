@@ -18,7 +18,10 @@ class PurchasesRelationManager extends RelationManager
 
     protected static ?string $title = 'Purchases';
 
-    protected static ?string $modelLabel = 'Purchase';
+    public static function getModelLabel(): string
+    {
+        return __('Purchase');
+    }
 
     public function form(Form $form): Form
     {

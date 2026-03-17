@@ -27,10 +27,6 @@ class TeamManagement extends Page implements HasTable
 
     protected static ?string $title = 'Team';
 
-    protected static ?string $navigationLabel = 'Team';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 96;
 
     protected static string $view = 'filament.pages.team-management';
@@ -381,5 +377,15 @@ class TeamManagement extends Page implements HasTable
             ->body("{$record->name} has been removed from the team.")
             ->success()
             ->send();
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Team');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

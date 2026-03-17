@@ -27,13 +27,22 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
-    protected static ?string $navigationLabel = 'Orders';
-
-    protected static ?string $modelLabel = 'Order';
-
-    protected static ?string $pluralModelLabel = 'Orders';
-
     protected static ?int $navigationSort = 1;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Orders');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Order');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Orders');
+    }
 
     public static function form(Form $form): Form
     {

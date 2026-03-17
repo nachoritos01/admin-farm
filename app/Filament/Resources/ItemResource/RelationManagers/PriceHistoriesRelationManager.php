@@ -13,7 +13,10 @@ class PriceHistoriesRelationManager extends RelationManager
 
     protected static ?string $title = 'Price History';
 
-    protected static ?string $modelLabel = 'Price Change';
+    public static function getModelLabel(): string
+    {
+        return __('Price Change');
+    }
 
     public function table(Table $table): Table
     {

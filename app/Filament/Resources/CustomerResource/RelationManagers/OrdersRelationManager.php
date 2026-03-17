@@ -14,7 +14,10 @@ class OrdersRelationManager extends RelationManager
 
     protected static ?string $title = 'Orders';
 
-    protected static ?string $modelLabel = 'Order';
+    public static function getModelLabel(): string
+    {
+        return __('Order');
+    }
 
     public function table(Table $table): Table
     {

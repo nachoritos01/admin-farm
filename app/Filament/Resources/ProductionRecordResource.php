@@ -18,15 +18,27 @@ class ProductionRecordResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
 
-    protected static ?string $navigationLabel = 'Production';
-
-    protected static ?string $modelLabel = 'Production Record';
-
-    protected static ?string $pluralModelLabel = 'Production Records';
-
-    protected static ?string $navigationGroup = 'Farm';
-
     protected static ?int $navigationSort = 20;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Production');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Production Record');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Production Records');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Farm');
+    }
 
     public static function canAccess(): bool
     {

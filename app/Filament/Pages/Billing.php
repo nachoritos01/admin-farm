@@ -17,10 +17,6 @@ class Billing extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-credit-card';
 
-    protected static ?string $navigationLabel = 'Plan';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 99;
 
     protected static string $view = 'filament.pages.billing';
@@ -264,5 +260,15 @@ class Billing extends Page
         }
 
         $this->redirect(route('billing.portal'));
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Plan');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

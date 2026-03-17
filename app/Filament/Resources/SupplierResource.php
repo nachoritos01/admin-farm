@@ -19,15 +19,27 @@ class SupplierResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-truck';
 
-    protected static ?string $navigationLabel = 'Suppliers';
-
-    protected static ?string $modelLabel = 'Supplier';
-
-    protected static ?string $pluralModelLabel = 'Suppliers';
-
-    protected static ?string $navigationGroup = 'Farm';
-
     protected static ?int $navigationSort = 40;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Suppliers');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Supplier');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Suppliers');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Farm');
+    }
 
     public static function canAccess(): bool
     {

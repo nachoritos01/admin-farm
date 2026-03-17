@@ -17,15 +17,27 @@ class ShipmentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-truck';
 
-    protected static ?string $navigationLabel = 'Shipments';
-
-    protected static ?string $modelLabel = 'Shipment';
-
-    protected static ?string $pluralModelLabel = 'Shipments';
-
-    protected static ?string $navigationGroup = 'Sales';
-
     protected static ?int $navigationSort = 15;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Shipments');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Shipment');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Shipments');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Sales');
+    }
 
     public static function canAccess(): bool
     {

@@ -19,13 +19,22 @@ class ItemResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
 
-    protected static ?string $navigationLabel = 'Items';
-
-    protected static ?string $modelLabel = 'Item';
-
-    protected static ?string $pluralModelLabel = 'Items';
-
     protected static ?int $navigationSort = 2;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Items');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Item');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Items');
+    }
 
     public static function form(Form $form): Form
     {

@@ -16,15 +16,27 @@ class LoyaltyRewardResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-gift';
 
-    protected static ?string $navigationLabel = 'Loyalty Rewards';
-
-    protected static ?string $modelLabel = 'Reward';
-
-    protected static ?string $pluralModelLabel = 'Loyalty Rewards';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 50;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Loyalty Rewards');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Reward');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Loyalty Rewards');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
+    }
 
     public static function canAccess(): bool
     {

@@ -16,10 +16,6 @@ class AdvancedReports extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
 
-    protected static ?string $navigationLabel = 'Reports';
-
-    protected static ?string $navigationGroup = 'Reports';
-
     protected static ?int $navigationSort = 60;
 
     protected static string $view = 'filament.pages.advanced-reports';
@@ -148,5 +144,15 @@ class AdvancedReports extends Page
     public function updatedPeriod(): void
     {
         $this->loadReports();
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Reports');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Reports');
     }
 }

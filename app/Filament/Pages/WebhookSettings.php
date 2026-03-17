@@ -12,10 +12,6 @@ class WebhookSettings extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-top-right-on-square';
 
-    protected static ?string $navigationLabel = 'Webhooks';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 100;
 
     protected static string $view = 'filament.pages.webhook-settings';
@@ -153,5 +149,15 @@ class WebhookSettings extends Page
                 ->danger()
                 ->send();
         }
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Webhooks');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

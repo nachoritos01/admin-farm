@@ -12,10 +12,6 @@ class AccountsReceivable extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-document-currency-dollar';
 
-    protected static ?string $navigationLabel = 'Receivables';
-
-    protected static ?string $navigationGroup = 'Reports';
-
     protected static ?int $navigationSort = 55;
 
     protected static string $view = 'filament.pages.accounts-receivable';
@@ -57,5 +53,15 @@ class AccountsReceivable extends Page
             : collect();
 
         $this->totalOutstanding = $this->debtors->sum('balance');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Receivables');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Reports');
     }
 }

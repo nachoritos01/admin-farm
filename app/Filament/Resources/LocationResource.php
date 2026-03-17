@@ -16,15 +16,27 @@ class LocationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
 
-    protected static ?string $navigationLabel = 'Locations';
-
-    protected static ?string $modelLabel = 'Location';
-
-    protected static ?string $pluralModelLabel = 'Locations';
-
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $navigationGroup = 'Settings';
+    public static function getNavigationLabel(): string
+    {
+        return __('Locations');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Location');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Locations');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
+    }
 
     public static function canAccess(): bool
     {

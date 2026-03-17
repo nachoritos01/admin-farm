@@ -17,10 +17,6 @@ class ActivityLog extends Page implements HasTable
 
     protected static ?string $title = 'Activity Log';
 
-    protected static ?string $navigationLabel = 'Activity';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 10;
 
     protected static string $view = 'filament.pages.activity-log';
@@ -84,5 +80,15 @@ class ActivityLog extends Page implements HasTable
                         ->toArray()
                     ),
             ]);
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Activity');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

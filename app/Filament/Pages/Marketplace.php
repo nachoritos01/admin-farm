@@ -15,10 +15,6 @@ class Marketplace extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
 
-    protected static ?string $navigationLabel = 'Plugins';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 98;
 
     protected static string $view = 'filament.pages.marketplace';
@@ -186,5 +182,15 @@ class Marketplace extends Page
 
         // Clear memoized hasModule cache
         hasModule(null);
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Plugins');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

@@ -16,7 +16,10 @@ class PaymentsRelationManager extends RelationManager
 
     protected static ?string $title = 'Payments';
 
-    protected static ?string $modelLabel = 'Payment';
+    public static function getModelLabel(): string
+    {
+        return __('Payment');
+    }
 
     public function form(Form $form): Form
     {

@@ -11,10 +11,6 @@ class Inventory extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
-    protected static ?string $navigationLabel = 'Inventory';
-
-    protected static ?string $navigationGroup = 'Farm';
-
     protected static ?int $navigationSort = 30;
 
     protected static string $view = 'filament.pages.inventory';
@@ -39,5 +35,15 @@ class Inventory extends Page
         $service = app(InventoryService::class);
         $this->stock = $service->getTotalStock();
         $this->isLowStock = $service->isLowStock();
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Inventory');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Farm');
     }
 }

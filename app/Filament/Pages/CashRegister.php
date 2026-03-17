@@ -13,10 +13,6 @@ class CashRegister extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
-    protected static ?string $navigationLabel = 'Cash Register';
-
-    protected static ?string $navigationGroup = 'Reports';
-
     protected static ?int $navigationSort = 50;
 
     protected static string $view = 'filament.pages.cash-register';
@@ -127,5 +123,15 @@ class CashRegister extends Page
             'dateTo' => $this->dateTo,
             'preset' => $this->preset,
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Cash Register');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Reports');
     }
 }

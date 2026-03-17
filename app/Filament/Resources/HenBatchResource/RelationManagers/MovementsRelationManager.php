@@ -15,7 +15,10 @@ class MovementsRelationManager extends RelationManager
 
     protected static ?string $title = 'Movements';
 
-    protected static ?string $modelLabel = 'Movement';
+    public static function getModelLabel(): string
+    {
+        return __('Movement');
+    }
 
     public function form(Form $form): Form
     {

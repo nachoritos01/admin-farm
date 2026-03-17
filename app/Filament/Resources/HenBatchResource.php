@@ -18,15 +18,27 @@ class HenBatchResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bug-ant';
 
-    protected static ?string $navigationLabel = 'Hen Batches';
-
-    protected static ?string $modelLabel = 'Hen Batch';
-
-    protected static ?string $pluralModelLabel = 'Hen Batches';
-
-    protected static ?string $navigationGroup = 'Farm';
-
     protected static ?int $navigationSort = 10;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Hen Batches');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Hen Batch');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Hen Batches');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Farm');
+    }
 
     public static function canAccess(): bool
     {

@@ -14,10 +14,6 @@ class FarmCalendar extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationLabel = 'Calendar';
-
-    protected static ?string $navigationGroup = 'Farm';
-
     protected static ?int $navigationSort = 50;
 
     protected static string $view = 'filament.pages.farm-calendar';
@@ -120,5 +116,15 @@ class FarmCalendar extends Page
         }
 
         return json_encode($events);
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Calendar');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Farm');
     }
 }

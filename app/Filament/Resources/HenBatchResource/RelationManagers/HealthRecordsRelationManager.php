@@ -15,7 +15,10 @@ class HealthRecordsRelationManager extends RelationManager
 
     protected static ?string $title = 'Health Records';
 
-    protected static ?string $modelLabel = 'Health Record';
+    public static function getModelLabel(): string
+    {
+        return __('Health Record');
+    }
 
     public function form(Form $form): Form
     {
