@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\EggSize;
+use App\Enums\UnitType;
 use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +20,8 @@ class OrderLine extends Model
         'item_id',
         'description',
         'variant',
+        'egg_size',
+        'unit_type',
         'quantity',
         'unit_price',
         'subtotal',
@@ -25,6 +29,8 @@ class OrderLine extends Model
     ];
 
     protected $casts = [
+        'egg_size' => EggSize::class,
+        'unit_type' => UnitType::class,
         'quantity' => 'integer',
         'unit_price' => 'decimal:2',
         'subtotal' => 'decimal:2',

@@ -105,6 +105,17 @@ class PluginSeeder extends Seeder
                 'sort_order' => 110,
             ],
             [
+                'slug' => 'purchases',
+                'name' => 'Purchases',
+                'description' => 'Track purchases from suppliers with unit pricing and payment methods.',
+                'icon' => 'heroicon-o-shopping-cart',
+                'category' => 'farm',
+                'is_free' => true,
+                'included_in_plans' => ['starter', 'growth', 'pro'],
+                'required_modules' => ['purchases'],
+                'sort_order' => 125,
+            ],
+            [
                 'slug' => 'suppliers',
                 'name' => 'Suppliers',
                 'description' => 'Manage supplier contacts and track expenses by category.',

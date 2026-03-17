@@ -9,6 +9,7 @@ enum EggSize: string
     case Large = 'large';
     case ExtraLarge = 'extra_large';
     case Jumbo = 'jumbo';
+    case Mixed = 'mixed';
 
     public function label(): string
     {
@@ -18,6 +19,7 @@ enum EggSize: string
             self::Large => 'Large',
             self::ExtraLarge => 'Extra Large',
             self::Jumbo => 'Jumbo',
+            self::Mixed => 'Mixed',
         };
     }
 
@@ -29,6 +31,7 @@ enum EggSize: string
             self::Large => 'success',
             self::ExtraLarge => 'warning',
             self::Jumbo => 'primary',
+            self::Mixed => 'gray',
         };
     }
 

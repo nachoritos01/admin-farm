@@ -135,6 +135,11 @@ class Tenant extends Model
         return $this->hasMany(ProductionRecord::class);
     }
 
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     public function plugins(): BelongsToMany
     {
         return $this->belongsToMany(Plugin::class, 'tenant_plugins')
