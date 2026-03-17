@@ -123,6 +123,26 @@ class OrderResource extends Resource
                     Forms\Components\TextInput::make('variant')
                         ->label('Variant')
                         ->maxLength(255),
+                    Forms\Components\Select::make('egg_size')
+                        ->label('Egg Size')
+                        ->options(\App\Enums\EggSize::options())
+                        ->live()
+                        ->afterStateUpdated(function ($state, Get $get, Set $set) {
+                            if ($state) {
+                                $size = \App\Enums\EggSize::tryFrom($state);
+                                $unit = $get('unit_type') ? \App\Enums\UnitType::tryFrom($get('unit_type')) : null;
+                                $price = app(\App\Services\PricingService::class)
+                                    ->resolveLinePrice($size, $unit, null, currentTenant()?->id);
+                                if ($price > 0) {
+                                    $set('unit_price', number_format($price, 2, '.', ''));
+                                    $qty = (int) ($get('quantity') ?? 0);
+                                    $set('subtotal', number_format($qty * $price, 2, '.', ''));
+                                }
+                            }
+                        }),
+                    Forms\Components\Select::make('unit_type')
+                        ->label('Unit')
+                        ->options(\App\Enums\UnitType::options()),
                     Forms\Components\TextInput::make('quantity')
                         ->label('Qty')
                         ->numeric()
@@ -154,7 +174,7 @@ class OrderResource extends Resource
                         ->disabled()
                         ->dehydrated(),
                 ])
-                ->columns(6)
+                ->columns(8)
                 ->defaultItems(1)
                 ->addActionLabel('Add line')
                 ->reorderable(false)
@@ -187,6 +207,32 @@ class OrderResource extends Resource
                         ->step(0.01)
                         ->prefix('$')
                         ->default(0),
+                ])->columns(2),
+
+            Forms\Components\Section::make('Delivery')
+                ->schema([
+                    Forms\Components\Select::make('delivery_type')
+                        ->label('Delivery Type')
+                        ->options(\App\Enums\DeliveryType::options())
+                        ->live(),
+                    Forms\Components\DatePicker::make('delivery_date')
+                        ->label('Delivery Date'),
+                    Forms\Components\TextInput::make('delivery_time')
+                        ->label('Delivery Time')
+                        ->placeholder('e.g., 8:00-10:00 AM')
+                        ->visible(fn (Get $get): bool => $get('delivery_type') === 'delivery'),
+                    Forms\Components\Textarea::make('delivery_notes')
+                        ->label('Delivery Notes')
+                        ->rows(2)
+                        ->visible(fn (Get $get): bool => $get('delivery_type') === 'delivery')
+                        ->columnSpanFull(),
+                    Forms\Components\TextInput::make('shipping_cost')
+                        ->label('Shipping Cost')
+                        ->numeric()
+                        ->step(0.01)
+                        ->prefix('$')
+                        ->default(0)
+                        ->visible(fn (Get $get): bool => $get('delivery_type') === 'delivery'),
                 ])->columns(2),
 
             Forms\Components\Section::make('Notes & Attachments')

@@ -3,7 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Enums\SupplierCategory;
+use App\Enums\SupplierStatus;
 use App\Filament\Resources\SupplierResource\Pages;
+use App\Filament\Resources\SupplierResource\RelationManagers;
 use App\Models\Supplier;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -63,10 +65,33 @@ class SupplierResource extends Resource
                             ->options(SupplierCategory::options())
                             ->default('other')
                             ->required(),
-                        Forms\Components\Toggle::make('is_active')
-                            ->label('Active')
-                            ->default(true),
+                        Forms\Components\Select::make('status')
+                            ->label('Status')
+                            ->options(SupplierStatus::options())
+                            ->default('active')
+                            ->required(),
+                        Forms\Components\Textarea::make('address')
+                            ->label('Address')
+                            ->rows(2)
+                            ->columnSpanFull(),
                     ])->columns(2),
+
+                Forms\Components\Section::make('Products & Rating')
+                    ->schema([
+                        Forms\Components\TagsInput::make('products')
+                            ->label('Products')
+                            ->placeholder('Add a product'),
+                        Forms\Components\Select::make('rating')
+                            ->label('Rating')
+                            ->options([
+                                1 => '1 - Poor',
+                                2 => '2 - Fair',
+                                3 => '3 - Good',
+                                4 => '4 - Very Good',
+                                5 => '5 - Excellent',
+                            ]),
+                    ])->columns(2)
+                    ->collapsible(),
 
                 Forms\Components\Section::make('Notes')
                     ->schema([
@@ -101,9 +126,14 @@ class SupplierResource extends Resource
                     ->color(fn (SupplierCategory $state): string => $state->color())
                     ->formatStateUsing(fn (SupplierCategory $state): string => $state->label())
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('Active')
-                    ->boolean()
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->badge()
+                    ->color(fn (SupplierStatus $state): string => $state->color())
+                    ->formatStateUsing(fn (SupplierStatus $state): string => $state->label()),
+                Tables\Columns\TextColumn::make('rating')
+                    ->label('Rating')
+                    ->formatStateUsing(fn (?int $state): string => $state ? str_repeat('*', $state) : '-')
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('expenses_count')
                     ->label('Expenses')
@@ -120,8 +150,9 @@ class SupplierResource extends Resource
                 Tables\Filters\SelectFilter::make('category')
                     ->label('Category')
                     ->options(SupplierCategory::options()),
-                Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Active'),
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status')
+                    ->options(SupplierStatus::options()),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -135,7 +166,9 @@ class SupplierResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            RelationManagers\PurchasesRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

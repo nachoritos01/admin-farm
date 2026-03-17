@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\SupplierCategory;
+use App\Enums\SupplierStatus;
 use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,14 +21,19 @@ class Supplier extends Model
         'contact_name',
         'phone',
         'email',
+        'address',
         'category',
-        'is_active',
+        'products',
+        'rating',
+        'status',
         'notes',
     ];
 
     protected $casts = [
         'category' => SupplierCategory::class,
-        'is_active' => 'boolean',
+        'products' => 'array',
+        'rating' => 'integer',
+        'status' => SupplierStatus::class,
     ];
 
     // Relationships
@@ -37,11 +43,16 @@ class Supplier extends Model
         return $this->hasMany(Expense::class);
     }
 
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
     // Scopes
 
     public function scopeActive(Builder $query): Builder
     {
-        return $query->where('is_active', true);
+        return $query->where('status', 'active');
     }
 
     public function scopeByCategory(Builder $query, SupplierCategory $category): Builder

@@ -80,6 +80,71 @@
             @endif
         </x-filament::section>
 
+        <x-filament::section class="mt-6">
+            <x-slot name="heading">Farm Configuration</x-slot>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Daily Egg Goal</label>
+                    <input type="number" wire:model="dailyEggGoal" min="0"
+                        class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                        placeholder="e.g., 500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Monthly Income Goal ($)</label>
+                    <input type="number" wire:model="monthlyIncomeGoal" min="0" step="0.01"
+                        class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                        placeholder="e.g., 5000.00">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Tray Price ($)</label>
+                    <input type="number" wire:model="trayPrice" min="0" step="0.01"
+                        class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                        placeholder="Price per tray (30 eggs)">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Kilogram Price ($)</label>
+                    <input type="number" wire:model="kgPrice" min="0" step="0.01"
+                        class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                        placeholder="Price per kilogram">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Standard Shipping Cost ($)</label>
+                    <input type="number" wire:model="standardShippingCost" min="0" step="0.01"
+                        class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                        placeholder="Default shipping cost">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Responsible Name</label>
+                    <input type="text" wire:model="responsibleName"
+                        class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                        placeholder="Farm manager name">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Municipality</label>
+                    <input type="text" wire:model="municipality"
+                        class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                        placeholder="e.g., Guadalupe, N.L.">
+                </div>
+            </div>
+        </x-filament::section>
+
+        <x-filament::section class="mt-6">
+            <x-slot name="heading">Egg Price Matrix</x-slot>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Set default prices per egg size. These are used to auto-fill order line prices.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                @foreach (\App\Enums\EggSize::cases() as $size)
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ $size->label() }}</label>
+                        <input type="number" wire:model="eggSizePrices.{{ $size->value }}" min="0" step="0.01"
+                            class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500"
+                            placeholder="$ per unit">
+                    </div>
+                @endforeach
+            </div>
+        </x-filament::section>
+
         <div class="mt-6 flex justify-end">
             <x-filament::button type="submit" wire:loading.attr="disabled">
                 Save Settings

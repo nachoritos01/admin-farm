@@ -18,11 +18,16 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
-        $tenantId = currentTenant()?->id;
+        $tenant = currentTenant();
+        $tenantId = $tenant?->id;
 
         if (! $tenantId) {
             return [];
         }
+
+        $settings = $tenant->settings ?? [];
+        $dailyGoal = $settings['daily_egg_goal'] ?? null;
+        $monthlyGoal = $settings['monthly_income_goal'] ?? null;
 
         $ttl = config('saas.cache.dashboard_stats_ttl', 60);
 
@@ -54,10 +59,24 @@ class StatsOverview extends BaseWidget
             ];
         });
 
+        $todayProdStat = Stat::make("Today's Production", number_format($stats['today_production']) . ' eggs')
+            ->icon('heroicon-o-chart-bar')
+            ->color('success');
+        if ($dailyGoal && $dailyGoal > 0) {
+            $pct = round(($stats['today_production'] / $dailyGoal) * 100);
+            $todayProdStat->description("{$pct}% of daily goal");
+        }
+
+        $monthRevStat = Stat::make('Monthly Revenue', '$' . number_format($stats['month_revenue'], 2))
+            ->icon('heroicon-o-currency-dollar')
+            ->color('success');
+        if ($monthlyGoal && $monthlyGoal > 0) {
+            $pct = round(($stats['month_revenue'] / $monthlyGoal) * 100);
+            $monthRevStat->description("{$pct}% of monthly goal");
+        }
+
         return [
-            Stat::make("Today's Production", number_format($stats['today_production']) . ' eggs')
-                ->icon('heroicon-o-chart-bar')
-                ->color('success'),
+            $todayProdStat,
             Stat::make('Monthly Production', number_format($stats['month_production']) . ' eggs')
                 ->icon('heroicon-o-calendar')
                 ->color('info'),
@@ -67,9 +86,7 @@ class StatsOverview extends BaseWidget
             Stat::make('Pending Orders', $stats['pending_orders'])
                 ->icon('heroicon-o-shopping-bag')
                 ->color($stats['pending_orders'] > 0 ? 'warning' : 'success'),
-            Stat::make('Monthly Revenue', '$' . number_format($stats['month_revenue'], 2))
-                ->icon('heroicon-o-currency-dollar')
-                ->color('success'),
+            $monthRevStat,
             Stat::make('Monthly Expenses', '$' . number_format($stats['month_expenses'], 2))
                 ->icon('heroicon-o-banknotes')
                 ->color('danger'),

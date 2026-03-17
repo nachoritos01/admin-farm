@@ -68,6 +68,12 @@ class CustomerResource extends Resource
                             ->label('Zone')
                             ->maxLength(255)
                             ->placeholder('e.g., North, Downtown'),
+                        Forms\Components\TextInput::make('preferred_price')
+                            ->label('Preferred Price')
+                            ->numeric()
+                            ->step(0.01)
+                            ->prefix('$')
+                            ->placeholder('Negotiated price per unit'),
                     ])->columns(2),
 
                 Forms\Components\Section::make('Addresses')

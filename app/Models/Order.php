@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DeliveryType;
 use App\Enums\OrderPriority;
 use App\Enums\OrderStatus;
 use App\Models\Concerns\BelongsToTenant;
@@ -64,6 +65,10 @@ class Order extends Model
         'metadata',
         'estimated_at',
         'delivery_date',
+        'delivery_type',
+        'delivery_time',
+        'delivery_notes',
+        'shipping_cost',
         'confirmed_at',
         'completed_at',
         'cancelled_at',
@@ -80,6 +85,8 @@ class Order extends Model
         'metadata' => 'array',
         'estimated_at' => 'datetime',
         'delivery_date' => 'date',
+        'delivery_type' => DeliveryType::class,
+        'shipping_cost' => 'decimal:2',
         'confirmed_at' => 'datetime',
         'completed_at' => 'datetime',
         'cancelled_at' => 'datetime',
@@ -188,7 +195,7 @@ class Order extends Model
     {
         $subtotal = $this->lines()->sum('subtotal');
         $this->subtotal = $subtotal;
-        $this->total = max(0, $subtotal + (float) ($this->tax ?? 0) - (float) ($this->discount_amount ?? 0));
+        $this->total = max(0, $subtotal + (float) ($this->tax ?? 0) - (float) ($this->discount_amount ?? 0) + (float) ($this->shipping_cost ?? 0));
         $this->save();
 
         return $this;

@@ -35,6 +35,23 @@ class TenantSettings extends Page
 
     public string $address = '';
 
+    public ?int $dailyEggGoal = null;
+
+    public ?float $monthlyIncomeGoal = null;
+
+    public ?float $trayPrice = null;
+
+    public ?float $kgPrice = null;
+
+    public ?float $standardShippingCost = null;
+
+    public string $responsibleName = '';
+
+    public string $municipality = '';
+
+    /** @var array<string, float|null> */
+    public array $eggSizePrices = [];
+
     /** @var TemporaryUploadedFile|string|null */
     public $logo = null;
 
@@ -60,6 +77,14 @@ class TenantSettings extends Page
         $this->email = $settings['email'] ?? '';
         $this->address = $settings['address'] ?? $settings['city'] ?? '';
         $this->existingLogoPath = $settings['logo_path'] ?? null;
+        $this->dailyEggGoal = $settings['daily_egg_goal'] ?? null;
+        $this->monthlyIncomeGoal = $settings['monthly_income_goal'] ?? null;
+        $this->trayPrice = $settings['tray_price'] ?? null;
+        $this->kgPrice = $settings['kg_price'] ?? null;
+        $this->standardShippingCost = $settings['standard_shipping_cost'] ?? null;
+        $this->responsibleName = $settings['responsible_name'] ?? '';
+        $this->municipality = $settings['municipality'] ?? '';
+        $this->eggSizePrices = $settings['egg_size_prices'] ?? [];
     }
 
     public function canUploadLogo(): bool
@@ -83,6 +108,14 @@ class TenantSettings extends Page
         $settings['contact_phone'] = $this->contactPhone;
         $settings['email'] = $this->email;
         $settings['address'] = $this->address;
+        $settings['daily_egg_goal'] = $this->dailyEggGoal;
+        $settings['monthly_income_goal'] = $this->monthlyIncomeGoal;
+        $settings['tray_price'] = $this->trayPrice;
+        $settings['kg_price'] = $this->kgPrice;
+        $settings['standard_shipping_cost'] = $this->standardShippingCost;
+        $settings['responsible_name'] = $this->responsibleName;
+        $settings['municipality'] = $this->municipality;
+        $settings['egg_size_prices'] = $this->eggSizePrices;
 
         // Handle logo upload (only for Growth+)
         if ($this->canUploadLogo() && $this->logo instanceof TemporaryUploadedFile) {

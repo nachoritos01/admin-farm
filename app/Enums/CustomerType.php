@@ -7,6 +7,8 @@ enum CustomerType: string
     case Retail = 'retail';
     case Wholesale = 'wholesale';
     case Store = 'store';
+    case Restaurant = 'restaurant';
+    case NaturalStore = 'natural_store';
 
     public function label(): string
     {
@@ -14,6 +16,8 @@ enum CustomerType: string
             self::Retail => 'Retail',
             self::Wholesale => 'Wholesale',
             self::Store => 'Store',
+            self::Restaurant => 'Restaurant',
+            self::NaturalStore => 'Natural Store',
         };
     }
 
@@ -23,6 +27,8 @@ enum CustomerType: string
             self::Retail => 'info',
             self::Wholesale => 'success',
             self::Store => 'warning',
+            self::Restaurant => 'primary',
+            self::NaturalStore => 'purple',
         };
     }
 
@@ -32,6 +38,8 @@ enum CustomerType: string
             self::Retail => 'heroicon-o-user',
             self::Wholesale => 'heroicon-o-building-storefront',
             self::Store => 'heroicon-o-building-office',
+            self::Restaurant => 'heroicon-o-building-storefront',
+            self::NaturalStore => 'heroicon-o-heart',
         };
     }
 
