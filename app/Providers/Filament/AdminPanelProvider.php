@@ -70,6 +70,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
                 \App\Http\Middleware\EnsureTenant::class,
+                \App\Http\Middleware\SetLocale::class,
             ])
             ->renderHook(
                 PanelsRenderHook::USER_MENU_BEFORE,
