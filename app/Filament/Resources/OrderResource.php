@@ -378,7 +378,7 @@ class OrderResource extends Resource
 
                         Notification::make()
                             ->title(__('Order duplicated'))
-                            ->body(__("New order #:id created as draft.", ['id' => $newOrder->id]))
+                            ->body(__('New order #:id created as draft.', ['id' => $newOrder->id]))
                             ->success()
                             ->send();
                     }),
