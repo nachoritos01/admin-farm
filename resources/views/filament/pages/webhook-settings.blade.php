@@ -8,17 +8,17 @@
         {{-- Webhook Configuration --}}
         <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Webhook Configuration
+                {{ __('Webhook Configuration') }}
             </h3>
             <p class="text-sm text-gray-500 dark:text-white mb-6">
-                Receive real-time notifications when events occur in your account.
+                {{ __('Receive real-time notifications when events occur in your account.') }}
             </p>
 
             {{-- Enable toggle --}}
             <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
                 <div>
-                    <span class="text-sm font-medium text-gray-900 dark:text-white">Enable webhooks</span>
-                    <p class="text-xs text-gray-500 dark:text-white">HTTP POST notifications will be sent to your URL</p>
+                    <span class="text-sm font-medium text-gray-900 dark:text-white">{{ __('Enable webhooks') }}</span>
+                    <p class="text-xs text-gray-500 dark:text-white">{{ __('HTTP POST notifications will be sent to your URL') }}</p>
                 </div>
                 <button
                     type="button"
@@ -36,7 +36,7 @@
             <div class="{{ $this->webhookEnabled ? '' : 'opacity-60 pointer-events-none' }}">
                 {{-- URL --}}
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Webhook URL</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ __('Webhook URL') }}</label>
                     <input type="url" wire:model="webhookUrl" placeholder="https://your-server.com/webhook"
                         class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500">
                     @error('webhookUrl')
@@ -46,23 +46,23 @@
 
                 {{-- Secret --}}
                 <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">Signing Secret</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-white mb-1">{{ __('Signing Secret') }}</label>
                     <div class="flex items-center gap-2">
                         <code class="flex-1 block p-2.5 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 text-sm font-mono text-gray-900 dark:text-white select-all overflow-x-auto">{{ $webhookSecret }}</code>
                         <button type="button" wire:click="regenerateSecret"
                             class="px-3 py-2 text-xs font-medium text-gray-700 dark:text-white bg-gray-100 dark:bg-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-500">
-                            Regenerate
+                            {{ __('Regenerate') }}
                         </button>
                     </div>
                     <p class="mt-1 text-xs text-gray-500 dark:text-white">
-                        Use this secret to verify the <code>X-Webhook-Signature</code> header (HMAC SHA256).
+                        {{ __('Use this secret to verify the :header header (HMAC SHA256).', ['header' => 'X-Webhook-Signature']) }}
                     </p>
                 </div>
 
                 {{-- Events --}}
                 <div class="mb-4">
                     <span class="text-sm font-medium text-gray-900 dark:text-white mb-3 block">
-                        Events to notify:
+                        {{ __('Events to notify:') }}
                     </span>
                     <div class="space-y-3">
                         @foreach($eventOptions as $value => $label)
@@ -85,12 +85,12 @@
         {{-- Actions --}}
         <div class="flex items-center gap-3">
             <x-filament::button wire:click="save" wire:loading.attr="disabled">
-                Save Configuration
+                {{ __('Save Configuration') }}
             </x-filament::button>
 
             @if ($webhookEnabled && $webhookUrl)
                 <x-filament::button wire:click="testWebhook" wire:loading.attr="disabled" color="gray">
-                    Send Test
+                    {{ __('Send Test') }}
                 </x-filament::button>
             @endif
         </div>
@@ -106,16 +106,16 @@
         @if ($logs->count() > 0)
             <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                    Recent Deliveries
+                    {{ __('Recent Deliveries') }}
                 </h3>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm">
                         <thead>
                             <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th class="text-left py-2 px-3 font-medium text-gray-600 dark:text-white">Event</th>
-                                <th class="text-left py-2 px-3 font-medium text-gray-600 dark:text-white">Status</th>
-                                <th class="text-left py-2 px-3 font-medium text-gray-600 dark:text-white">Attempt</th>
-                                <th class="text-left py-2 px-3 font-medium text-gray-600 dark:text-white">Date</th>
+                                <th class="text-left py-2 px-3 font-medium text-gray-600 dark:text-white">{{ __('Event') }}</th>
+                                <th class="text-left py-2 px-3 font-medium text-gray-600 dark:text-white">{{ __('Status') }}</th>
+                                <th class="text-left py-2 px-3 font-medium text-gray-600 dark:text-white">{{ __('Attempt') }}</th>
+                                <th class="text-left py-2 px-3 font-medium text-gray-600 dark:text-white">{{ __('Date') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,7 +133,7 @@
                                         <code class="text-xs bg-gray-100 dark:bg-gray-700 px-1.5 py-0.5 rounded">{{ $log->event }}</code>
                                     </td>
                                     <td class="py-2 px-3 {{ $statusColor }} font-medium">
-                                        {{ $log->status_code ?? 'Pending' }}
+                                        {{ $log->status_code ?? __('Pending') }}
                                     </td>
                                     <td class="py-2 px-3 text-gray-500 dark:text-white">{{ $log->attempt }}</td>
                                     <td class="py-2 px-3 text-gray-500 dark:text-white">{{ $log->created_at->diffForHumans() }}</td>
