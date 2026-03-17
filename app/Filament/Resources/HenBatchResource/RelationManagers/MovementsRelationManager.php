@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Filament\Resources\HenBatchResource\RelationManagers;
+
+use App\Enums\HenMovementType;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables;
+use Filament\Tables\Table;
+
+class MovementsRelationManager extends RelationManager
+{
+    protected static string $relationship = 'movements';
+
+    protected static ?string $title = 'Movements';
+
+    protected static ?string $modelLabel = 'Movement';
+
+    public function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\Select::make('type')
+                    ->label('Type')
+                    ->options(HenMovementType::options())
+                    ->required(),
+                Forms\Components\TextInput::make('quantity')
+                    ->label('Quantity')
+                    ->numeric()
+                    ->required()
+                    ->minValue(1),
+                Forms\Components\DatePicker::make('date')
+                    ->label('Date')
+                    ->required()
+                    ->default(now()),
+                Forms\Components\TextInput::make('reason')
+                    ->label('Reason')
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('notes')
+                    ->label('Notes')
+                    ->rows(2)
+                    ->columnSpanFull(),
+            ])->columns(2);
+    }
+
+    public function table(Table $table): Table
+    {
+        return $table
+            ->defaultSort('date', 'desc')
+            ->columns([
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Type')
+                    ->badge()
+                    ->color(fn (HenMovementType $state): string => $state->color())
+                    ->formatStateUsing(fn (HenMovementType $state): string => $state->label()),
+                Tables\Columns\TextColumn::make('quantity')
+                    ->label('Qty')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('date')
+                    ->label('Date')
+                    ->date('Y-m-d')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('reason')
+                    ->label('Reason')
+                    ->limit(40)
+                    ->toggleable(),
+            ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ]);
+    }
+}

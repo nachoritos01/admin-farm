@@ -7,6 +7,7 @@ use App\Models\Concerns\LogsActivityWithTenant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
@@ -49,6 +50,25 @@ class Item extends Model
                 $item->photos = array_values($item->photos);
             }
         });
+
+        static::updated(function (self $item): void {
+            if ($item->isDirty('price') && $item->getOriginal('price') !== null) {
+                PriceHistory::create([
+                    'item_id' => $item->id,
+                    'price' => $item->price,
+                    'previous_price' => $item->getOriginal('price'),
+                    'effective_date' => now()->toDateString(),
+                    'changed_by' => auth()->id(),
+                ]);
+            }
+        });
+    }
+
+    // Relationships
+
+    public function priceHistories(): HasMany
+    {
+        return $this->hasMany(PriceHistory::class);
     }
 
     // Scopes

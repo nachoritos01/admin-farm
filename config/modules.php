@@ -19,4 +19,6 @@ return [
     'api' => env('MODULE_API', true),
     'exports' => env('MODULE_EXPORTS', true),
     'loyalty' => env('MODULE_LOYALTY', true),
+    'production' => env('MODULE_PRODUCTION', true),
+    'suppliers' => env('MODULE_SUPPLIERS', true),
 ];

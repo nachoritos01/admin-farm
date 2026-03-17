@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\CustomerType;
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Models\Customer;
@@ -58,6 +59,15 @@ class CustomerResource extends Resource
                         Forms\Components\Toggle::make('is_active')
                             ->label('Active')
                             ->default(true),
+                        Forms\Components\Select::make('customer_type')
+                            ->label('Customer Type')
+                            ->options(CustomerType::options())
+                            ->default('retail')
+                            ->required(),
+                        Forms\Components\TextInput::make('zone')
+                            ->label('Zone')
+                            ->maxLength(255)
+                            ->placeholder('e.g., North, Downtown'),
                     ])->columns(2),
 
                 Forms\Components\Section::make('Addresses')
@@ -198,6 +208,16 @@ class CustomerResource extends Resource
                     ->boolean()
                     ->getStateUsing(fn (Customer $record): bool => filled($record->password))
                     ->toggleable(),
+                Tables\Columns\TextColumn::make('customer_type')
+                    ->label('Type')
+                    ->badge()
+                    ->color(fn (CustomerType $state): string => $state->color())
+                    ->formatStateUsing(fn (CustomerType $state): string => $state->label())
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('zone')
+                    ->label('Zone')
+                    ->searchable()
+                    ->toggleable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Active')
                     ->boolean()
@@ -213,6 +233,9 @@ class CustomerResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                Tables\Filters\SelectFilter::make('customer_type')
+                    ->label('Type')
+                    ->options(CustomerType::options()),
                 Tables\Filters\TernaryFilter::make('is_active')
                     ->label('Active'),
             ])

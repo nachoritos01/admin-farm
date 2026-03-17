@@ -110,6 +110,16 @@ class Tenant extends Model
         return $this->hasMany(BillingEvent::class);
     }
 
+    public function henBatches(): HasMany
+    {
+        return $this->hasMany(HenBatch::class);
+    }
+
+    public function suppliers(): HasMany
+    {
+        return $this->hasMany(Supplier::class);
+    }
+
     public function plugins(): BelongsToMany
     {
         return $this->belongsToMany(Plugin::class, 'tenant_plugins')
@@ -336,6 +346,8 @@ class Tenant extends Model
             'locations' => $plan['max_locations'] ?? null,
             'items' => $plan['max_items'] ?? null,
             'customers' => $plan['max_customers'] ?? null,
+            'hen_batches' => $plan['max_hen_batches'] ?? null,
+            'suppliers' => $plan['max_suppliers'] ?? null,
         ];
     }
 
@@ -350,14 +362,16 @@ class Tenant extends Model
         $ttl = config('saas.cache.usage_counts_ttl', 300);
 
         return \Illuminate\Support\Facades\Cache::remember($cacheKey, $ttl, function () {
-            // Single query for users/locations/items/customers counts
+            // Single query for users/locations/items/customers/hen_batches/suppliers counts
             $counts = \Illuminate\Support\Facades\DB::selectOne(
                 'SELECT
                     (SELECT COUNT(*) FROM tenant_user WHERE tenant_id = ?) as users_count,
                     (SELECT COUNT(*) FROM locations WHERE tenant_id = ?) as locations_count,
                     (SELECT COUNT(*) FROM items WHERE tenant_id = ?) as items_count,
-                    (SELECT COUNT(*) FROM customers WHERE tenant_id = ?) as customers_count',
-                [$this->id, $this->id, $this->id, $this->id]
+                    (SELECT COUNT(*) FROM customers WHERE tenant_id = ?) as customers_count,
+                    (SELECT COUNT(*) FROM hen_batches WHERE tenant_id = ?) as hen_batches_count,
+                    (SELECT COUNT(*) FROM suppliers WHERE tenant_id = ?) as suppliers_count',
+                [$this->id, $this->id, $this->id, $this->id, $this->id, $this->id]
             );
 
             return [
@@ -369,6 +383,8 @@ class Tenant extends Model
                 'locations' => (int) $counts->locations_count,
                 'items' => (int) $counts->items_count,
                 'customers' => (int) $counts->customers_count,
+                'hen_batches' => (int) $counts->hen_batches_count,
+                'suppliers' => (int) $counts->suppliers_count,
             ];
         });
     }
