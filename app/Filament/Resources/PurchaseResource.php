@@ -57,19 +57,19 @@ class PurchaseResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Purchase Details')
+                Forms\Components\Section::make(__('Purchase Details'))
                     ->schema([
                         Forms\Components\Select::make('supplier_id')
-                            ->label('Supplier')
+                            ->label(__('Supplier'))
                             ->options(fn () => Supplier::active()->pluck('name', 'id'))
                             ->searchable()
                             ->preload(),
                         Forms\Components\TextInput::make('product')
-                            ->label('Product')
+                            ->label(__('Product'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('quantity')
-                            ->label('Quantity')
+                            ->label(__('Quantity'))
                             ->numeric()
                             ->required()
                             ->step(0.01)
@@ -81,12 +81,12 @@ class PurchaseResource extends Resource
                                 $set('total', number_format($qty * $price, 2, '.', ''));
                             }),
                         Forms\Components\Select::make('unit')
-                            ->label('Unit')
+                            ->label(__('Unit'))
                             ->options(PurchaseUnit::options())
                             ->default('piece')
                             ->required(),
                         Forms\Components\TextInput::make('unit_price')
-                            ->label('Unit Price')
+                            ->label(__('Unit Price'))
                             ->numeric()
                             ->step(0.01)
                             ->prefix('$')
@@ -98,24 +98,24 @@ class PurchaseResource extends Resource
                                 $set('total', number_format($qty * $price, 2, '.', ''));
                             }),
                         Forms\Components\TextInput::make('total')
-                            ->label('Total')
+                            ->label(__('Total'))
                             ->numeric()
                             ->prefix('$')
                             ->disabled()
                             ->dehydrated(),
                         Forms\Components\DatePicker::make('date')
-                            ->label('Date')
+                            ->label(__('Date'))
                             ->required()
                             ->default(now()),
                         Forms\Components\Select::make('payment_method')
-                            ->label('Payment Method')
+                            ->label(__('Payment Method'))
                             ->options(PaymentMethod::options()),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Notes')
+                Forms\Components\Section::make(__('Notes'))
                     ->schema([
                         Forms\Components\Textarea::make('notes')
-                            ->label('Notes')
+                            ->label(__('Notes'))
                             ->rows(2)
                             ->columnSpanFull(),
                     ])->collapsible(),
@@ -128,32 +128,32 @@ class PurchaseResource extends Resource
             ->defaultSort('date', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->date('Y-m-d')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('supplier.name')
-                    ->label('Supplier')
+                    ->label(__('Supplier'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('product')
-                    ->label('Product')
+                    ->label(__('Product'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
-                    ->label('Qty')
+                    ->label(__('Qty'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('unit')
-                    ->label('Unit')
+                    ->label(__('Unit'))
                     ->badge()
                     ->formatStateUsing(fn (PurchaseUnit $state): string => $state->label())
                     ->color('gray'),
                 Tables\Columns\TextColumn::make('total')
-                    ->label('Total')
+                    ->label(__('Total'))
                     ->money()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('payment_method')
-                    ->label('Payment')
+                    ->label(__('Payment'))
                     ->badge()
                     ->color(fn (?PaymentMethod $state): string => $state?->color() ?? 'gray')
                     ->formatStateUsing(fn (?PaymentMethod $state): string => $state?->label() ?? '-')
@@ -161,7 +161,7 @@ class PurchaseResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('supplier_id')
-                    ->label('Supplier')
+                    ->label(__('Supplier'))
                     ->options(fn () => Supplier::pluck('name', 'id')),
             ])
             ->actions([

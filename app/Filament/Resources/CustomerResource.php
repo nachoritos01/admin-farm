@@ -49,109 +49,109 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Customer Information')
+                Forms\Components\Section::make(__('Customer Information'))
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label('Name')
+                            ->label(__('Name'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('phone')
-                            ->label('Phone')
+                            ->label(__('Phone'))
                             ->tel()
                             ->required()
                             ->unique(ignoreRecord: true)
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
-                            ->label('Email')
+                            ->label(__('Email'))
                             ->email()
                             ->maxLength(255),
                         Forms\Components\Toggle::make('is_active')
-                            ->label('Active')
+                            ->label(__('Active'))
                             ->default(true),
                         Forms\Components\Select::make('customer_type')
-                            ->label('Customer Type')
+                            ->label(__('Customer Type'))
                             ->options(CustomerType::options())
                             ->default('retail')
                             ->required(),
                         Forms\Components\TextInput::make('zone')
-                            ->label('Zone')
+                            ->label(__('Zone'))
                             ->maxLength(255)
                             ->placeholder('e.g., North, Downtown'),
                         Forms\Components\TextInput::make('preferred_price')
-                            ->label('Preferred Price')
+                            ->label(__('Preferred Price'))
                             ->numeric()
                             ->step(0.01)
                             ->prefix('$')
                             ->placeholder('Negotiated price per unit'),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Addresses')
+                Forms\Components\Section::make(__('Addresses'))
                     ->schema([
                         Forms\Components\Repeater::make('addresses')
                             ->relationship()
                             ->label('')
                             ->schema([
                                 Forms\Components\Select::make('label')
-                                    ->label('Label')
+                                    ->label(__('Label'))
                                     ->options([
-                                        'home' => 'Home',
-                                        'office' => 'Office',
-                                        'other' => 'Other',
+                                        'home' => __('Home'),
+                                        'office' => __('Office'),
+                                        'other' => __('Other'),
                                     ])
                                     ->default('home'),
                                 Forms\Components\TextInput::make('street')
-                                    ->label('Street')
+                                    ->label(__('Street'))
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('district')
-                                    ->label('District')
+                                    ->label(__('District'))
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('city')
-                                    ->label('City')
+                                    ->label(__('City'))
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('state')
-                                    ->label('State / Province')
+                                    ->label(__('State / Province'))
                                     ->maxLength(255),
                                 Forms\Components\TextInput::make('zip')
-                                    ->label('Postal Code')
+                                    ->label(__('Postal Code'))
                                     ->maxLength(20),
                                 Forms\Components\Textarea::make('references')
-                                    ->label('References')
+                                    ->label(__('References'))
                                     ->rows(2)
                                     ->columnSpanFull(),
                                 Forms\Components\Toggle::make('is_default')
-                                    ->label('Default'),
+                                    ->label(__('Default')),
                             ])
                             ->columns(3)
                             ->defaultItems(0)
-                            ->addActionLabel('Add address')
+                            ->addActionLabel(__('Add address'))
                             ->reorderable(false)
                             ->collapsible()
                             ->itemLabel(fn (array $state): string => match ($state['label'] ?? 'home') {
-                                'home' => 'Home',
-                                'office' => 'Office',
-                                default => 'Other',
+                                'home' => __('Home'),
+                                'office' => __('Office'),
+                                default => __('Other'),
                             } . ($state['street'] ? ' - ' . $state['street'] : '')),
                     ])->collapsible(),
 
-                Forms\Components\Section::make('Portal Access')
+                Forms\Components\Section::make(__('Portal Access'))
                     ->schema([
                         Forms\Components\Toggle::make('portal_enabled')
-                            ->label('Enable Portal')
-                            ->helperText('The customer will use their phone + password to access.')
+                            ->label(__('Enable Portal'))
+                            ->helperText(__('The customer will use their phone + password to access.'))
                             ->live()
                             ->afterStateHydrated(fn (Forms\Components\Toggle $component, ?Customer $record) => $component->state(filled($record?->password)))
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('password')
-                            ->label('Password')
+                            ->label(__('Password'))
                             ->password()
                             ->revealable()
                             ->confirmed()
                             ->visible(fn (Forms\Get $get): bool => (bool) $get('portal_enabled'))
                             ->required(fn (Forms\Get $get, string $operation, ?Customer $record): bool => (bool) $get('portal_enabled') && ($operation === 'create' || ! filled($record?->password)))
                             ->maxLength(255)
-                            ->helperText(fn (string $operation): string => $operation === 'edit' ? 'Leave empty to keep current password.' : ''),
+                            ->helperText(fn (string $operation): string => $operation === 'edit' ? __('Leave empty to keep current password.') : ''),
                         Forms\Components\TextInput::make('password_confirmation')
-                            ->label('Confirm Password')
+                            ->label(__('Confirm Password'))
                             ->password()
                             ->revealable()
                             ->visible(fn (Forms\Get $get): bool => (bool) $get('portal_enabled'))
@@ -159,42 +159,42 @@ class CustomerResource extends Resource
                     ])->columns(2)
                     ->collapsible(),
 
-                Forms\Components\Section::make('Loyalty')
+                Forms\Components\Section::make(__('Loyalty'))
                     ->schema([
                         Forms\Components\Placeholder::make('loyalty_points_display')
-                            ->label('Available Points')
+                            ->label(__('Available Points'))
                             ->content(fn (?Customer $record): string => $record ? number_format($record->loyalty_points) : '0'),
                         Forms\Components\Placeholder::make('loyalty_lifetime_display')
-                            ->label('Lifetime Points')
+                            ->label(__('Lifetime Points'))
                             ->content(fn (?Customer $record): string => $record ? number_format($record->loyalty_lifetime_points) : '0'),
                         Forms\Components\Placeholder::make('loyalty_tier_display')
-                            ->label('Current Tier')
+                            ->label(__('Current Tier'))
                             ->content(fn (?Customer $record): string => $record ? $record->loyalty_tier->label() . ' (x' . $record->loyalty_tier->multiplier() . ')' : 'Bronze'),
                         Forms\Components\Toggle::make('first_purchase_bonus')
-                            ->label('First Purchase Bonus Credited')
-                            ->helperText('Whether the first purchase bonus has been credited.'),
+                            ->label(__('First Purchase Bonus Credited'))
+                            ->helperText(__('Whether the first purchase bonus has been credited.')),
                     ])->columns(4)
                     ->collapsible()
                     ->collapsed()
                     ->visible(fn (): bool => hasModule('loyalty')),
 
-                Forms\Components\Section::make('Tags & Metadata')
+                Forms\Components\Section::make(__('Tags & Metadata'))
                     ->schema([
                         Forms\Components\TagsInput::make('tags')
-                            ->label('Tags')
+                            ->label(__('Tags'))
                             ->separator(','),
                         Forms\Components\KeyValue::make('metadata')
-                            ->label('Metadata'),
+                            ->label(__('Metadata')),
                         Forms\Components\DatePicker::make('birthday')
-                            ->label('Birthday'),
+                            ->label(__('Birthday')),
                     ])->columns(3)
                     ->collapsible()
                     ->collapsed(),
 
-                Forms\Components\Section::make('Notes')
+                Forms\Components\Section::make(__('Notes'))
                     ->schema([
                         Forms\Components\Textarea::make('notes')
-                            ->label('Notes')
+                            ->label(__('Notes'))
                             ->rows(3)
                             ->columnSpanFull(),
                     ])->collapsible(),
@@ -207,52 +207,52 @@ class CustomerResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->label('Phone')
+                    ->label(__('Phone'))
                     ->searchable()
                     ->copyable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->label('Email')
+                    ->label(__('Email'))
                     ->searchable()
                     ->toggleable(),
                 Tables\Columns\IconColumn::make('password')
-                    ->label('Portal')
+                    ->label(__('Portal'))
                     ->boolean()
                     ->getStateUsing(fn (Customer $record): bool => filled($record->password))
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('customer_type')
-                    ->label('Type')
+                    ->label(__('Type'))
                     ->badge()
                     ->color(fn (CustomerType $state): string => $state->color())
                     ->formatStateUsing(fn (CustomerType $state): string => $state->label())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('zone')
-                    ->label('Zone')
+                    ->label(__('Zone'))
                     ->searchable()
                     ->toggleable(),
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->boolean()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('orders_count')
-                    ->label('Orders')
+                    ->label(__('Orders'))
                     ->counts('orders')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Registered')
+                    ->label(__('Registered'))
                     ->dateTime('Y-m-d')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('customer_type')
-                    ->label('Type')
+                    ->label(__('Type'))
                     ->options(CustomerType::options()),
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Active'),
+                    ->label(__('Active')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

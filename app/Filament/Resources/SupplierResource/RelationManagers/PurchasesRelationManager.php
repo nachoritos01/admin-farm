@@ -28,11 +28,11 @@ class PurchasesRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('product')
-                    ->label('Product')
+                    ->label(__('Product'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('quantity')
-                    ->label('Quantity')
+                    ->label(__('Quantity'))
                     ->numeric()
                     ->required()
                     ->step(0.01)
@@ -43,11 +43,11 @@ class PurchasesRelationManager extends RelationManager
                         $set('total', number_format($qty * $price, 2, '.', ''));
                     }),
                 Forms\Components\Select::make('unit')
-                    ->label('Unit')
+                    ->label(__('Unit'))
                     ->options(PurchaseUnit::options())
                     ->default('piece'),
                 Forms\Components\TextInput::make('unit_price')
-                    ->label('Unit Price')
+                    ->label(__('Unit Price'))
                     ->numeric()
                     ->step(0.01)
                     ->prefix('$')
@@ -59,20 +59,20 @@ class PurchasesRelationManager extends RelationManager
                         $set('total', number_format($qty * $price, 2, '.', ''));
                     }),
                 Forms\Components\TextInput::make('total')
-                    ->label('Total')
+                    ->label(__('Total'))
                     ->numeric()
                     ->prefix('$')
                     ->disabled()
                     ->dehydrated(),
                 Forms\Components\DatePicker::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->required()
                     ->default(now()),
                 Forms\Components\Select::make('payment_method')
-                    ->label('Payment Method')
+                    ->label(__('Payment Method'))
                     ->options(PaymentMethod::options()),
                 Forms\Components\Textarea::make('notes')
-                    ->label('Notes')
+                    ->label(__('Notes'))
                     ->rows(2)
                     ->columnSpanFull(),
             ])->columns(2);
@@ -84,17 +84,17 @@ class PurchasesRelationManager extends RelationManager
             ->defaultSort('date', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->date('Y-m-d')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('product')
-                    ->label('Product')
+                    ->label(__('Product'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('quantity')
-                    ->label('Qty')
+                    ->label(__('Qty'))
                     ->numeric(),
                 Tables\Columns\TextColumn::make('total')
-                    ->label('Total')
+                    ->label(__('Total'))
                     ->money()
                     ->sortable(),
             ])

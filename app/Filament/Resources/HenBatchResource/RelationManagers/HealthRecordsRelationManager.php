@@ -25,23 +25,23 @@ class HealthRecordsRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\Select::make('type')
-                    ->label('Type')
+                    ->label(__('Type'))
                     ->options(HealthRecordType::options())
                     ->required(),
                 Forms\Components\DatePicker::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->required()
                     ->default(now()),
                 Forms\Components\TextInput::make('medication')
-                    ->label('Medication')
+                    ->label(__('Medication'))
                     ->maxLength(255),
                 Forms\Components\TextInput::make('dosage')
-                    ->label('Dosage')
+                    ->label(__('Dosage'))
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('next_due_date')
-                    ->label('Next Due Date'),
+                    ->label(__('Next Due Date')),
                 Forms\Components\Textarea::make('notes')
-                    ->label('Notes')
+                    ->label(__('Notes'))
                     ->rows(2)
                     ->columnSpanFull(),
             ])->columns(2);
@@ -53,22 +53,22 @@ class HealthRecordsRelationManager extends RelationManager
             ->defaultSort('date', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('type')
-                    ->label('Type')
+                    ->label(__('Type'))
                     ->badge()
                     ->color(fn (HealthRecordType $state): string => $state->color())
                     ->formatStateUsing(fn (HealthRecordType $state): string => $state->label()),
                 Tables\Columns\TextColumn::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->date('Y-m-d')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('medication')
-                    ->label('Medication')
+                    ->label(__('Medication'))
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('dosage')
-                    ->label('Dosage')
+                    ->label(__('Dosage'))
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('next_due_date')
-                    ->label('Next Due')
+                    ->label(__('Next Due'))
                     ->date('Y-m-d')
                     ->color(fn ($state): string => $state && $state < now() ? 'danger' : 'success')
                     ->sortable(),

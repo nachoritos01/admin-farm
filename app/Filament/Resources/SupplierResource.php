@@ -55,60 +55,60 @@ class SupplierResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Supplier Information')
+                Forms\Components\Section::make(__('Supplier Information'))
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label('Company Name')
+                            ->label(__('Company Name'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('contact_name')
-                            ->label('Contact Name')
+                            ->label(__('Contact Name'))
                             ->maxLength(255),
                         Forms\Components\TextInput::make('phone')
-                            ->label('Phone')
+                            ->label(__('Phone'))
                             ->tel()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
-                            ->label('Email')
+                            ->label(__('Email'))
                             ->email()
                             ->maxLength(255),
                         Forms\Components\Select::make('category')
-                            ->label('Category')
+                            ->label(__('Category'))
                             ->options(SupplierCategory::options())
                             ->default('other')
                             ->required(),
                         Forms\Components\Select::make('status')
-                            ->label('Status')
+                            ->label(__('Status'))
                             ->options(SupplierStatus::options())
                             ->default('active')
                             ->required(),
                         Forms\Components\Textarea::make('address')
-                            ->label('Address')
+                            ->label(__('Address'))
                             ->rows(2)
                             ->columnSpanFull(),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Products & Rating')
+                Forms\Components\Section::make(__('Products & Rating'))
                     ->schema([
                         Forms\Components\TagsInput::make('products')
-                            ->label('Products')
+                            ->label(__('Products'))
                             ->placeholder('Add a product'),
                         Forms\Components\Select::make('rating')
-                            ->label('Rating')
+                            ->label(__('Rating'))
                             ->options([
-                                1 => '1 - Poor',
-                                2 => '2 - Fair',
-                                3 => '3 - Good',
-                                4 => '4 - Very Good',
-                                5 => '5 - Excellent',
+                                1 => __('1 - Poor'),
+                                2 => __('2 - Fair'),
+                                3 => __('3 - Good'),
+                                4 => __('4 - Very Good'),
+                                5 => __('5 - Excellent'),
                             ]),
                     ])->columns(2)
                     ->collapsible(),
 
-                Forms\Components\Section::make('Notes')
+                Forms\Components\Section::make(__('Notes'))
                     ->schema([
                         Forms\Components\Textarea::make('notes')
-                            ->label('Notes')
+                            ->label(__('Notes'))
                             ->rows(3)
                             ->columnSpanFull(),
                     ])->collapsible(),
@@ -121,49 +121,49 @@ class SupplierResource extends Resource
             ->defaultSort('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Company')
+                    ->label(__('Company'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('contact_name')
-                    ->label('Contact')
+                    ->label(__('Contact'))
                     ->searchable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->label('Phone')
+                    ->label(__('Phone'))
                     ->searchable()
                     ->copyable(),
                 Tables\Columns\TextColumn::make('category')
-                    ->label('Category')
+                    ->label(__('Category'))
                     ->badge()
                     ->color(fn (SupplierCategory $state): string => $state->color())
                     ->formatStateUsing(fn (SupplierCategory $state): string => $state->label())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn (SupplierStatus $state): string => $state->color())
                     ->formatStateUsing(fn (SupplierStatus $state): string => $state->label()),
                 Tables\Columns\TextColumn::make('rating')
-                    ->label('Rating')
+                    ->label(__('Rating'))
                     ->formatStateUsing(fn (?int $state): string => $state ? str_repeat('*', $state) : '-')
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('expenses_count')
-                    ->label('Expenses')
+                    ->label(__('Expenses'))
                     ->counts('expenses')
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('Created'))
                     ->dateTime('Y-m-d')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('category')
-                    ->label('Category')
+                    ->label(__('Category'))
                     ->options(SupplierCategory::options()),
                 Tables\Filters\SelectFilter::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->options(SupplierStatus::options()),
             ])
             ->actions([

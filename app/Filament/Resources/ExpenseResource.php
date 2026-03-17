@@ -55,43 +55,43 @@ class ExpenseResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Expense Details')
+                Forms\Components\Section::make(__('Expense Details'))
                     ->schema([
                         Forms\Components\TextInput::make('description')
-                            ->label('Description')
+                            ->label(__('Description'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('amount')
-                            ->label('Amount')
+                            ->label(__('Amount'))
                             ->numeric()
                             ->required()
                             ->step(0.01)
                             ->prefix('$')
                             ->minValue(0.01),
                         Forms\Components\Select::make('category')
-                            ->label('Category')
+                            ->label(__('Category'))
                             ->options(ExpenseCategory::options())
                             ->default('other')
                             ->required(),
                         Forms\Components\Select::make('supplier_id')
-                            ->label('Supplier')
+                            ->label(__('Supplier'))
                             ->options(Supplier::active()->pluck('name', 'id'))
                             ->searchable(),
                         Forms\Components\DatePicker::make('date')
-                            ->label('Date')
+                            ->label(__('Date'))
                             ->required()
                             ->default(now()),
                         Forms\Components\Select::make('payment_method')
-                            ->label('Payment Method')
+                            ->label(__('Payment Method'))
                             ->options(PaymentMethod::options())
                             ->default('cash')
                             ->required(),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Notes')
+                Forms\Components\Section::make(__('Notes'))
                     ->schema([
                         Forms\Components\Textarea::make('notes')
-                            ->label('Notes')
+                            ->label(__('Notes'))
                             ->rows(2)
                             ->columnSpanFull(),
                     ])->collapsible(),
@@ -104,29 +104,29 @@ class ExpenseResource extends Resource
             ->defaultSort('date', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->date('Y-m-d')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
-                    ->label('Description')
+                    ->label(__('Description'))
                     ->searchable()
                     ->limit(40),
                 Tables\Columns\TextColumn::make('category')
-                    ->label('Category')
+                    ->label(__('Category'))
                     ->badge()
                     ->color(fn (ExpenseCategory $state): string => $state->color())
                     ->formatStateUsing(fn (ExpenseCategory $state): string => $state->label())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('supplier.name')
-                    ->label('Supplier')
+                    ->label(__('Supplier'))
                     ->searchable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('amount')
-                    ->label('Amount')
+                    ->label(__('Amount'))
                     ->money()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('payment_method')
-                    ->label('Method')
+                    ->label(__('Method'))
                     ->badge()
                     ->color(fn (PaymentMethod $state): string => $state->color())
                     ->formatStateUsing(fn (PaymentMethod $state): string => $state->label())
@@ -134,10 +134,10 @@ class ExpenseResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('category')
-                    ->label('Category')
+                    ->label(__('Category'))
                     ->options(ExpenseCategory::options()),
                 Tables\Filters\SelectFilter::make('supplier_id')
-                    ->label('Supplier')
+                    ->label(__('Supplier'))
                     ->options(Supplier::pluck('name', 'id')),
             ])
             ->actions([

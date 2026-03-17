@@ -53,14 +53,14 @@ class ShipmentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Shipment Details')
+                Forms\Components\Section::make(__('Shipment Details'))
                     ->schema([
                         Forms\Components\DatePicker::make('scheduled_date')
-                            ->label('Scheduled Date')
+                            ->label(__('Scheduled Date'))
                             ->required()
                             ->default(now()),
                         Forms\Components\Select::make('driver_id')
-                            ->label('Driver')
+                            ->label(__('Driver'))
                             ->options(function () {
                                 $tenant = currentTenant();
 
@@ -70,27 +70,27 @@ class ShipmentResource extends Resource
                             })
                             ->searchable(),
                         Forms\Components\TextInput::make('zone')
-                            ->label('Zone')
+                            ->label(__('Zone'))
                             ->maxLength(255),
                         Forms\Components\TextInput::make('vehicle')
-                            ->label('Vehicle')
+                            ->label(__('Vehicle'))
                             ->maxLength(255)
                             ->placeholder('e.g., Ford F-150 #3'),
                         Forms\Components\Textarea::make('route')
-                            ->label('Route')
+                            ->label(__('Route'))
                             ->rows(2)
                             ->placeholder('Describe the delivery route'),
                         Forms\Components\Select::make('status')
-                            ->label('Status')
+                            ->label(__('Status'))
                             ->options(ShipmentStatus::options())
                             ->default('scheduled')
                             ->required(),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Notes')
+                Forms\Components\Section::make(__('Notes'))
                     ->schema([
                         Forms\Components\Textarea::make('notes')
-                            ->label('Notes')
+                            ->label(__('Notes'))
                             ->rows(2)
                             ->columnSpanFull(),
                     ])->collapsible(),
@@ -106,52 +106,52 @@ class ShipmentResource extends Resource
                     ->label('#')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('scheduled_date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->date('Y-m-d')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('driver.name')
-                    ->label('Driver')
+                    ->label(__('Driver'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('zone')
-                    ->label('Zone')
+                    ->label(__('Zone'))
                     ->searchable()
                     ->badge()
                     ->color('gray'),
                 Tables\Columns\TextColumn::make('vehicle')
-                    ->label('Vehicle')
+                    ->label(__('Vehicle'))
                     ->searchable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn (ShipmentStatus $state): string => $state->color())
                     ->formatStateUsing(fn (ShipmentStatus $state): string => $state->label()),
                 Tables\Columns\TextColumn::make('orders_count')
-                    ->label('Orders')
+                    ->label(__('Orders'))
                     ->counts('orders')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('Created'))
                     ->dateTime('Y-m-d')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->options(ShipmentStatus::options()),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('mark_in_transit')
-                    ->label('In Transit')
+                    ->label(__('In Transit'))
                     ->icon('heroicon-o-truck')
                     ->color('info')
                     ->visible(fn (Shipment $record): bool => $record->status === ShipmentStatus::Scheduled)
                     ->action(fn (Shipment $record) => $record->update(['status' => ShipmentStatus::InTransit])),
                 Tables\Actions\Action::make('mark_delivered')
-                    ->label('Delivered')
+                    ->label(__('Delivered'))
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
                     ->visible(fn (Shipment $record): bool => $record->status === ShipmentStatus::InTransit)

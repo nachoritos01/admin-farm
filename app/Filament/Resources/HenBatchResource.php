@@ -54,51 +54,51 @@ class HenBatchResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Batch Information')
+                Forms\Components\Section::make(__('Batch Information'))
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label('Batch Name')
+                            ->label(__('Batch Name'))
                             ->required()
                             ->maxLength(255)
                             ->placeholder('e.g., Batch A-2026'),
                         Forms\Components\Select::make('breed')
-                            ->label('Breed')
+                            ->label(__('Breed'))
                             ->options(\App\Enums\Breed::options())
                             ->default('other'),
                         Forms\Components\DatePicker::make('acquisition_date')
-                            ->label('Acquisition Date'),
+                            ->label(__('Acquisition Date')),
                         Forms\Components\TextInput::make('initial_count')
-                            ->label('Initial Count')
+                            ->label(__('Initial Count'))
                             ->numeric()
                             ->required()
                             ->minValue(1)
                             ->disabled(fn (string $operation): bool => $operation === 'edit'),
                         Forms\Components\TextInput::make('current_count')
-                            ->label('Current Count')
+                            ->label(__('Current Count'))
                             ->numeric()
                             ->disabled()
                             ->dehydrated(false)
                             ->visible(fn (string $operation): bool => $operation === 'edit'),
                         Forms\Components\TextInput::make('age_weeks')
-                            ->label('Age (weeks)')
+                            ->label(__('Age (weeks)'))
                             ->numeric()
                             ->minValue(0)
                             ->default(0)
-                            ->helperText('Auto-calculated from acquisition date if set'),
+                            ->helperText(__('Auto-calculated from acquisition date if set')),
                         Forms\Components\Select::make('status')
-                            ->label('Status')
+                            ->label(__('Status'))
                             ->options(HenBatchStatus::options())
                             ->default('active')
                             ->required(),
                         Forms\Components\Toggle::make('is_active')
-                            ->label('Active')
+                            ->label(__('Active'))
                             ->default(true),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Notes')
+                Forms\Components\Section::make(__('Notes'))
                     ->schema([
                         Forms\Components\Textarea::make('notes')
-                            ->label('Notes')
+                            ->label(__('Notes'))
                             ->rows(3)
                             ->columnSpanFull(),
                     ])->collapsible(),
@@ -111,42 +111,42 @@ class HenBatchResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('breed')
-                    ->label('Breed')
+                    ->label(__('Breed'))
                     ->searchable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('current_count')
-                    ->label('Hens')
+                    ->label(__('Hens'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('age_weeks')
-                    ->label('Age (wks)')
+                    ->label(__('Age (wks)'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn (HenBatchStatus $state): string => $state->color())
                     ->formatStateUsing(fn (HenBatchStatus $state): string => $state->label()),
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->boolean()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('Created'))
                     ->dateTime('Y-m-d')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->options(HenBatchStatus::options()),
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Active'),
+                    ->label(__('Active')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -25,28 +25,28 @@ class MovementsRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\Select::make('type')
-                    ->label('Type')
+                    ->label(__('Type'))
                     ->options(HenMovementType::options())
                     ->required()
                     ->live(),
                 Forms\Components\Select::make('death_cause')
-                    ->label('Death Cause')
+                    ->label(__('Death Cause'))
                     ->options(\App\Enums\DeathCause::options())
                     ->visible(fn (Forms\Get $get): bool => $get('type') === 'death'),
                 Forms\Components\TextInput::make('quantity')
-                    ->label('Quantity')
+                    ->label(__('Quantity'))
                     ->numeric()
                     ->required()
                     ->minValue(1),
                 Forms\Components\DatePicker::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->required()
                     ->default(now()),
                 Forms\Components\TextInput::make('reason')
-                    ->label('Reason')
+                    ->label(__('Reason'))
                     ->maxLength(255),
                 Forms\Components\Textarea::make('notes')
-                    ->label('Notes')
+                    ->label(__('Notes'))
                     ->rows(2)
                     ->columnSpanFull(),
             ])->columns(2);
@@ -58,20 +58,20 @@ class MovementsRelationManager extends RelationManager
             ->defaultSort('date', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('type')
-                    ->label('Type')
+                    ->label(__('Type'))
                     ->badge()
                     ->color(fn (HenMovementType $state): string => $state->color())
                     ->formatStateUsing(fn (HenMovementType $state): string => $state->label()),
                 Tables\Columns\TextColumn::make('quantity')
-                    ->label('Qty')
+                    ->label(__('Qty'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->date('Y-m-d')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('reason')
-                    ->label('Reason')
+                    ->label(__('Reason'))
                     ->limit(40)
                     ->toggleable(),
             ])

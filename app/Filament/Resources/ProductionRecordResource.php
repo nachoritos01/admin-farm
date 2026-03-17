@@ -54,48 +54,48 @@ class ProductionRecordResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Production Entry')
+                Forms\Components\Section::make(__('Production Entry'))
                     ->schema([
                         Forms\Components\Select::make('hen_batch_id')
-                            ->label('Hen Batch')
+                            ->label(__('Hen Batch'))
                             ->options(HenBatch::active()->pluck('name', 'id'))
                             ->required()
                             ->searchable(),
                         Forms\Components\DatePicker::make('date')
-                            ->label('Date')
+                            ->label(__('Date'))
                             ->required()
                             ->default(now()),
                         Forms\Components\TextInput::make('qty_morning')
-                            ->label('Morning Qty')
+                            ->label(__('Morning Qty'))
                             ->numeric()
                             ->default(0)
                             ->minValue(0)
                             ->live(onBlur: true),
                         Forms\Components\TextInput::make('qty_afternoon')
-                            ->label('Afternoon Qty')
+                            ->label(__('Afternoon Qty'))
                             ->numeric()
                             ->default(0)
                             ->minValue(0)
                             ->live(onBlur: true),
                         Forms\Components\TextInput::make('broken')
-                            ->label('Broken')
+                            ->label(__('Broken'))
                             ->numeric()
                             ->default(0)
                             ->minValue(0),
                         Forms\Components\TextInput::make('dirty')
-                            ->label('Dirty')
+                            ->label(__('Dirty'))
                             ->numeric()
                             ->default(0)
                             ->minValue(0),
                         Forms\Components\Select::make('quality_grade')
-                            ->label('Quality Grade')
+                            ->label(__('Quality Grade'))
                             ->options(QualityGrade::options()),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Notes')
+                Forms\Components\Section::make(__('Notes'))
                     ->schema([
                         Forms\Components\Textarea::make('notes')
-                            ->label('Notes')
+                            ->label(__('Notes'))
                             ->rows(2)
                             ->columnSpanFull(),
                     ])->collapsible(),
@@ -108,42 +108,42 @@ class ProductionRecordResource extends Resource
             ->defaultSort('date', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->date('Y-m-d')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('henBatch.name')
-                    ->label('Batch')
+                    ->label(__('Batch'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('qty_morning')
-                    ->label('Morning')
+                    ->label(__('Morning'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('qty_afternoon')
-                    ->label('Afternoon')
+                    ->label(__('Afternoon'))
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('qty_total')
-                    ->label('Total')
+                    ->label(__('Total'))
                     ->numeric()
                     ->sortable()
                     ->weight('bold'),
                 Tables\Columns\TextColumn::make('broken')
-                    ->label('Broken')
+                    ->label(__('Broken'))
                     ->numeric()
                     ->color('danger'),
                 Tables\Columns\TextColumn::make('dirty')
-                    ->label('Dirty')
+                    ->label(__('Dirty'))
                     ->numeric()
                     ->color('warning'),
                 Tables\Columns\TextColumn::make('net_production')
-                    ->label('Net')
+                    ->label(__('Net'))
                     ->numeric()
                     ->sortable()
                     ->color('success')
                     ->weight('bold'),
                 Tables\Columns\TextColumn::make('quality_grade')
-                    ->label('Grade')
+                    ->label(__('Grade'))
                     ->badge()
                     ->color(fn (?QualityGrade $state): string => $state?->color() ?? 'gray')
                     ->formatStateUsing(fn (?QualityGrade $state): string => $state?->label() ?? '-')
@@ -151,10 +151,10 @@ class ProductionRecordResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('hen_batch_id')
-                    ->label('Batch')
+                    ->label(__('Batch'))
                     ->options(HenBatch::pluck('name', 'id')),
                 Tables\Filters\SelectFilter::make('quality_grade')
-                    ->label('Grade')
+                    ->label(__('Grade'))
                     ->options(QualityGrade::options()),
             ])
             ->actions([

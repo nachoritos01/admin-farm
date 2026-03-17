@@ -26,7 +26,7 @@ class PaymentsRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('amount')
-                    ->label('Amount')
+                    ->label(__('Amount'))
                     ->numeric()
                     ->step(0.01)
                     ->prefix('$')
@@ -34,7 +34,7 @@ class PaymentsRelationManager extends RelationManager
                     ->minValue(0.01)
                     ->suffixAction(
                         Forms\Components\Actions\Action::make('fillBalance')
-                            ->label('Pay balance')
+                            ->label(__('Pay balance'))
                             ->icon('heroicon-o-banknotes')
                             ->action(function (Forms\Set $set) {
                                 /** @var Order $order */
@@ -54,22 +54,22 @@ class PaymentsRelationManager extends RelationManager
                     ]),
 
                 Forms\Components\Select::make('method')
-                    ->label('Payment Method')
+                    ->label(__('Payment Method'))
                     ->options(PaymentMethod::options())
                     ->required()
                     ->default(PaymentMethod::Cash->value),
 
                 Forms\Components\TextInput::make('reference')
-                    ->label('Reference')
+                    ->label(__('Reference'))
                     ->maxLength(100)
                     ->placeholder('Transfer number, voucher, etc.'),
 
                 Forms\Components\Textarea::make('notes')
-                    ->label('Notes')
+                    ->label(__('Notes'))
                     ->rows(2),
 
                 Forms\Components\DateTimePicker::make('received_at')
-                    ->label('Payment Date')
+                    ->label(__('Payment Date'))
                     ->required()
                     ->default(now()),
             ]);
@@ -80,34 +80,34 @@ class PaymentsRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('amount')
-                    ->label('Amount')
+                    ->label(__('Amount'))
                     ->money()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('method')
-                    ->label('Method')
+                    ->label(__('Method'))
                     ->badge()
                     ->color(fn (PaymentMethod $state): string => $state->color())
                     ->formatStateUsing(fn (PaymentMethod $state): string => $state->label()),
 
                 Tables\Columns\TextColumn::make('reference')
-                    ->label('Reference')
+                    ->label(__('Reference'))
                     ->placeholder('-'),
 
                 Tables\Columns\TextColumn::make('received_at')
-                    ->label('Payment Date')
+                    ->label(__('Payment Date'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Recorded')
+                    ->label(__('Recorded'))
                     ->dateTime('Y-m-d H:i')
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('received_at', 'desc')
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->label('Record Payment')
+                    ->label(__('Record Payment'))
                     ->visible(function (): bool {
                         /** @var Order $order */
                         $order = $this->getOwnerRecord();

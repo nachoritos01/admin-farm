@@ -24,19 +24,19 @@ class PriceHistoriesRelationManager extends RelationManager
             ->defaultSort('effective_date', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('effective_date')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->date('Y-m-d')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('previous_price')
-                    ->label('Previous')
+                    ->label(__('Previous'))
                     ->money()
                     ->color('gray'),
                 Tables\Columns\TextColumn::make('price')
-                    ->label('New Price')
+                    ->label(__('New Price'))
                     ->money()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('change_percentage')
-                    ->label('Change')
+                    ->label(__('Change'))
                     ->suffix('%')
                     ->color(fn (PriceHistory $record): string => match (true) {
                         $record->change_percentage === null => 'gray',
@@ -45,10 +45,10 @@ class PriceHistoriesRelationManager extends RelationManager
                         default => 'gray',
                     }),
                 Tables\Columns\TextColumn::make('changedByUser.name')
-                    ->label('Changed By')
+                    ->label(__('Changed By'))
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('reason')
-                    ->label('Reason')
+                    ->label(__('Reason'))
                     ->limit(40)
                     ->toggleable(),
             ]);

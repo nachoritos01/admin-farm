@@ -29,13 +29,13 @@ class HenBatchStats extends BaseWidget
             ->avg('age_weeks');
 
         return [
-            Stat::make('Total Hens', number_format($totalHens))
+            Stat::make(__('Total Hens'), number_format($totalHens))
                 ->icon('heroicon-o-bug-ant')
                 ->color('success'),
-            Stat::make('Active Batches', $activeBatches)
+            Stat::make(__('Active Batches'), $activeBatches)
                 ->icon('heroicon-o-rectangle-stack')
                 ->color('info'),
-            Stat::make('Avg Age (weeks)', $avgAge ? number_format($avgAge, 1) : '0')
+            Stat::make(__('Avg Age (weeks)'), $avgAge ? number_format($avgAge, 1) : '0')
                 ->icon('heroicon-o-clock')
                 ->color('warning'),
         ];
