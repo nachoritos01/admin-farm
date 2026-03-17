@@ -58,7 +58,7 @@ class InventoryService
         $tenantId = $tenantId ?? currentTenant()?->id;
 
         if (! $tenantId) {
-            return ['produced' => 0, 'sold' => 0, 'broken' => 0, 'available' => 0];
+            return ['produced' => 0, 'sold' => 0, 'broken' => 0, 'dirty' => 0, 'available' => 0];
         }
 
         $ttl = config('saas.cache.dashboard_stats_ttl', 60);
@@ -70,18 +70,22 @@ class InventoryService
             $broken = (int) ProductionRecord::where('tenant_id', $tenantId)
                 ->sum('broken');
 
+            $dirty = (int) ProductionRecord::where('tenant_id', $tenantId)
+                ->sum('dirty');
+
             $sold = (int) DB::table('order_lines')
                 ->join('orders', 'order_lines.order_id', '=', 'orders.id')
                 ->where('orders.tenant_id', $tenantId)
                 ->whereNotIn('orders.status', ['cancelled', 'draft'])
                 ->sum('order_lines.quantity');
 
-            $available = $produced - $broken - $sold;
+            $available = $produced - $broken - $dirty - $sold;
 
             return [
                 'produced' => $produced,
                 'sold' => $sold,
                 'broken' => $broken,
+                'dirty' => $dirty,
                 'available' => max(0, $available),
             ];
         });

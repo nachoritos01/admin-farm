@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\HenBatchStatus;
 use App\Models\Concerns\BelongsToTenant;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,7 @@ class HenBatch extends Model
         'initial_count',
         'current_count',
         'age_weeks',
+        'acquisition_date',
         'status',
         'is_active',
         'notes',
@@ -30,6 +32,7 @@ class HenBatch extends Model
         'initial_count' => 'integer',
         'current_count' => 'integer',
         'age_weeks' => 'integer',
+        'acquisition_date' => 'date',
         'status' => HenBatchStatus::class,
         'is_active' => 'boolean',
     ];
@@ -78,6 +81,15 @@ class HenBatch extends Model
         $this->update([
             'current_count' => $this->initial_count + $additions - $removals,
         ]);
+    }
+
+    public function getAgeWeeksAttribute(): int
+    {
+        if ($this->acquisition_date) {
+            return (int) Carbon::parse($this->acquisition_date)->diffInWeeks(now());
+        }
+
+        return (int) ($this->attributes['age_weeks'] ?? 0);
     }
 
     public function getMortalityRateAttribute(): float

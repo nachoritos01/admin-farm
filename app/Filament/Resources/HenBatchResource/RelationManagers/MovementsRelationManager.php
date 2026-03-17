@@ -24,7 +24,12 @@ class MovementsRelationManager extends RelationManager
                 Forms\Components\Select::make('type')
                     ->label('Type')
                     ->options(HenMovementType::options())
-                    ->required(),
+                    ->required()
+                    ->live(),
+                Forms\Components\Select::make('death_cause')
+                    ->label('Death Cause')
+                    ->options(\App\Enums\DeathCause::options())
+                    ->visible(fn (Forms\Get $get): bool => $get('type') === 'death'),
                 Forms\Components\TextInput::make('quantity')
                     ->label('Quantity')
                     ->numeric()

@@ -22,6 +22,7 @@ class ProductionRecord extends Model
         'qty_afternoon',
         'qty_total',
         'broken',
+        'dirty',
         'net_production',
         'quality_grade',
         'notes',
@@ -33,6 +34,7 @@ class ProductionRecord extends Model
         'qty_afternoon' => 'integer',
         'qty_total' => 'integer',
         'broken' => 'integer',
+        'dirty' => 'integer',
         'net_production' => 'integer',
         'quality_grade' => QualityGrade::class,
     ];
@@ -41,7 +43,7 @@ class ProductionRecord extends Model
     {
         static::saving(function (self $record): void {
             $record->qty_total = $record->qty_morning + $record->qty_afternoon;
-            $record->net_production = $record->qty_total - $record->broken;
+            $record->net_production = $record->qty_total - $record->broken - $record->dirty;
         });
     }
 

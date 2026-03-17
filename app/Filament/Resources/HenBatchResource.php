@@ -49,10 +49,12 @@ class HenBatchResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->placeholder('e.g., Batch A-2026'),
-                        Forms\Components\TextInput::make('breed')
+                        Forms\Components\Select::make('breed')
                             ->label('Breed')
-                            ->maxLength(255)
-                            ->placeholder('e.g., Hy-Line Brown'),
+                            ->options(\App\Enums\Breed::options())
+                            ->default('other'),
+                        Forms\Components\DatePicker::make('acquisition_date')
+                            ->label('Acquisition Date'),
                         Forms\Components\TextInput::make('initial_count')
                             ->label('Initial Count')
                             ->numeric()
@@ -69,7 +71,8 @@ class HenBatchResource extends Resource
                             ->label('Age (weeks)')
                             ->numeric()
                             ->minValue(0)
-                            ->default(0),
+                            ->default(0)
+                            ->helperText('Auto-calculated from acquisition date if set'),
                         Forms\Components\Select::make('status')
                             ->label('Status')
                             ->options(HenBatchStatus::options())

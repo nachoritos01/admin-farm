@@ -21,6 +21,8 @@ class Shipment extends Model
         'status',
         'scheduled_date',
         'zone',
+        'vehicle',
+        'route',
         'notes',
     ];
 

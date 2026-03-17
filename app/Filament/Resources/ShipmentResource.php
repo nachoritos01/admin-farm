@@ -60,6 +60,14 @@ class ShipmentResource extends Resource
                         Forms\Components\TextInput::make('zone')
                             ->label('Zone')
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('vehicle')
+                            ->label('Vehicle')
+                            ->maxLength(255)
+                            ->placeholder('e.g., Ford F-150 #3'),
+                        Forms\Components\Textarea::make('route')
+                            ->label('Route')
+                            ->rows(2)
+                            ->placeholder('Describe the delivery route'),
                         Forms\Components\Select::make('status')
                             ->label('Status')
                             ->options(ShipmentStatus::options())
@@ -98,6 +106,10 @@ class ShipmentResource extends Resource
                     ->searchable()
                     ->badge()
                     ->color('gray'),
+                Tables\Columns\TextColumn::make('vehicle')
+                    ->label('Vehicle')
+                    ->searchable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->badge()

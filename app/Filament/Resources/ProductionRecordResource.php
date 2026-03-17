@@ -70,6 +70,11 @@ class ProductionRecordResource extends Resource
                             ->numeric()
                             ->default(0)
                             ->minValue(0),
+                        Forms\Components\TextInput::make('dirty')
+                            ->label('Dirty')
+                            ->numeric()
+                            ->default(0)
+                            ->minValue(0),
                         Forms\Components\Select::make('quality_grade')
                             ->label('Quality Grade')
                             ->options(QualityGrade::options()),
@@ -115,6 +120,10 @@ class ProductionRecordResource extends Resource
                     ->label('Broken')
                     ->numeric()
                     ->color('danger'),
+                Tables\Columns\TextColumn::make('dirty')
+                    ->label('Dirty')
+                    ->numeric()
+                    ->color('warning'),
                 Tables\Columns\TextColumn::make('net_production')
                     ->label('Net')
                     ->numeric()

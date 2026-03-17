@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DeathCause;
 use App\Enums\HenMovementType;
 use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,7 @@ class HenMovement extends Model
         'tenant_id',
         'hen_batch_id',
         'type',
+        'death_cause',
         'quantity',
         'date',
         'reason',
@@ -25,6 +27,7 @@ class HenMovement extends Model
 
     protected $casts = [
         'type' => HenMovementType::class,
+        'death_cause' => DeathCause::class,
         'quantity' => 'integer',
         'date' => 'date',
     ];
