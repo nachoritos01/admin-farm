@@ -19,6 +19,12 @@ parameters:
 			path: app/Console/Commands/SendRetentionAlerts.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\Customer\:\:\$balance\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/AccountsReceivable.php
+
+		-
 			message: '#^Parameter \#1 \$rules of method Filament\\Pages\\BasePage\:\:validate\(\) expects array\<string, array\<mixed\>\>\|null, array\<string, string\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -443,3 +449,15 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Support\\Collection\<int, array\{item_id\: int, name\: string, egg_size\: string\|null, sold\: int, price\: string\|null\}\> but returns Illuminate\\Support\\Collection\<int, array\{item_id\: int, name\: string, egg_size\: string\|null, sold\: int, price\: string\|null\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/InventoryService.php
+
+		-
+			message: '#^Parameter \#3 \$callback of static method Illuminate\\Cache\\Repository\:\:remember\(\) expects Closure\(\)\: Illuminate\\Support\\Collection\<int, array\{item_id\: int, name\: string, egg_size\: string\|null, sold\: int, price\: string\|null\}\>, Closure\(\)\: Illuminate\\Support\\Collection\<int, array\{item_id\: int, name\: string, egg_size\: string\|null, sold\: int, price\: string\|null\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/InventoryService.php
