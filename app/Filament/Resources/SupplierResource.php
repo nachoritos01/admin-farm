@@ -105,6 +105,11 @@ class SupplierResource extends Resource
                     ->label('Active')
                     ->boolean()
                     ->toggleable(),
+                Tables\Columns\TextColumn::make('expenses_count')
+                    ->label('Expenses')
+                    ->counts('expenses')
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime('Y-m-d')

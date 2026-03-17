@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\EggSize;
+use App\Enums\QualityGrade;
 use App\Filament\Resources\ItemResource\Pages;
 use App\Filament\Resources\ItemResource\RelationManagers;
 use App\Models\Item;
@@ -54,6 +56,26 @@ class ItemResource extends Resource
                             ->numeric()
                             ->default(0),
                     ])->columns(2),
+
+                Forms\Components\Section::make('Egg Product Details')
+                    ->schema([
+                        Forms\Components\TextInput::make('unit')
+                            ->label('Unit')
+                            ->maxLength(50)
+                            ->placeholder('e.g., carton, dozen, piece'),
+                        Forms\Components\Select::make('egg_size')
+                            ->label('Egg Size')
+                            ->options(EggSize::options()),
+                        Forms\Components\Select::make('egg_quality')
+                            ->label('Egg Quality')
+                            ->options(QualityGrade::options()),
+                        Forms\Components\TextInput::make('wholesale_price')
+                            ->label('Wholesale Price')
+                            ->numeric()
+                            ->step(0.01)
+                            ->prefix('$'),
+                    ])->columns(2)
+                    ->collapsible(),
 
                 Forms\Components\Section::make('Description')
                     ->schema([
@@ -126,6 +148,17 @@ class ItemResource extends Resource
                     ->label('Price')
                     ->money()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('wholesale_price')
+                    ->label('Wholesale')
+                    ->money()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('egg_size')
+                    ->label('Size')
+                    ->badge()
+                    ->color(fn (?EggSize $state): string => $state?->color() ?? 'gray')
+                    ->formatStateUsing(fn (?EggSize $state): string => $state?->label() ?? '-')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Active')
                     ->boolean(),

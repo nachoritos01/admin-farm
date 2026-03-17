@@ -21,4 +21,8 @@ return [
     'loyalty' => env('MODULE_LOYALTY', true),
     'production' => env('MODULE_PRODUCTION', true),
     'suppliers' => env('MODULE_SUPPLIERS', true),
+    'shipments' => env('MODULE_SHIPMENTS', true),
+    'expenses' => env('MODULE_EXPENSES', true),
+    'inventory' => env('MODULE_INVENTORY', true),
+    'hen_health' => env('MODULE_HEN_HEALTH', true),
 ];

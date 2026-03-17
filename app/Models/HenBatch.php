@@ -41,6 +41,16 @@ class HenBatch extends Model
         return $this->hasMany(HenMovement::class);
     }
 
+    public function productionRecords(): HasMany
+    {
+        return $this->hasMany(ProductionRecord::class);
+    }
+
+    public function healthRecords(): HasMany
+    {
+        return $this->hasMany(HenHealthRecord::class);
+    }
+
     // Scopes
 
     public function scopeActive(Builder $query): Builder

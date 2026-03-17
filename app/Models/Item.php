@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\EggSize;
+use App\Enums\QualityGrade;
 use App\Models\Concerns\BelongsToTenant;
 use App\Models\Concerns\LogsActivityWithTenant;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,6 +27,10 @@ class Item extends Model
         'category',
         'sku',
         'price',
+        'unit',
+        'egg_size',
+        'egg_quality',
+        'wholesale_price',
         'variants',
         'photos',
         'tags',
@@ -35,6 +41,9 @@ class Item extends Model
 
     protected $casts = [
         'price' => 'decimal:2',
+        'wholesale_price' => 'decimal:2',
+        'egg_size' => EggSize::class,
+        'egg_quality' => QualityGrade::class,
         'variants' => 'array',
         'photos' => 'array',
         'tags' => 'array',

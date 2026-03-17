@@ -47,6 +47,7 @@ class Order extends Model
         'tenant_id',
         'customer_id',
         'location_id',
+        'shipment_id',
         'customer_name',
         'customer_phone',
         'customer_email',
@@ -62,6 +63,7 @@ class Order extends Model
         'attachments',
         'metadata',
         'estimated_at',
+        'delivery_date',
         'confirmed_at',
         'completed_at',
         'cancelled_at',
@@ -77,6 +79,7 @@ class Order extends Model
         'attachments' => 'array',
         'metadata' => 'array',
         'estimated_at' => 'datetime',
+        'delivery_date' => 'date',
         'confirmed_at' => 'datetime',
         'completed_at' => 'datetime',
         'cancelled_at' => 'datetime',
@@ -94,6 +97,11 @@ class Order extends Model
     public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function shipment(): BelongsTo
+    {
+        return $this->belongsTo(Shipment::class);
     }
 
     public function lines(): HasMany

@@ -7,6 +7,7 @@ use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Supplier extends Model
 {
@@ -28,6 +29,13 @@ class Supplier extends Model
         'category' => SupplierCategory::class,
         'is_active' => 'boolean',
     ];
+
+    // Relationships
+
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(Expense::class);
+    }
 
     // Scopes
 

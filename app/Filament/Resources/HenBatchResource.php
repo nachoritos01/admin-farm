@@ -147,6 +147,7 @@ class HenBatchResource extends Resource
     {
         return [
             RelationManagers\MovementsRelationManager::class,
+            RelationManagers\HealthRecordsRelationManager::class,
         ];
     }
 
