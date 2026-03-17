@@ -12,10 +12,6 @@ class WebhookSettings extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-top-right-on-square';
 
-    protected static ?string $navigationLabel = 'Webhooks';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 100;
 
     protected static string $view = 'filament.pages.webhook-settings';
@@ -68,9 +64,9 @@ class WebhookSettings extends Page
     public function getEventOptions(): array
     {
         return [
-            'order.created' => 'Order created',
-            'order.status_changed' => 'Order status changed',
-            'payment.received' => 'Payment received',
+            'order.created' => __('Order created'),
+            'order.status_changed' => __('Order status changed'),
+            'payment.received' => __('Payment received'),
         ];
     }
 
@@ -96,7 +92,7 @@ class WebhookSettings extends Page
         $tenant->setSecureSetting('webhook_secret', $this->webhookSecret);
 
         Notification::make()
-            ->title('Webhook settings saved')
+            ->title(__('Webhook settings saved'))
             ->success()
             ->send();
     }
@@ -106,8 +102,8 @@ class WebhookSettings extends Page
         $this->webhookSecret = Str::random(32);
 
         Notification::make()
-            ->title('New secret generated')
-            ->body('Remember to save to apply the change.')
+            ->title(__('New secret generated'))
+            ->body(__('Remember to save to apply the change.'))
             ->warning()
             ->send();
     }
@@ -116,7 +112,7 @@ class WebhookSettings extends Page
     {
         if (empty($this->webhookUrl)) {
             Notification::make()
-                ->title('Configure a URL first')
+                ->title(__('Configure a URL first'))
                 ->danger()
                 ->send();
 
@@ -143,15 +139,25 @@ class WebhookSettings extends Page
                 ->post($this->webhookUrl);
 
             Notification::make()
-                ->title("Test enviado — HTTP {$response->status()}")
+                ->title(__('Test sent — HTTP :status', ['status' => $response->status()]))
                 ->color($response->successful() ? 'success' : 'warning')
                 ->send();
         } catch (\Exception $e) {
             Notification::make()
-                ->title('Error sending test')
+                ->title(__('Error sending test'))
                 ->body($e->getMessage())
                 ->danger()
                 ->send();
         }
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Webhooks');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

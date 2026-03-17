@@ -15,19 +15,19 @@
         <div class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
             <div class="flex items-center justify-between mb-3">
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Team Members</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Team Members') }}</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
                         @if($maxUsers)
-                            {{ $currentUsers }} of {{ $maxUsers }} users
+                            {{ __(':current of :max users', ['current' => $currentUsers, 'max' => $maxUsers]) }}
                         @else
-                            {{ $currentUsers }} users (unlimited)
+                            {{ __(':count users (unlimited)', ['count' => $currentUsers]) }}
                         @endif
                     </p>
                 </div>
                 @if($atLimit)
                     <a href="{{ route('filament.admin.pages.billing') }}"
                        class="inline-flex items-center rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-500 transition">
-                        Upgrade Plan
+                        {{ __('Upgrade Plan') }}
                     </a>
                 @endif
             </div>

@@ -1,5 +1,5 @@
 <div>
-    <h2 class="text-xl font-bold text-gray-900 mb-6">Loyalty Program</h2>
+    <h2 class="text-xl font-bold text-gray-900 mb-6">{{ __('portal.loyalty_program') }}</h2>
 
     {{-- Section 1: Level Card --}}
     @php
@@ -29,74 +29,74 @@
     <div class="bg-gradient-to-r {{ $gradient }} rounded-2xl shadow-lg {{ $shadow }} p-6 text-white mb-6">
         <div class="flex items-center justify-between mb-4">
             <div>
-                <p class="text-sm font-medium text-white/80">Available Points</p>
+                <p class="text-sm font-medium text-white/80">{{ __('portal.available_points') }}</p>
                 <p class="text-4xl font-bold">{{ number_format($customer->loyalty_points) }}</p>
             </div>
             <div class="text-right">
                 <p class="text-lg font-bold">{{ $tier->label() }}</p>
-                <p class="text-sm text-white/80">x{{ $tier->multiplier() }} multiplier</p>
+                <p class="text-sm text-white/80">x{{ $tier->multiplier() }} {{ __('portal.multiplier') }}</p>
             </div>
         </div>
 
         @if($nextTier)
             <div>
                 <div class="flex justify-between text-sm text-white/80 mb-1">
-                    <span>Progress to {{ $nextTier->label() }}</span>
+                    <span>{{ __('portal.progress_to') }} {{ $nextTier->label() }}</span>
                     <span>{{ number_format($customer->loyalty_lifetime_points) }}/{{ number_format($nextTier->minPoints()) }} pts</span>
                 </div>
                 <div class="w-full bg-white/20 rounded-full h-2.5">
                     <div class="bg-white rounded-full h-2.5 transition-all" style="width: {{ $progress }}%"></div>
                 </div>
-                <p class="text-xs text-white/70 mt-1">{{ number_format($pointsToNext) }} more points to {{ $nextTier->label() }}</p>
+                <p class="text-xs text-white/70 mt-1">{{ number_format($pointsToNext) }} {{ __('portal.more_points_to') }} {{ $nextTier->label() }}</p>
             </div>
         @else
-            <p class="text-sm text-white/80">You've reached the highest tier!</p>
+            <p class="text-sm text-white/80">{{ __('portal.highest_tier') }}</p>
         @endif
     </div>
 
     {{-- Section 2: Current Tier Benefits --}}
     <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
-        <h3 class="text-sm font-semibold text-gray-900 mb-3">Your Tier Benefits</h3>
+        <h3 class="text-sm font-semibold text-gray-900 mb-3">{{ __('portal.your_tier_benefits') }}</h3>
         <ul class="space-y-2 text-sm text-gray-600">
             @switch($tier->value)
                 @case(0)
                     <li class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Base points on every purchase (x1)
+                        {{ __('portal.benefit_base_points') }}
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        Access to basic rewards
+                        {{ __('portal.benefit_basic_rewards') }}
                     </li>
                     @break
                 @case(1)
                     <li class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        x1.5 points multiplier
+                        {{ __('portal.benefit_silver_multiplier') }}
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        5% permanent discount
+                        {{ __('portal.benefit_silver_discount') }}
                     </li>
                     @break
                 @case(2)
                     <li class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        x2 points multiplier
+                        {{ __('portal.benefit_gold_multiplier') }}
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        1 free month per year + priority support
+                        {{ __('portal.benefit_gold_perks') }}
                     </li>
                     @break
                 @case(3)
                     <li class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        x3 points multiplier
+                        {{ __('portal.benefit_platinum_multiplier') }}
                     </li>
                     <li class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        20% discount + exclusive features + dedicated support
+                        {{ __('portal.benefit_platinum_perks') }}
                     </li>
                     @break
             @endswitch
@@ -104,7 +104,7 @@
 
         @if($nextTier)
             <div class="mt-3 pt-3 border-t border-gray-100">
-                <p class="text-xs text-gray-500">Next tier ({{ $nextTier->label() }}): x{{ $nextTier->multiplier() }} multiplier and more benefits</p>
+                <p class="text-xs text-gray-500">{{ __('portal.next_tier') }} ({{ $nextTier->label() }}): x{{ $nextTier->multiplier() }} {{ __('portal.multiplier_and_more') }}</p>
             </div>
         @endif
     </div>
@@ -112,7 +112,7 @@
     {{-- Section 3: Available Rewards --}}
     @if($availableRewards->isNotEmpty())
         <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-4">Available Rewards ({{ $availableRewards->count() }})</h3>
+            <h3 class="text-sm font-semibold text-gray-900 mb-4">{{ __('portal.available_rewards') }} ({{ $availableRewards->count() }})</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach($availableRewards as $reward)
                     <div class="border border-gray-200 rounded-xl p-4 text-center">
@@ -124,8 +124,8 @@
                         <form method="POST" action="{{ route('customer.loyalty.redeem', $reward) }}" class="mt-3">
                             @csrf
                             <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white text-xs font-medium py-1.5 px-4 rounded-lg transition-colors"
-                                    onclick="return confirm('Redeem {{ $reward->name }} for {{ $reward->points_cost }} points?')">
-                                Redeem
+                                    onclick="return confirm('{{ __('portal.confirm_redeem', ['name' => $reward->name, 'points' => $reward->points_cost]) }}')">
+                                {{ __('portal.redeem') }}
                             </button>
                         </form>
                     </div>
@@ -134,15 +134,15 @@
         </div>
     @else
         <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-2">Available Rewards</h3>
-            <p class="text-sm text-gray-500 text-center py-4">You need more points to redeem rewards. Keep using the platform to earn more!</p>
+            <h3 class="text-sm font-semibold text-gray-900 mb-2">{{ __('portal.available_rewards') }}</h3>
+            <p class="text-sm text-gray-500 text-center py-4">{{ __('portal.need_more_points') }}</p>
         </div>
     @endif
 
     {{-- Section 4: Locked Rewards --}}
     @if($lockedRewards->isNotEmpty())
         <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
-            <h3 class="text-sm font-semibold text-gray-900 mb-4">Locked Rewards</h3>
+            <h3 class="text-sm font-semibold text-gray-900 mb-4">{{ __('portal.locked_rewards') }}</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach($lockedRewards as $reward)
                     <div class="border border-gray-200 rounded-xl p-4 text-center opacity-60">
@@ -155,10 +155,10 @@
                             $pointsNeeded = max(0, $reward->points_cost - $customer->loyalty_points);
                         @endphp
                         @if($pointsNeeded > 0)
-                            <p class="text-xs text-gray-400 mt-1">{{ number_format($pointsNeeded) }} more pts needed</p>
+                            <p class="text-xs text-gray-400 mt-1">{{ number_format($pointsNeeded) }} {{ __('portal.more_pts_needed') }}</p>
                         @endif
                         @if($reward->min_tier > $customer->loyalty_tier->value)
-                            <p class="text-xs text-amber-500 mt-1">Requires {{ \App\Enums\LoyaltyTier::from($reward->min_tier)->label() }} tier</p>
+                            <p class="text-xs text-amber-500 mt-1">{{ __('portal.requires_tier', ['tier' => \App\Enums\LoyaltyTier::from($reward->min_tier)->label()]) }}</p>
                         @endif
                     </div>
                 @endforeach
@@ -168,19 +168,19 @@
 
     {{-- Section 5: Transaction History --}}
     <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
-        <h3 class="text-sm font-semibold text-gray-900 mb-4">Points History</h3>
+        <h3 class="text-sm font-semibold text-gray-900 mb-4">{{ __('portal.points_history') }}</h3>
 
         @if($transactions->isEmpty())
-            <p class="text-sm text-gray-500 text-center py-8">No transactions yet. Start using the platform to earn points!</p>
+            <p class="text-sm text-gray-500 text-center py-8">{{ __('portal.no_transactions') }}</p>
         @else
             <div class="overflow-x-auto -mx-6">
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-gray-100">
-                            <th class="text-left px-6 py-2 text-xs font-semibold text-gray-500 uppercase">Date</th>
-                            <th class="text-left px-6 py-2 text-xs font-semibold text-gray-500 uppercase">Description</th>
-                            <th class="text-right px-6 py-2 text-xs font-semibold text-gray-500 uppercase">Points</th>
-                            <th class="text-right px-6 py-2 text-xs font-semibold text-gray-500 uppercase">Balance</th>
+                            <th class="text-left px-6 py-2 text-xs font-semibold text-gray-500 uppercase">{{ __('Date') }}</th>
+                            <th class="text-left px-6 py-2 text-xs font-semibold text-gray-500 uppercase">{{ __('Description') }}</th>
+                            <th class="text-right px-6 py-2 text-xs font-semibold text-gray-500 uppercase">{{ __('portal.points') }}</th>
+                            <th class="text-right px-6 py-2 text-xs font-semibold text-gray-500 uppercase">{{ __('Balance') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-50">
@@ -202,10 +202,10 @@
 
     {{-- Section 6: My Coupons --}}
     <div class="bg-white rounded-2xl shadow-sm p-6">
-        <h3 class="text-sm font-semibold text-gray-900 mb-4">My Coupons</h3>
+        <h3 class="text-sm font-semibold text-gray-900 mb-4">{{ __('portal.my_coupons') }}</h3>
 
         @if($coupons->isEmpty())
-            <p class="text-sm text-gray-500 text-center py-8">No coupons yet. Redeem rewards to get coupons!</p>
+            <p class="text-sm text-gray-500 text-center py-8">{{ __('portal.no_coupons') }}</p>
         @else
             <div class="space-y-3">
                 @foreach($coupons as $coupon)
@@ -220,27 +220,27 @@
                                 @if($coupon->used_at)
                                     <span class="inline-flex items-center gap-1 text-xs font-medium text-gray-500">
                                         <span class="w-2 h-2 rounded-full bg-gray-400"></span>
-                                        Used
+                                        {{ __('portal.used') }}
                                     </span>
                                 @elseif($coupon->expires_at->isPast())
                                     <span class="inline-flex items-center gap-1 text-xs font-medium text-red-500">
                                         <span class="w-2 h-2 rounded-full bg-red-400"></span>
-                                        Expired
+                                        {{ __('portal.expired') }}
                                     </span>
                                 @else
                                     <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
                                         <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                                        Available
+                                        {{ __('portal.available') }}
                                     </span>
                                 @endif
                             </div>
                         </div>
                         <div class="mt-1 text-xs text-gray-500">
                             @if($coupon->used_at)
-                                Used on {{ $coupon->used_at->format('d M Y') }}
-                                @if($coupon->order_id) &mdash; Order #{{ $coupon->order_id }} @endif
+                                {{ __('portal.used_on') }} {{ $coupon->used_at->format('d M Y') }}
+                                @if($coupon->order_id) &mdash; {{ __('portal.order') }} #{{ $coupon->order_id }} @endif
                             @else
-                                Valid until {{ $coupon->expires_at->format('d M Y') }}
+                                {{ __('portal.valid_until') }} {{ $coupon->expires_at->format('d M Y') }}
                             @endif
                         </div>
                     </div>
@@ -251,18 +251,18 @@
 
     {{-- Section 6: Referral Program --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Invite Friends</h3>
-        <p class="text-sm text-gray-500 mb-4">Share your referral code and earn bonus points when your friends make their first purchase.</p>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ __('portal.invite_friends') }}</h3>
+        <p class="text-sm text-gray-500 mb-4">{{ __('portal.invite_friends_desc') }}</p>
 
         <div class="flex items-center gap-3 mb-4">
             <div class="flex-1 bg-gray-50 rounded-lg px-4 py-3 font-mono text-lg font-bold text-center text-indigo-600 tracking-wider border-2 border-dashed border-indigo-200">
                 {{ $customer->referral_code }}
             </div>
             <button
-                onclick="navigator.clipboard.writeText('{{ $customer->referral_code }}').then(() => { this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000); })"
+                onclick="navigator.clipboard.writeText('{{ $customer->referral_code }}').then(() => { this.textContent = '{{ __('portal.copied') }}'; setTimeout(() => this.textContent = '{{ __('portal.copy') }}', 2000); })"
                 class="px-4 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm font-medium"
             >
-                Copy
+                {{ __('portal.copy') }}
             </button>
         </div>
 
@@ -272,10 +272,10 @@
 
         @if($referralCount > 0)
             <div class="text-sm text-gray-600">
-                <span class="font-medium text-indigo-600">{{ $referralCount }}</span> friend{{ $referralCount === 1 ? '' : 's' }} referred
+                <span class="font-medium text-indigo-600">{{ $referralCount }}</span> {{ trans_choice('portal.friends_referred', $referralCount) }}
             </div>
         @else
-            <div class="text-sm text-gray-400">No referrals yet. Share your code to get started!</div>
+            <div class="text-sm text-gray-400">{{ __('portal.no_referrals') }}</div>
         @endif
     </div>
 </div>

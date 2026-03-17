@@ -14,7 +14,10 @@ class OrdersRelationManager extends RelationManager
 
     protected static ?string $title = 'Orders';
 
-    protected static ?string $modelLabel = 'Order';
+    public static function getModelLabel(): string
+    {
+        return __('Order');
+    }
 
     public function table(Table $table): Table
     {
@@ -25,26 +28,26 @@ class OrdersRelationManager extends RelationManager
                     ->label('#')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn (OrderStatus $state): string => $state->color())
                     ->formatStateUsing(fn (OrderStatus $state): string => $state->label()),
                 Tables\Columns\TextColumn::make('total')
-                    ->label('Total')
+                    ->label(__('Total'))
                     ->money()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('balance')
-                    ->label('Balance')
+                    ->label(__('Balance'))
                     ->money()
                     ->color(fn (Order $record): string => $record->balance > 0 ? 'danger' : 'success'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->dateTime('Y-m-d')
                     ->sortable(),
             ])
             ->actions([
                 Tables\Actions\Action::make('view')
-                    ->label('View')
+                    ->label(__('View'))
                     ->icon('heroicon-o-eye')
                     ->url(fn (Order $record): string => route('filament.admin.resources.orders.edit', $record)),
             ]);

@@ -15,12 +15,6 @@ class ActivityLog extends Page implements HasTable
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
-    protected static ?string $title = 'Activity Log';
-
-    protected static ?string $navigationLabel = 'Activity';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 10;
 
     protected static string $view = 'filament.pages.activity-log';
@@ -28,6 +22,11 @@ class ActivityLog extends Page implements HasTable
     public static function canAccess(): bool
     {
         return auth()->user()?->can('settings.manage') ?? false;
+    }
+
+    public function getTitle(): string
+    {
+        return __('Activity Log');
     }
 
     public function table(Table $table): Table
@@ -40,49 +39,61 @@ class ActivityLog extends Page implements HasTable
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Date')
+                    ->label(__('Date'))
                     ->dateTime('Y-m-d H:i')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('causer.name')
-                    ->label('User')
-                    ->default('System'),
+                    ->label(__('User'))
+                    ->default(__('System')),
                 Tables\Columns\TextColumn::make('event')
-                    ->label('Event')
+                    ->label(__('Event'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'created' => 'success',
                         'updated' => 'info',
                         'deleted' => 'danger',
                         default => 'gray',
-                    }),
+                    })
+                    ->formatStateUsing(fn (string $state): string => __(ucfirst($state))),
                 Tables\Columns\TextColumn::make('subject_type')
-                    ->label('Model')
-                    ->formatStateUsing(fn (string $state): string => class_basename($state)),
+                    ->label(__('Model'))
+                    ->formatStateUsing(fn (string $state): string => __(class_basename($state))),
                 Tables\Columns\TextColumn::make('subject_id')
                     ->label('ID'),
                 Tables\Columns\TextColumn::make('description')
-                    ->label('Description')
+                    ->label(__('Description'))
+                    ->formatStateUsing(fn (string $state): string => __(ucfirst($state)))
                     ->limit(50),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('event')
-                    ->label('Event')
+                    ->label(__('Event'))
                     ->options([
-                        'created' => 'Created',
-                        'updated' => 'Updated',
-                        'deleted' => 'Deleted',
+                        'created' => __('Created'),
+                        'updated' => __('Updated'),
+                        'deleted' => __('Deleted'),
                     ]),
                 Tables\Filters\SelectFilter::make('subject_type')
-                    ->label('Model')
+                    ->label(__('Model'))
                     ->options(
                         fn () => Activity::query()
                         ->where('tenant_id', session('tenant_id'))
                         ->distinct()
                         ->pluck('subject_type')
                         ->filter()
-                        ->mapWithKeys(fn (string $type) => [$type => class_basename($type)])
+                        ->mapWithKeys(fn (string $type) => [$type => __(class_basename($type))])
                         ->toArray()
                     ),
             ]);
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Activity');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

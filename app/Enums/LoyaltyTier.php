@@ -12,10 +12,10 @@ enum LoyaltyTier: int
     public function label(): string
     {
         return match ($this) {
-            self::Bronze => 'Bronze',
-            self::Silver => 'Silver',
-            self::Gold => 'Gold',
-            self::VIP => 'VIP',
+            self::Bronze => __('enums.loyalty_tier.bronze'),
+            self::Silver => __('enums.loyalty_tier.silver'),
+            self::Gold => __('enums.loyalty_tier.gold'),
+            self::VIP => __('enums.loyalty_tier.vip'),
         };
     }
 

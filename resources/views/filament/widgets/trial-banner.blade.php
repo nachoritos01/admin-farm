@@ -34,30 +34,30 @@
             <div class="flex-1">
                 @if($expired && $grace)
                     <p class="font-semibold {{ $textClasses }}">
-                        Your trial period has ended
+                        {{ __('Your trial period has ended') }}
                     </p>
                     <p class="text-sm {{ $textClasses }} opacity-75">
-                        You have a grace period to subscribe and keep your data.
+                        {{ __('You have a grace period to subscribe and keep your data.') }}
                     </p>
                 @elseif($expired)
                     <p class="font-semibold {{ $textClasses }}">
-                        Your trial period has expired
+                        {{ __('Your trial period has expired') }}
                     </p>
                     <p class="text-sm {{ $textClasses }} opacity-75">
-                        Subscribe to continue using the platform.
+                        {{ __('Subscribe to continue using the platform.') }}
                     </p>
                 @else
                     <p class="font-semibold {{ $textClasses }}">
-                        Trial period: {{ $days }} {{ $days === 1 ? 'day' : 'days' }} remaining
+                        {{ __('Trial period') }}: {{ $days }} {{ $days === 1 ? __('day') : __('days') }} {{ __('remaining') }}
                     </p>
                     <p class="text-sm {{ $textClasses }} opacity-75">
-                        Explore all features without limits during your free trial.
+                        {{ __('Explore all features without limits during your free trial.') }}
                     </p>
                 @endif
             </div>
             <a href="{{ route('filament.admin.pages.billing') }}"
                class="shrink-0 rounded-lg bg-white/80 dark:bg-gray-800/80 px-4 py-2 text-sm font-medium {{ $textClasses }} hover:bg-white dark:hover:bg-gray-800 transition border {{ match($color) { 'success' => 'border-green-300 dark:border-green-700', 'warning' => 'border-yellow-300 dark:border-yellow-700', 'danger' => 'border-red-300 dark:border-red-700', default => 'border-gray-300 dark:border-gray-700' } }}">
-                Subscribe
+                {{ __('Subscribe') }}
             </a>
         </div>
     </div>

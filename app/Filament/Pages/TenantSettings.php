@@ -13,17 +13,16 @@ class TenantSettings extends Page
 {
     use WithFileUploads;
 
-    protected static ?string $title = 'Business Settings';
-
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
-
-    protected static ?string $navigationLabel = 'My Business';
-
-    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?int $navigationSort = 97;
 
     protected static string $view = 'filament.pages.tenant-settings';
+
+    public function getTitle(): string
+    {
+        return __('Business Settings');
+    }
 
     public string $businessName = '';
 
@@ -34,6 +33,23 @@ class TenantSettings extends Page
     public string $email = '';
 
     public string $address = '';
+
+    public ?int $dailyEggGoal = null;
+
+    public ?float $monthlyIncomeGoal = null;
+
+    public ?float $trayPrice = null;
+
+    public ?float $kgPrice = null;
+
+    public ?float $standardShippingCost = null;
+
+    public string $responsibleName = '';
+
+    public string $municipality = '';
+
+    /** @var array<string, float|null> */
+    public array $eggSizePrices = [];
 
     /** @var TemporaryUploadedFile|string|null */
     public $logo = null;
@@ -60,6 +76,14 @@ class TenantSettings extends Page
         $this->email = $settings['email'] ?? '';
         $this->address = $settings['address'] ?? $settings['city'] ?? '';
         $this->existingLogoPath = $settings['logo_path'] ?? null;
+        $this->dailyEggGoal = $settings['daily_egg_goal'] ?? null;
+        $this->monthlyIncomeGoal = $settings['monthly_income_goal'] ?? null;
+        $this->trayPrice = $settings['tray_price'] ?? null;
+        $this->kgPrice = $settings['kg_price'] ?? null;
+        $this->standardShippingCost = $settings['standard_shipping_cost'] ?? null;
+        $this->responsibleName = $settings['responsible_name'] ?? '';
+        $this->municipality = $settings['municipality'] ?? '';
+        $this->eggSizePrices = $settings['egg_size_prices'] ?? [];
     }
 
     public function canUploadLogo(): bool
@@ -83,6 +107,14 @@ class TenantSettings extends Page
         $settings['contact_phone'] = $this->contactPhone;
         $settings['email'] = $this->email;
         $settings['address'] = $this->address;
+        $settings['daily_egg_goal'] = $this->dailyEggGoal;
+        $settings['monthly_income_goal'] = $this->monthlyIncomeGoal;
+        $settings['tray_price'] = $this->trayPrice;
+        $settings['kg_price'] = $this->kgPrice;
+        $settings['standard_shipping_cost'] = $this->standardShippingCost;
+        $settings['responsible_name'] = $this->responsibleName;
+        $settings['municipality'] = $this->municipality;
+        $settings['egg_size_prices'] = $this->eggSizePrices;
 
         // Handle logo upload (only for Growth+)
         if ($this->canUploadLogo() && $this->logo instanceof TemporaryUploadedFile) {
@@ -100,7 +132,7 @@ class TenantSettings extends Page
         $tenant->update(['settings' => $settings]);
 
         Notification::make()
-            ->title('Settings saved')
+            ->title(__('Settings saved'))
             ->success()
             ->send();
     }
@@ -124,7 +156,7 @@ class TenantSettings extends Page
         $this->existingLogoPath = null;
 
         Notification::make()
-            ->title('Logo removed')
+            ->title(__('Logo removed'))
             ->success()
             ->send();
     }
@@ -133,8 +165,18 @@ class TenantSettings extends Page
     {
         return [
             Action::make('save')
-                ->label('Save')
+                ->label(__('Save'))
                 ->action('save'),
         ];
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('My Business');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

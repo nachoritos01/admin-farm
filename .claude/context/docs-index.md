@@ -51,7 +51,7 @@ Complete documentation index for the project. Full navigable index at [docs/READ
 | [29-super-admin-tenant-plugins.done.md](../../docs/features/29-super-admin-tenant-plugins.done.md) | SuperAdmin plugin management |
 | [30-billing-history.done.md](../../docs/features/30-billing-history.done.md) | Billing event history |
 
-### Audit Findings — Pending
+### Audit Findings — Resolved (v1.1.1 + v1.2.0)
 
 | File | Priority | Area | Contents |
 |---|---|---|---|
@@ -80,7 +80,27 @@ Complete documentation index for the project. Full navigable index at [docs/READ
 
 | File | Contents |
 |---|---|
-| [docs/GENERIC_SAAS_CONVERSION_ROADMAP.md](../../docs/GENERIC_SAAS_CONVERSION_ROADMAP.md) | Full 22-phase conversion roadmap |
+| [docs/GENERIC_SAAS_CONVERSION_ROADMAP.md](../../docs/GENERIC_SAAS_CONVERSION_ROADMAP.md) | Full 22-phase generic conversion roadmap |
+| [docs/conversion-plan-guadalupana.md](../../docs/conversion-plan-guadalupana.md) | **Farm conversion plan** — Granja La Guadalupana (IN PROGRESS) |
+
+## Farm Feature Docs (#46–#59)
+
+| File | Priority | Status | Contents |
+|---|---|---|---|
+| `46-hen-batch-movement.md` | HIGH | Pending | HenBatch + HenMovement models + resource |
+| `47-production-record.md` | HIGH | Pending | ProductionRecord model + resource |
+| `48-extend-customer-farm.md` | HIGH | Pending | Customer customer_type + zone |
+| `49-supplier.md` | HIGH | Pending | Supplier model + resource |
+| `50-shipment.md` | HIGH | Pending | Shipment model + resource |
+| `51-expense.md` | HIGH | Pending | Expense model + resource |
+| `52-farm-dashboard.md` | HIGH | Pending | Farm KPI dashboard widgets |
+| `53-egg-inventory.md` | HIGH | Pending | InventoryService + page |
+| `54-price-history.md` | MEDIUM | Pending | PriceHistory model + relation manager |
+| `55-advanced-reports.md` | MEDIUM | Pending | Advanced reports page |
+| `56-hen-health-records.md` | MEDIUM | Pending | HenHealthRecord model |
+| `57-accounts-receivable.md` | MEDIUM | Pending | Outstanding balances page |
+| `58-farm-roles-seeders.md` | HIGH | Pending | Roles, permissions, seeders |
+| `59-egg-product-items.md` | MEDIUM | Pending | Extend Item for egg products |
 
 ## Operations
 

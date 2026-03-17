@@ -25,15 +25,14 @@ class TeamManagement extends Page implements HasTable
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
-    protected static ?string $title = 'Team';
-
-    protected static ?string $navigationLabel = 'Team';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 96;
 
     protected static string $view = 'filament.pages.team-management';
+
+    public function getTitle(): string
+    {
+        return __('Team');
+    }
 
     public static function canAccess(): bool
     {
@@ -54,19 +53,20 @@ class TeamManagement extends Page implements HasTable
             ->defaultSort('users.created_at', 'asc')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label(__('Name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->label('Email')
+                    ->label(__('Email'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('pivot_role')
-                    ->label('Role')
+                    ->label(__('Role'))
                     ->badge()
                     ->state(function (User $record) use ($tenant): string {
                         return $record->tenants()
                             ->where('tenant_id', $tenant?->id)
-                            ->first()?->pivot?->role ?? 'sin rol';
+                            ->first()?->pivot?->role ?? 'staff';
                     })
+                    ->formatStateUsing(fn (string $state): string => __(ucfirst($state)))
                     ->color(fn (string $state): string => match ($state) {
                         'owner' => 'danger',
                         'admin' => 'warning',
@@ -75,7 +75,7 @@ class TeamManagement extends Page implements HasTable
                         default => 'gray',
                     }),
                 Tables\Columns\TextColumn::make('joined_at')
-                    ->label('Since')
+                    ->label(__('Since'))
                     ->state(function (User $record) use ($tenant): ?string {
                         return $record->tenants()
                             ->where('tenant_id', $tenant?->id)
@@ -85,16 +85,16 @@ class TeamManagement extends Page implements HasTable
             ])
             ->headerActions([
                 Tables\Actions\Action::make('invite')
-                    ->label('Invite member')
+                    ->label(__('Invite member'))
                     ->icon('heroicon-o-plus')
                     ->disabled(fn (): bool => currentTenant()?->isAtLimit('users') ?? true)
                     ->form([
                         TextInput::make('email')
-                            ->label('Email address')
+                            ->label(__('Email address'))
                             ->email()
                             ->required(),
                         Select::make('role')
-                            ->label('Role')
+                            ->label(__('Role'))
                             ->options($this->getAssignableRoles())
                             ->required(),
                     ])
@@ -104,12 +104,12 @@ class TeamManagement extends Page implements HasTable
             ])
             ->actions([
                 Tables\Actions\Action::make('change_role')
-                    ->label('Change role')
+                    ->label(__('Change role'))
                     ->icon('heroicon-o-pencil')
                     ->hidden(fn (User $record): bool => $record->id === auth()->id())
                     ->form(fn (User $record): array => [
                         Select::make('role')
-                            ->label('New role')
+                            ->label(__('New role'))
                             ->options($this->getAssignableRoles())
                             ->default(
                                 $record->tenants()
@@ -122,24 +122,24 @@ class TeamManagement extends Page implements HasTable
                         $this->changeRole($record, $data['role']);
                     }),
                 Tables\Actions\Action::make('resend_invite')
-                    ->label('Resend invite')
+                    ->label(__('Resend invite'))
                     ->icon('heroicon-o-paper-airplane')
                     ->color('gray')
                     ->hidden(fn (User $record): bool => $record->id === auth()->id() || $record->last_login_at !== null)
                     ->requiresConfirmation()
-                    ->modalHeading('Resend invite')
-                    ->modalDescription(fn (User $record): string => "A new access link will be generated for {$record->name}.")
+                    ->modalHeading(__('Resend invite'))
+                    ->modalDescription(fn (User $record): string => __('A new access link will be generated for :name.', ['name' => $record->name]))
                     ->action(function (User $record): void {
                         $this->resendInvite($record);
                     }),
                 Tables\Actions\Action::make('remove')
-                    ->label('Remove')
+                    ->label(__('Remove'))
                     ->icon('heroicon-o-trash')
                     ->color('danger')
                     ->hidden(fn (User $record): bool => $record->id === auth()->id())
                     ->requiresConfirmation()
-                    ->modalHeading('Remove team member')
-                    ->modalDescription(fn (User $record): string => "{$record->name} will be removed from the team. Their account will not be deleted.")
+                    ->modalHeading(__('Remove team member'))
+                    ->modalDescription(fn (User $record): string => __(':name will be removed from the team. Their account will not be deleted.', ['name' => $record->name]))
                     ->action(function (User $record): void {
                         $this->removeMember($record);
                     }),
@@ -150,13 +150,13 @@ class TeamManagement extends Page implements HasTable
     private function getAssignableRoles(): array
     {
         $roles = [
-            'admin' => 'Admin',
-            'manager' => 'Manager',
-            'staff' => 'Staff',
+            'admin' => __('Admin'),
+            'manager' => __('Manager'),
+            'staff' => __('Staff'),
         ];
 
         if (auth()->user()?->hasRole('owner')) {
-            $roles = ['owner' => 'Owner'] + $roles;
+            $roles = ['owner' => __('Owner')] + $roles;
         }
 
         return $roles;
@@ -173,8 +173,8 @@ class TeamManagement extends Page implements HasTable
         // Server-side limit check
         if ($tenant->isAtLimit('users')) {
             Notification::make()
-                ->title('Limit reached')
-                ->body('You have reached the user limit for your plan. Upgrade your plan to add more members.')
+                ->title(__('Limit reached'))
+                ->body(__('You have reached the user limit for your plan. Upgrade your plan to add more members.'))
                 ->danger()
                 ->send();
 
@@ -186,8 +186,8 @@ class TeamManagement extends Page implements HasTable
 
         if ($existingUser && $tenant->users()->where('user_id', $existingUser->id)->exists()) {
             Notification::make()
-                ->title('Already a member')
-                ->body("{$email} is already part of this team.")
+                ->title(__('Already a member'))
+                ->body(__(':email is already part of this team.', ['email' => $email]))
                 ->warning()
                 ->send();
 
@@ -224,29 +224,29 @@ class TeamManagement extends Page implements HasTable
         ));
 
         $notification = Notification::make()
-            ->title('Member invited')
+            ->title(__('Member invited'))
             ->success();
 
         if ($resetUrl) {
             $notification
-                ->body("Account created for {$email}. Share this link so they can set their password:")
+                ->body(__('Account created for :email. Share this link so they can set their password:', ['email' => $email]))
                 ->persistent()
                 ->actions([
                     NotificationAction::make('copy_link')
-                        ->label('Copy link')
+                        ->label(__('Copy link'))
                         ->icon('heroicon-o-clipboard')
                         ->extraAttributes([
-                            'x-on:click.prevent' => "navigator.clipboard.writeText('" . Str::replace("'", "\\'", $resetUrl) . "'); \$el.innerText = 'Copied!'",
+                            'x-on:click.prevent' => "navigator.clipboard.writeText('" . Str::replace("'", "\\'", $resetUrl) . "'); \$el.innerText = '" . __('Copied!') . "'",
                         ]),
                     NotificationAction::make('open_link')
-                        ->label('Open')
+                        ->label(__('Open'))
                         ->icon('heroicon-o-arrow-top-right-on-square')
                         ->url($resetUrl)
                         ->openUrlInNewTab()
                         ->color('gray'),
                 ]);
         } else {
-            $notification->body("{$email} has been added to the team as {$role}.");
+            $notification->body(__(':email has been added to the team as :role.', ['email' => $email, 'role' => $role]));
         }
 
         $notification->send();
@@ -279,19 +279,19 @@ class TeamManagement extends Page implements HasTable
         ));
 
         Notification::make()
-            ->title('Invite resent')
-            ->body("New link generated for {$record->email}. Share this link:")
+            ->title(__('Invite resent'))
+            ->body(__('New link generated for :email. Share this link:', ['email' => $record->email]))
             ->success()
             ->persistent()
             ->actions([
                 NotificationAction::make('copy_link')
-                    ->label('Copiar link')
+                    ->label(__('Copy link'))
                     ->icon('heroicon-o-clipboard')
                     ->extraAttributes([
-                        'x-on:click.prevent' => "navigator.clipboard.writeText('" . Str::replace("'", "\\'", $resetUrl) . "'); \$el.innerText = 'Copied!'",
+                        'x-on:click.prevent' => "navigator.clipboard.writeText('" . Str::replace("'", "\\'", $resetUrl) . "'); \$el.innerText = '" . __('Copied!') . "'",
                     ]),
                 NotificationAction::make('open_link')
-                    ->label('Open')
+                    ->label(__('Open'))
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->url($resetUrl)
                     ->openUrlInNewTab()
@@ -311,8 +311,8 @@ class TeamManagement extends Page implements HasTable
         // Only owner can assign owner role
         if ($newRole === 'owner' && ! auth()->user()?->hasRole('owner')) {
             Notification::make()
-                ->title('No permission')
-                ->body('Only the owner can assign the owner role.')
+                ->title(__('No permission'))
+                ->body(__('Only the owner can assign the owner role.'))
                 ->danger()
                 ->send();
 
@@ -326,8 +326,8 @@ class TeamManagement extends Page implements HasTable
 
         if ($currentRole === 'owner' && ! auth()->user()?->hasRole('owner')) {
             Notification::make()
-                ->title('No permission')
-                ->body('You cannot change the owner\'s role.')
+                ->title(__('No permission'))
+                ->body(__("You cannot change the owner's role."))
                 ->danger()
                 ->send();
 
@@ -337,8 +337,8 @@ class TeamManagement extends Page implements HasTable
         $tenant->users()->updateExistingPivot($record->id, ['role' => $newRole]);
 
         Notification::make()
-            ->title('Role updated')
-            ->body("{$record->name}'s role has been updated to {$newRole}.")
+            ->title(__('Role updated'))
+            ->body(__(":name's role has been updated to :role.", ['name' => $record->name, 'role' => $newRole]))
             ->success()
             ->send();
     }
@@ -354,8 +354,8 @@ class TeamManagement extends Page implements HasTable
         // Cannot remove self
         if ($record->id === auth()->id()) {
             Notification::make()
-                ->title('Action not allowed')
-                ->body('You cannot remove yourself from the team.')
+                ->title(__('Action not allowed'))
+                ->body(__('You cannot remove yourself from the team.'))
                 ->danger()
                 ->send();
 
@@ -365,8 +365,8 @@ class TeamManagement extends Page implements HasTable
         // Cannot leave 0 members
         if ($tenant->users()->count() <= 1) {
             Notification::make()
-                ->title('Action not allowed')
-                ->body('The team must have at least one member.')
+                ->title(__('Action not allowed'))
+                ->body(__('The team must have at least one member.'))
                 ->danger()
                 ->send();
 
@@ -377,9 +377,19 @@ class TeamManagement extends Page implements HasTable
         $tenant->clearUsageCache();
 
         Notification::make()
-            ->title('Member removed')
-            ->body("{$record->name} has been removed from the team.")
+            ->title(__('Member removed'))
+            ->body(__(':name has been removed from the team.', ['name' => $record->name]))
             ->success()
             ->send();
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Team');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

@@ -11,9 +11,9 @@ enum PlanType: string
     public function label(): string
     {
         return match ($this) {
-            self::Starter => 'Starter',
-            self::Growth => 'Growth',
-            self::Pro => 'Pro',
+            self::Starter => __('enums.plan_type.starter'),
+            self::Growth => __('enums.plan_type.growth'),
+            self::Pro => __('enums.plan_type.pro'),
         };
     }
 

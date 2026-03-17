@@ -11,17 +11,16 @@ use Laravel\Cashier\Exceptions\IncompletePayment;
 
 class Marketplace extends Page
 {
-    protected static ?string $title = 'Plugin Marketplace';
-
     protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
-
-    protected static ?string $navigationLabel = 'Plugins';
-
-    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?int $navigationSort = 98;
 
     protected static string $view = 'filament.pages.marketplace';
+
+    public function getTitle(): string
+    {
+        return __('Plugin Marketplace');
+    }
 
     public bool $showConfirmModal = false;
 
@@ -92,8 +91,8 @@ class Marketplace extends Page
         if ($isPaid) {
             if (! $isActive && ! $this->tenantHasSubscription()) {
                 Notification::make()
-                    ->title('Subscription required')
-                    ->body('You need an active subscription to add paid plugins.')
+                    ->title(__('Subscription required'))
+                    ->body(__('You need an active subscription to add paid plugins.'))
                     ->warning()
                     ->send();
 
@@ -159,32 +158,42 @@ class Marketplace extends Page
                 $billing->deactivatePlugin($tenant, $plugin);
 
                 Notification::make()
-                    ->title("{$plugin->name} deactivated")
+                    ->title(__(':plugin deactivated', ['plugin' => $plugin->name]))
                     ->success()
                     ->send();
             } else {
                 $billing->activatePlugin($tenant, $plugin);
 
                 Notification::make()
-                    ->title("{$plugin->name} activated")
+                    ->title(__(':plugin activated', ['plugin' => $plugin->name]))
                     ->success()
                     ->send();
             }
         } catch (IncompletePayment $e) {
             Notification::make()
-                ->title('Payment requires action')
-                ->body('Please complete the payment to activate this plugin.')
+                ->title(__('Payment requires action'))
+                ->body(__('Please complete the payment to activate this plugin.'))
                 ->warning()
                 ->send();
         } catch (\RuntimeException $e) {
             Notification::make()
-                ->title('Subscription required')
-                ->body('You need an active subscription to add paid plugins.')
+                ->title(__('Subscription required'))
+                ->body(__('You need an active subscription to add paid plugins.'))
                 ->danger()
                 ->send();
         }
 
         // Clear memoized hasModule cache
         hasModule(null);
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Plugins');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

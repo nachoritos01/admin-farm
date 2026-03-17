@@ -3,12 +3,12 @@
         $categories = $this->getPluginsByCategory();
         $hasSubscription = $this->tenantHasSubscription();
         $categoryLabels = [
-            'billing' => 'Billing',
-            'engagement' => 'Engagement',
-            'operations' => 'Operations',
-            'developer' => 'Developer',
-            'reporting' => 'Reporting',
-            'general' => 'General',
+            'billing' => __('Billing'),
+            'engagement' => __('Engagement'),
+            'operations' => __('Operations'),
+            'developer' => __('Developer'),
+            'reporting' => __('Reporting'),
+            'general' => __('General'),
         ];
     @endphp
 
@@ -32,11 +32,11 @@
                                     <h3 class="font-semibold text-gray-900 dark:text-white">{{ $plugin->name }}</h3>
                                     @if ($plugin->is_included)
                                         <span class="inline-flex items-center rounded-full bg-green-50 dark:bg-green-900/20 px-2 py-0.5 text-xs font-medium text-green-700 dark:text-green-400">
-                                            Included
+                                            {{ __('Included') }}
                                         </span>
                                     @elseif ($plugin->is_free)
                                         <span class="inline-flex items-center rounded-full bg-blue-50 dark:bg-blue-900/20 px-2 py-0.5 text-xs font-medium text-blue-700 dark:text-blue-400">
-                                            Free
+                                            {{ __('Free') }}
                                         </span>
                                     @else
                                         <span class="inline-flex items-center rounded-full bg-amber-50 dark:bg-amber-900/20 px-2 py-0.5 text-xs font-medium text-amber-700 dark:text-amber-400">
@@ -56,7 +56,7 @@
                                 <a href="{{ route('filament.admin.pages.billing') }}"
                                    class="inline-flex items-center gap-1 rounded-full bg-gray-100 dark:bg-gray-700 px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
                                     <x-heroicon-m-lock-closed class="w-3 h-3" />
-                                    Subscribe first
+                                    {{ __('Subscribe first') }}
                                 </a>
                             @else
                                 <span
@@ -95,7 +95,7 @@
         </x-filament::section>
     @empty
         <div class="text-center py-12 text-gray-500 dark:text-gray-400">
-            No plugins available.
+            {{ __('No plugins available.') }}
         </div>
     @endforelse
 
@@ -106,20 +106,20 @@
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" wire:click.self="closeConfirmModal">
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        {{ $this->pendingAction === 'activate' ? 'Activate' : 'Deactivate' }} {{ $pendingPlugin->name }}?
+                        {{ $this->pendingAction === 'activate' ? __('Activate') : __('Deactivate') }} {{ $pendingPlugin->name }}?
                     </h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
                         @if ($this->pendingAction === 'activate')
-                            This will add <strong>{{ $pendingPlugin->formattedPrice() }}</strong> to your subscription. You will be charged immediately (prorated).
+                            {{ __('This will add :price to your subscription. You will be charged immediately (prorated).', ['price' => '<strong>' . $pendingPlugin->formattedPrice() . '</strong>']) }}
                         @else
-                            This will remove <strong>{{ $pendingPlugin->formattedPrice() }}</strong> from your subscription. The change takes effect immediately.
+                            {{ __('This will remove :price from your subscription. The change takes effect immediately.', ['price' => '<strong>' . $pendingPlugin->formattedPrice() . '</strong>']) }}
                         @endif
                     </p>
 
                     <div class="flex justify-end gap-3">
                         <button type="button" wire:click="closeConfirmModal"
                                 class="rounded-lg px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-                            Cancel
+                            {{ __('Cancel') }}
                         </button>
                         <button type="button" wire:click="confirmToggle"
                                 wire:loading.attr="disabled"
@@ -131,7 +131,7 @@
                             <span wire:loading wire:target="confirmToggle">
                                 <x-filament::loading-indicator class="h-4 w-4 inline" />
                             </span>
-                            {{ $this->pendingAction === 'activate' ? 'Activate & Pay' : 'Deactivate' }}
+                            {{ $this->pendingAction === 'activate' ? __('Activate & Pay') : __('Deactivate') }}
                         </button>
                     </div>
                 </div>

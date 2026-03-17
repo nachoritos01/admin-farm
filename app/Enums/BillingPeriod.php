@@ -10,8 +10,8 @@ enum BillingPeriod: string
     public function label(): string
     {
         return match ($this) {
-            self::Monthly => 'Mensual',
-            self::Yearly => 'Anual',
+            self::Monthly => __('enums.billing_period.monthly'),
+            self::Yearly => __('enums.billing_period.yearly'),
         };
     }
 

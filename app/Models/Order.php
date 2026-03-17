@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DeliveryType;
 use App\Enums\OrderPriority;
 use App\Enums\OrderStatus;
 use App\Models\Concerns\BelongsToTenant;
@@ -47,6 +48,7 @@ class Order extends Model
         'tenant_id',
         'customer_id',
         'location_id',
+        'shipment_id',
         'customer_name',
         'customer_phone',
         'customer_email',
@@ -62,6 +64,11 @@ class Order extends Model
         'attachments',
         'metadata',
         'estimated_at',
+        'delivery_date',
+        'delivery_type',
+        'delivery_time',
+        'delivery_notes',
+        'shipping_cost',
         'confirmed_at',
         'completed_at',
         'cancelled_at',
@@ -77,6 +84,9 @@ class Order extends Model
         'attachments' => 'array',
         'metadata' => 'array',
         'estimated_at' => 'datetime',
+        'delivery_date' => 'date',
+        'delivery_type' => DeliveryType::class,
+        'shipping_cost' => 'decimal:2',
         'confirmed_at' => 'datetime',
         'completed_at' => 'datetime',
         'cancelled_at' => 'datetime',
@@ -94,6 +104,11 @@ class Order extends Model
     public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function shipment(): BelongsTo
+    {
+        return $this->belongsTo(Shipment::class);
     }
 
     public function lines(): HasMany
@@ -180,7 +195,7 @@ class Order extends Model
     {
         $subtotal = $this->lines()->sum('subtotal');
         $this->subtotal = $subtotal;
-        $this->total = max(0, $subtotal + (float) ($this->tax ?? 0) - (float) ($this->discount_amount ?? 0));
+        $this->total = max(0, $subtotal + (float) ($this->tax ?? 0) - (float) ($this->discount_amount ?? 0) + (float) ($this->shipping_cost ?? 0));
         $this->save();
 
         return $this;

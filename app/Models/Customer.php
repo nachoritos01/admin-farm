@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CustomerType;
 use App\Enums\LoyaltyTier;
 use App\Models\Concerns\BelongsToTenant;
 use App\Models\Concerns\LogsActivityWithTenant;
@@ -20,6 +21,8 @@ use Illuminate\Support\Str;
  * @property-read string $loyalty_tier_name
  * @property-read float $loyalty_multiplier
  * @property-read string $initials
+ * @property CustomerType $customer_type
+ * @property string|null $zone
  */
 class Customer extends Authenticatable
 {
@@ -58,6 +61,9 @@ class Customer extends Authenticatable
         'referred_by',
         'birthday',
         'is_active',
+        'customer_type',
+        'zone',
+        'preferred_price',
         'loyalty_points',
         'loyalty_lifetime_points',
         'first_purchase_bonus',
@@ -74,6 +80,8 @@ class Customer extends Authenticatable
         'metadata' => 'array',
         'birthday' => 'date',
         'is_active' => 'boolean',
+        'customer_type' => CustomerType::class,
+        'preferred_price' => 'decimal:2',
         'loyalty_points' => 'integer',
         'loyalty_lifetime_points' => 'integer',
         'first_purchase_bonus' => 'boolean',
@@ -132,6 +140,16 @@ class Customer extends Authenticatable
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
+    }
+
+    public function scopeByType(Builder $query, CustomerType $type): Builder
+    {
+        return $query->where('customer_type', $type);
+    }
+
+    public function scopeByZone(Builder $query, string $zone): Builder
+    {
+        return $query->where('zone', $zone);
     }
 
     // Accessors

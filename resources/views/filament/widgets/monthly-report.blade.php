@@ -1,17 +1,17 @@
 <x-filament-widgets::widget>
     <x-filament::section>
         <x-slot name="heading">
-            Monthly Report — {{ $monthName }}
+            {{ __('Monthly Report') }} — {{ $monthName }}
         </x-slot>
 
         {{-- Summary stats --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
-                <p class="text-sm text-blue-600 dark:text-blue-400 font-medium">Orders this month</p>
+                <p class="text-sm text-blue-600 dark:text-blue-400 font-medium">{{ __('Orders this month') }}</p>
                 <p class="text-2xl font-bold text-blue-900 dark:text-blue-100">{{ $totalOrders }}</p>
             </div>
             <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-4">
-                <p class="text-sm text-green-600 dark:text-green-400 font-medium">Revenue this month</p>
+                <p class="text-sm text-green-600 dark:text-green-400 font-medium">{{ __('Revenue this month') }}</p>
                 <p class="text-2xl font-bold text-green-900 dark:text-green-100">${{ number_format($totalRevenue, 2) }}</p>
             </div>
         </div>
@@ -20,14 +20,14 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {{-- Top Items --}}
             <div>
-                <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Top 5 Items</h3>
+                <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">{{ __('Top 5 Items') }}</h3>
                 @if ($topProducts->isNotEmpty())
                     <table class="w-full text-sm">
                         <thead>
                             <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th class="text-left py-2 text-gray-500 dark:text-gray-400 font-medium">Item</th>
-                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">Qty</th>
-                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">Revenue</th>
+                                <th class="text-left py-2 text-gray-500 dark:text-gray-400 font-medium">{{ __('Item') }}</th>
+                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">{{ __('Quantity') }}</th>
+                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">{{ __('Revenue') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,22 +41,22 @@
                         </tbody>
                     </table>
                 @else
-                    <p class="text-sm text-gray-500 dark:text-gray-400">No data this month</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('No data this month') }}</p>
                 @endif
             </div>
 
             {{-- Top Customers --}}
             <div>
-                <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Top 5 Customers</h3>
+                <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">{{ __('Top 5 Customers') }}</h3>
                 @if ($topCustomers->isNotEmpty())
                     <table class="w-full text-sm">
                         <thead>
                             <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th class="text-left py-2 text-gray-500 dark:text-gray-400 font-medium">Customer</th>
-                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">Orders</th>
-                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">Month Total</th>
-                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">All Time</th>
-                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">Last</th>
+                                <th class="text-left py-2 text-gray-500 dark:text-gray-400 font-medium">{{ __('Customer') }}</th>
+                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">{{ __('Orders') }}</th>
+                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">{{ __('Month Total') }}</th>
+                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">{{ __('All Time') }}</th>
+                                <th class="text-right py-2 text-gray-500 dark:text-gray-400 font-medium">{{ __('Last') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,7 +72,7 @@
                         </tbody>
                     </table>
                 @else
-                    <p class="text-sm text-gray-500 dark:text-gray-400">No data this month</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('No data this month') }}</p>
                 @endif
             </div>
         </div>

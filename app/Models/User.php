@@ -52,6 +52,7 @@ class User extends Authenticatable implements FilamentUser
         'is_super_admin',
         'last_login_at',
         'push_token',
+        'locale',
     ];
 
     /**

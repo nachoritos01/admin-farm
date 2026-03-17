@@ -14,12 +14,12 @@ enum OrderStatus: string
     public function label(): string
     {
         return match ($this) {
-            self::Draft => 'Draft',
-            self::Pending => 'Pending',
-            self::Confirmed => 'Confirmed',
-            self::InProgress => 'In Progress',
-            self::Completed => 'Completed',
-            self::Cancelled => 'Cancelled',
+            self::Draft => __('enums.order_status.draft'),
+            self::Pending => __('enums.order_status.pending'),
+            self::Confirmed => __('enums.order_status.confirmed'),
+            self::InProgress => __('enums.order_status.in_progress'),
+            self::Completed => __('enums.order_status.completed'),
+            self::Cancelled => __('enums.order_status.cancelled'),
         };
     }
 

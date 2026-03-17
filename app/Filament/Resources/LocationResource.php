@@ -16,15 +16,27 @@ class LocationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
 
-    protected static ?string $navigationLabel = 'Locations';
-
-    protected static ?string $modelLabel = 'Location';
-
-    protected static ?string $pluralModelLabel = 'Locations';
-
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $navigationGroup = 'Settings';
+    public static function getNavigationLabel(): string
+    {
+        return __('Locations');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Location');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Locations');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
+    }
 
     public static function canAccess(): bool
     {
@@ -40,79 +52,79 @@ class LocationResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Information')
+                Forms\Components\Section::make(__('Information'))
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label('Name')
+                            ->label(__('Name'))
                             ->required()
                             ->maxLength(255),
                         Forms\Components\Select::make('type')
-                            ->label('Type')
+                            ->label(__('Type'))
                             ->options([
-                                'store' => 'Store',
-                                'warehouse' => 'Warehouse',
-                                'office' => 'Office',
-                                'other' => 'Other',
+                                'store' => __('Store'),
+                                'warehouse' => __('Warehouse'),
+                                'office' => __('Office'),
+                                'other' => __('Other'),
                             ])
                             ->default('store'),
                         Forms\Components\Textarea::make('address')
-                            ->label('Address')
+                            ->label(__('Address'))
                             ->rows(2)
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('city')
-                            ->label('City')
+                            ->label(__('City'))
                             ->maxLength(255),
                         Forms\Components\TextInput::make('state')
-                            ->label('State / Province')
+                            ->label(__('State / Province'))
                             ->maxLength(255),
                         Forms\Components\TextInput::make('zip')
-                            ->label('Postal Code')
+                            ->label(__('Postal Code'))
                             ->maxLength(20),
                         Forms\Components\TextInput::make('country')
-                            ->label('Country')
+                            ->label(__('Country'))
                             ->maxLength(100),
                         Forms\Components\TextInput::make('phone')
-                            ->label('Phone')
+                            ->label(__('Phone'))
                             ->tel()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('email')
-                            ->label('Email')
+                            ->label(__('Email'))
                             ->email()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('schedule')
-                            ->label('Schedule')
+                            ->label(__('Schedule'))
                             ->maxLength(255),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Coordinates')
+                Forms\Components\Section::make(__('Coordinates'))
                     ->schema([
                         Forms\Components\TextInput::make('lat')
-                            ->label('Latitude')
+                            ->label(__('Latitude'))
                             ->numeric()
                             ->step(0.0000001),
                         Forms\Components\TextInput::make('lng')
-                            ->label('Longitude')
+                            ->label(__('Longitude'))
                             ->numeric()
                             ->step(0.0000001),
                         Forms\Components\TextInput::make('maps_url')
-                            ->label('Google Maps URL')
+                            ->label(__('Google Maps URL'))
                             ->url()
                             ->maxLength(500)
                             ->columnSpanFull(),
                     ])->columns(2)->collapsible(),
 
-                Forms\Components\Section::make('Metadata')
+                Forms\Components\Section::make(__('Metadata'))
                     ->schema([
                         Forms\Components\KeyValue::make('metadata')
-                            ->label('Metadata')
+                            ->label(__('Metadata'))
                             ->columnSpanFull(),
                     ])->collapsible()
                     ->collapsed(),
 
-                Forms\Components\Section::make('Status')
+                Forms\Components\Section::make(__('Status'))
                     ->schema([
                         Forms\Components\Toggle::make('is_active')
-                            ->label('Active')
+                            ->label(__('Active'))
                             ->default(true),
                     ]),
             ]);
@@ -123,32 +135,32 @@ class LocationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('type')
-                    ->label('Type')
+                    ->label(__('Type'))
                     ->badge()
                     ->color('gray')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('city')
-                    ->label('City')
+                    ->label(__('City'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('country')
-                    ->label('Country')
+                    ->label(__('Country'))
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->label('Phone')
+                    ->label(__('Phone'))
                     ->copyable(),
                 Tables\Columns\IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('Active'))
                     ->boolean(),
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Active'),
+                    ->label(__('Active')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

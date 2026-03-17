@@ -13,11 +13,11 @@ enum BillingEventType: string
     public function label(): string
     {
         return match ($this) {
-            self::SubscriptionStarted => 'Subscription Started',
-            self::PlanChanged => 'Plan Changed',
-            self::PluginActivated => 'Plugin Activated',
-            self::PluginDeactivated => 'Plugin Deactivated',
-            self::SubscriptionCancelled => 'Subscription Cancelled',
+            self::SubscriptionStarted => __('enums.billing_event_type.subscription_started'),
+            self::PlanChanged => __('enums.billing_event_type.plan_changed'),
+            self::PluginActivated => __('enums.billing_event_type.plugin_activated'),
+            self::PluginDeactivated => __('enums.billing_event_type.plugin_deactivated'),
+            self::SubscriptionCancelled => __('enums.billing_event_type.subscription_cancelled'),
         };
     }
 

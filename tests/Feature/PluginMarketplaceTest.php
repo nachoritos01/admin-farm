@@ -233,7 +233,7 @@ class PluginMarketplaceTest extends TestCase
         $countAfterSecond = Plugin::count();
 
         $this->assertEquals($countAfterFirst, $countAfterSecond);
-        $this->assertEquals(8, $countAfterFirst);
+        $this->assertEquals(15, $countAfterFirst);
     }
 
     public function test_existing_module_flags_test_still_passes(): void

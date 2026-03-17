@@ -27,7 +27,7 @@ class MonthlyComparison extends ChartWidget
         $current = now()->translatedFormat('F');
         $previous = now()->subMonth()->translatedFormat('F');
 
-        return "Comparison: {$current} vs {$previous}";
+        return __('farm.monthly_comparison') . ": {$current} vs {$previous}";
     }
 
     protected function getData(): array

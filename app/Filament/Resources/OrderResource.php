@@ -27,32 +27,41 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
-    protected static ?string $navigationLabel = 'Orders';
-
-    protected static ?string $modelLabel = 'Order';
-
-    protected static ?string $pluralModelLabel = 'Orders';
-
     protected static ?int $navigationSort = 1;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Orders');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Order');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('Orders');
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Wizard::make([
-                    Wizard\Step::make('Customer')
+                    Wizard\Step::make(__('Customer'))
                         ->icon('heroicon-o-user')
-                        ->description('Customer information')
+                        ->description(__('Customer information'))
                         ->schema(static::getCustomerFormSchema()),
 
-                    Wizard\Step::make('Items')
+                    Wizard\Step::make(__('Items'))
                         ->icon('heroicon-o-cube')
-                        ->description('Order items')
+                        ->description(__('Order items'))
                         ->schema(static::getItemsFormSchema()),
 
-                    Wizard\Step::make('Details')
+                    Wizard\Step::make(__('Details'))
                         ->icon('heroicon-o-document-text')
-                        ->description('Order details')
+                        ->description(__('Order details'))
                         ->schema(static::getDetailsFormSchema()),
                 ])
                     ->columnSpanFull()
@@ -64,14 +73,14 @@ class OrderResource extends Resource
     public static function getCustomerFormSchema(): array
     {
         return [
-            Forms\Components\Section::make('Customer')
+            Forms\Components\Section::make(__('Customer'))
                 ->schema([
                     Forms\Components\TextInput::make('customer_name')
-                        ->label('Name')
+                        ->label(__('Name'))
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('customer_phone')
-                        ->label('Phone')
+                        ->label(__('Phone'))
                         ->tel()
                         ->required()
                         ->maxLength(255)
@@ -85,7 +94,7 @@ class OrderResource extends Resource
                             }
                         }),
                     Forms\Components\TextInput::make('customer_email')
-                        ->label('Email')
+                        ->label(__('Email'))
                         ->email()
                         ->maxLength(255),
                     Forms\Components\Hidden::make('customer_id'),
@@ -99,10 +108,10 @@ class OrderResource extends Resource
         return [
             Forms\Components\Repeater::make('lines')
                 ->relationship()
-                ->label('Order Lines')
+                ->label(__('Order Lines'))
                 ->schema([
                     Forms\Components\Select::make('item_id')
-                        ->label('Item')
+                        ->label(__('Item'))
                         ->options(fn () => Item::active()->pluck('name', 'id'))
                         ->searchable()
                         ->preload()
@@ -117,14 +126,34 @@ class OrderResource extends Resource
                             }
                         }),
                     Forms\Components\TextInput::make('description')
-                        ->label('Description')
+                        ->label(__('Description'))
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('variant')
-                        ->label('Variant')
+                        ->label(__('Variant'))
                         ->maxLength(255),
+                    Forms\Components\Select::make('egg_size')
+                        ->label(__('Egg Size'))
+                        ->options(\App\Enums\EggSize::options())
+                        ->live()
+                        ->afterStateUpdated(function ($state, Get $get, Set $set) {
+                            if ($state) {
+                                $size = \App\Enums\EggSize::tryFrom($state);
+                                $unit = $get('unit_type') ? \App\Enums\UnitType::tryFrom($get('unit_type')) : null;
+                                $price = app(\App\Services\PricingService::class)
+                                    ->resolveLinePrice($size, $unit, null, currentTenant()?->id);
+                                if ($price > 0) {
+                                    $set('unit_price', number_format($price, 2, '.', ''));
+                                    $qty = (int) ($get('quantity') ?? 0);
+                                    $set('subtotal', number_format($qty * $price, 2, '.', ''));
+                                }
+                            }
+                        }),
+                    Forms\Components\Select::make('unit_type')
+                        ->label(__('Unit'))
+                        ->options(\App\Enums\UnitType::options()),
                     Forms\Components\TextInput::make('quantity')
-                        ->label('Qty')
+                        ->label(__('Qty'))
                         ->numeric()
                         ->required()
                         ->default(1)
@@ -136,7 +165,7 @@ class OrderResource extends Resource
                             $set('subtotal', number_format($qty * $price, 2, '.', ''));
                         }),
                     Forms\Components\TextInput::make('unit_price')
-                        ->label('Unit Price')
+                        ->label(__('Unit Price'))
                         ->numeric()
                         ->step(0.01)
                         ->prefix('$')
@@ -148,15 +177,15 @@ class OrderResource extends Resource
                             $set('subtotal', number_format($qty * $price, 2, '.', ''));
                         }),
                     Forms\Components\TextInput::make('subtotal')
-                        ->label('Subtotal')
+                        ->label(__('Subtotal'))
                         ->numeric()
                         ->prefix('$')
                         ->disabled()
                         ->dehydrated(),
                 ])
-                ->columns(6)
+                ->columns(8)
                 ->defaultItems(1)
-                ->addActionLabel('Add line')
+                ->addActionLabel(__('Add Line'))
                 ->reorderable(false)
                 ->collapsible()
                 ->itemLabel(fn (array $state): string => ($state['description'] ?? 'Item') . ' x' . ($state['quantity'] ?? 1)),
@@ -167,36 +196,62 @@ class OrderResource extends Resource
     public static function getDetailsFormSchema(): array
     {
         return [
-            Forms\Components\Section::make('Order Details')
+            Forms\Components\Section::make(__('Order Details'))
                 ->schema([
                     Forms\Components\Select::make('location_id')
-                        ->label('Location')
+                        ->label(__('Location'))
                         ->options(fn () => Location::active()->pluck('name', 'id'))
                         ->searchable()
                         ->preload()
                         ->visible(fn () => hasModule('locations')),
                     Forms\Components\Select::make('priority')
-                        ->label('Priority')
+                        ->label(__('Priority'))
                         ->options(OrderPriority::options())
                         ->default(OrderPriority::Normal->value),
                     Forms\Components\DatePicker::make('estimated_at')
-                        ->label('Estimated Completion'),
+                        ->label(__('Estimated Completion')),
                     Forms\Components\TextInput::make('initial_payment')
-                        ->label('Initial Payment')
+                        ->label(__('Initial Payment'))
                         ->numeric()
                         ->step(0.01)
                         ->prefix('$')
                         ->default(0),
                 ])->columns(2),
 
-            Forms\Components\Section::make('Notes & Attachments')
+            Forms\Components\Section::make(__('Delivery'))
+                ->schema([
+                    Forms\Components\Select::make('delivery_type')
+                        ->label(__('Delivery Type'))
+                        ->options(\App\Enums\DeliveryType::options())
+                        ->live(),
+                    Forms\Components\DatePicker::make('delivery_date')
+                        ->label(__('Delivery Date')),
+                    Forms\Components\TextInput::make('delivery_time')
+                        ->label(__('Delivery Time'))
+                        ->placeholder('e.g., 8:00-10:00 AM')
+                        ->visible(fn (Get $get): bool => $get('delivery_type') === 'delivery'),
+                    Forms\Components\Textarea::make('delivery_notes')
+                        ->label(__('Delivery Notes'))
+                        ->rows(2)
+                        ->visible(fn (Get $get): bool => $get('delivery_type') === 'delivery')
+                        ->columnSpanFull(),
+                    Forms\Components\TextInput::make('shipping_cost')
+                        ->label(__('Shipping Cost'))
+                        ->numeric()
+                        ->step(0.01)
+                        ->prefix('$')
+                        ->default(0)
+                        ->visible(fn (Get $get): bool => $get('delivery_type') === 'delivery'),
+                ])->columns(2),
+
+            Forms\Components\Section::make(__('Notes & Attachments'))
                 ->schema([
                     Forms\Components\Textarea::make('notes')
-                        ->label('Notes')
+                        ->label(__('Notes'))
                         ->rows(3)
                         ->columnSpanFull(),
                     Forms\Components\FileUpload::make('attachments')
-                        ->label('Attachments')
+                        ->label(__('Attachments'))
                         ->multiple()
                         ->disk('public')
                         ->directory('order-attachments')
@@ -210,19 +265,19 @@ class OrderResource extends Resource
     public static function getWizardSteps(): array
     {
         return [
-            Wizard\Step::make('Customer')
+            Wizard\Step::make(__('Customer'))
                 ->icon('heroicon-o-user')
-                ->description('Customer information')
+                ->description(__('Customer information'))
                 ->schema(static::getCustomerFormSchema()),
 
-            Wizard\Step::make('Items')
+            Wizard\Step::make(__('Items'))
                 ->icon('heroicon-o-cube')
-                ->description('Order items')
+                ->description(__('Order items'))
                 ->schema(static::getItemsFormSchema()),
 
-            Wizard\Step::make('Details')
+            Wizard\Step::make(__('Details'))
                 ->icon('heroicon-o-document-text')
-                ->description('Order details')
+                ->description(__('Order details'))
                 ->schema(static::getDetailsFormSchema()),
         ];
     }
@@ -236,47 +291,47 @@ class OrderResource extends Resource
                     ->label('#')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('customer_name')
-                    ->label('Customer')
+                    ->label(__('Customer'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('customer_phone')
-                    ->label('Phone')
+                    ->label(__('Phone'))
                     ->searchable()
                     ->copyable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->badge()
                     ->color(fn (OrderStatus $state): string => $state->color())
                     ->formatStateUsing(fn (OrderStatus $state): string => $state->label()),
                 Tables\Columns\TextColumn::make('priority')
-                    ->label('Priority')
+                    ->label(__('Priority'))
                     ->badge()
                     ->color(fn (OrderPriority $state): string => $state->color())
                     ->formatStateUsing(fn (OrderPriority $state): string => $state->label())
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('location.name')
-                    ->label('Location')
+                    ->label(__('Location'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->visible(fn () => hasModule('locations')),
                 Tables\Columns\TextColumn::make('total')
-                    ->label('Total')
+                    ->label(__('Total'))
                     ->money()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('balance')
-                    ->label('Balance')
+                    ->label(__('Balance'))
                     ->money()
                     ->color(fn (Order $record): string => $record->balance > 0 ? 'danger' : 'success'),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('Created'))
                     ->dateTime('Y-m-d')
                     ->sortable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
-                    ->label('Status')
+                    ->label(__('Status'))
                     ->options(OrderStatus::options()),
                 Tables\Filters\SelectFilter::make('priority')
-                    ->label('Priority')
+                    ->label(__('Priority'))
                     ->options(OrderPriority::options()),
             ])
             ->actions([
@@ -284,11 +339,11 @@ class OrderResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Action::make('advance_status')
                     ->label(fn (Order $record): string => match ($record->status) {
-                        OrderStatus::Draft => 'Submit',
-                        OrderStatus::Pending => 'Confirm',
-                        OrderStatus::Confirmed => 'Start',
-                        OrderStatus::InProgress => 'Complete',
-                        default => 'Action',
+                        OrderStatus::Draft => __('Submit'),
+                        OrderStatus::Pending => __('Confirm'),
+                        OrderStatus::Confirmed => __('Start'),
+                        OrderStatus::InProgress => __('Complete'),
+                        default => __('Action'),
                     })
                     ->icon('heroicon-o-arrow-right')
                     ->color('primary')
@@ -305,7 +360,7 @@ class OrderResource extends Resource
                         };
                     }),
                 Action::make('cancel')
-                    ->label('Cancel')
+                    ->label(__('Cancel'))
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
                     ->requiresConfirmation()
@@ -315,15 +370,15 @@ class OrderResource extends Resource
                     ]))
                     ->action(fn (Order $record) => $record->cancel()),
                 Action::make('duplicate')
-                    ->label('Duplicate')
+                    ->label(__('Duplicate'))
                     ->icon('heroicon-o-document-duplicate')
                     ->color('gray')
                     ->action(function (Order $record) {
                         $newOrder = $record->duplicate();
 
                         Notification::make()
-                            ->title('Order duplicated')
-                            ->body("New order #{$newOrder->id} created as draft.")
+                            ->title(__('Order duplicated'))
+                            ->body(__('New order #:id created as draft.', ['id' => $newOrder->id]))
                             ->success()
                             ->send();
                     }),

@@ -19,6 +19,42 @@ parameters:
 			path: app/Console/Commands/SendRetentionAlerts.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\Customer\:\:\$balance\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/AccountsReceivable.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ProductionRecord\:\:\$days\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ProductionRecord\:\:\$total_broken\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\ProductionRecord\:\:\$total_production\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\ProductionRecord\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/Pages/AdvancedReports.php
+
+		-
 			message: '#^Parameter \#1 \$rules of method Filament\\Pages\\BasePage\:\:validate\(\) expects array\<string, array\<mixed\>\>\|null, array\<string, string\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -238,7 +274,31 @@ parameters:
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
 			identifier: property.notFound
 			count: 1
+			path: app/Models/Expense.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
 			path: app/Models/FeatureUsage.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/HenBatch.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/HenHealthRecord.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/HenMovement.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
@@ -263,6 +323,24 @@ parameters:
 			identifier: property.notFound
 			count: 1
 			path: app/Models/Location.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/LoyaltyCoupon.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/LoyaltyReward.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/LoyaltyTransaction.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$description\.$#'
@@ -358,31 +436,43 @@ parameters:
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
 			identifier: property.notFound
 			count: 1
+			path: app/Models/PriceHistory.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/ProductionRecord.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Purchase.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
 			path: app/Models/Quote.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
 			identifier: property.notFound
 			count: 1
+			path: app/Models/Shipment.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Supplier.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
+			identifier: property.notFound
+			count: 1
 			path: app/Models/WebhookLog.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/LoyaltyCoupon.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/LoyaltyReward.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tenant_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/LoyaltyTransaction.php
 
 		-
 			message: '#^Using nullsafe method call on non\-nullable type Laravel\\Sanctum\\PersonalAccessToken\. Use \-\> instead\.$#'
@@ -395,3 +485,15 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Providers/AppServiceProvider.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Support\\Collection\<int, array\{item_id\: int, name\: string, egg_size\: string\|null, sold\: int, price\: string\|null\}\> but returns Illuminate\\Support\\Collection\<int, array\{item_id\: int, name\: string, egg_size\: string\|null, sold\: int, price\: string\|null\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/InventoryService.php
+
+		-
+			message: '#^Parameter \#3 \$callback of static method Illuminate\\Cache\\Repository\:\:remember\(\) expects Closure\(\)\: Illuminate\\Support\\Collection\<int, array\{item_id\: int, name\: string, egg_size\: string\|null, sold\: int, price\: string\|null\}\>, Closure\(\)\: Illuminate\\Support\\Collection\<int, array\{item_id\: int, name\: string, egg_size\: string\|null, sold\: int, price\: string\|null\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/InventoryService.php

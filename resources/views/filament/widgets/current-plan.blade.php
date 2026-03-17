@@ -7,9 +7,9 @@
     $showUpgrade = $data['show_upgrade'] ?? false;
 
     $statusLabel = match($status) {
-        'active' => 'Active subscription',
-        'expired' => 'Trial expired',
-        default => "Trial: {$daysRemaining} " . ($daysRemaining === 1 ? 'day' : 'days') . " remaining",
+        'active' => __('Active subscription'),
+        'expired' => __('Trial expired'),
+        default => __('Trial') . ": {$daysRemaining} " . ($daysRemaining === 1 ? __('day') : __('days')) . " " . __('remaining'),
     };
 
     $statusColor = match($status) {
@@ -23,7 +23,7 @@
     <x-filament::section>
         <div class="space-y-4">
             <div class="flex items-center justify-between">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Your Plan</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('Your Plan') }}</h3>
                 <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $statusColor }}">
                     {{ $statusLabel }}
                 </span>
@@ -45,10 +45,10 @@
             @if ($showUpgrade)
                 <a href="{{ route('filament.admin.pages.billing') }}"
                    class="block w-full text-center rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 transition">
-                    Upgrade
+                    {{ __('Upgrade') }}
                 </a>
             @else
-                <p class="text-sm text-gray-500 dark:text-gray-400">Top plan active</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Top plan active') }}</p>
             @endif
         </div>
     </x-filament::section>

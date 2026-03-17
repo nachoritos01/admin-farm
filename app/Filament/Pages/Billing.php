@@ -13,17 +13,16 @@ use Illuminate\Validation\Rules\Enum;
 
 class Billing extends Page
 {
-    protected static ?string $title = 'Billing & Plan';
-
     protected static ?string $navigationIcon = 'heroicon-o-credit-card';
-
-    protected static ?string $navigationLabel = 'Plan';
-
-    protected static ?string $navigationGroup = 'Settings';
 
     protected static ?int $navigationSort = 99;
 
     protected static string $view = 'filament.pages.billing';
+
+    public function getTitle(): string
+    {
+        return __('Billing & Plan');
+    }
 
     public bool $showCancelModal = false;
 
@@ -89,11 +88,11 @@ class Billing extends Page
     public function getResourceLabels(): array
     {
         return [
-            'orders' => 'Orders (this month)',
-            'users' => 'Users',
-            'locations' => 'Locations',
-            'items' => 'Items',
-            'customers' => 'Customers',
+            'orders' => __('Orders (this month)'),
+            'users' => __('Users'),
+            'locations' => __('Locations'),
+            'items' => __('Items'),
+            'customers' => __('Customers'),
         ];
     }
 
@@ -248,8 +247,8 @@ class Billing extends Page
         $this->validate([
             'cancelReason' => ['required', 'string', new Enum(CancellationReason::class)],
         ], [
-            'cancelReason.required' => 'Please select a cancellation reason.',
-            'cancelReason.in' => 'Please select a valid option.',
+            'cancelReason.required' => __('Please select a cancellation reason.'),
+            'cancelReason.in' => __('Please select a valid option.'),
         ]);
 
         $tenant = $this->getTenant();
@@ -264,5 +263,15 @@ class Billing extends Page
         }
 
         $this->redirect(route('billing.portal'));
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Plan');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }

@@ -12,10 +12,6 @@ class ApiSettings extends Page
 
     protected static ?string $navigationIcon = 'heroicon-o-code-bracket';
 
-    protected static ?string $navigationLabel = 'API';
-
-    protected static ?string $navigationGroup = 'Settings';
-
     protected static ?int $navigationSort = 99;
 
     protected static string $view = 'filament.pages.api-settings';
@@ -83,8 +79,8 @@ class ApiSettings extends Page
         $this->tokenName = '';
 
         Notification::make()
-            ->title('Token generated')
-            ->body('Copy the token now. It will not be shown again.')
+            ->title(__('Token generated'))
+            ->body(__('Copy the token now. It will not be shown again.'))
             ->warning()
             ->send();
     }
@@ -102,7 +98,7 @@ class ApiSettings extends Page
             ->delete();
 
         Notification::make()
-            ->title('Token revoked')
+            ->title(__('Token revoked'))
             ->success()
             ->send();
     }
@@ -110,5 +106,15 @@ class ApiSettings extends Page
     public function dismissToken(): void
     {
         $this->newToken = null;
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('API');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('Settings');
     }
 }
