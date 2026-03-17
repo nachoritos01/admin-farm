@@ -459,5 +459,14 @@
     "Variants": "Variantes",
     "Warehouse": "Almacén",
     "Whether the first purchase bonus has been credited.": "Si el bono de primera compra ha sido acreditado.",
-    "Wholesale": "Mayoreo"
+    "Wholesale": "Mayoreo",
+    "Activity Log": "Registro de Actividad",
+    "User": "Usuario",
+    "System": "Sistema",
+    "Event": "Evento",
+    "Model": "Modelo",
+    "Updated": "Actualizado",
+    "Deleted": "Eliminado",
+    "Transfer number, voucher, etc.": "Número de transferencia, voucher, etc.",
+    "Amount ($:amount) cannot exceed balance ($:balance).": "El monto ($:amount) no puede exceder el saldo ($:balance)."
 }

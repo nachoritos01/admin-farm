@@ -9,12 +9,16 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class PaymentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'payments';
 
-    protected static ?string $title = 'Payments';
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Payments');
+    }
 
     public static function getModelLabel(): string
     {
@@ -48,7 +52,7 @@ class PaymentsRelationManager extends RelationManager
                             $order = $this->getOwnerRecord();
                             $balance = $order->balance;
                             if ((float) $value > $balance) {
-                                $fail("Amount (\${$value}) cannot exceed balance (\${$balance}).");
+                                $fail(__('Amount ($:amount) cannot exceed balance ($:balance).', ['amount' => $value, 'balance' => $balance]));
                             }
                         },
                     ]),
@@ -62,7 +66,7 @@ class PaymentsRelationManager extends RelationManager
                 Forms\Components\TextInput::make('reference')
                     ->label(__('Reference'))
                     ->maxLength(100)
-                    ->placeholder('Transfer number, voucher, etc.'),
+                    ->placeholder(__('Transfer number, voucher, etc.')),
 
                 Forms\Components\Textarea::make('notes')
                     ->label(__('Notes'))

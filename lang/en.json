@@ -459,5 +459,14 @@
     "Variants": "Variants",
     "Warehouse": "Warehouse",
     "Whether the first purchase bonus has been credited.": "Whether the first purchase bonus has been credited.",
-    "Wholesale": "Wholesale"
+    "Wholesale": "Wholesale",
+    "Activity Log": "Activity Log",
+    "User": "User",
+    "System": "System",
+    "Event": "Event",
+    "Model": "Model",
+    "Updated": "Updated",
+    "Deleted": "Deleted",
+    "Transfer number, voucher, etc.": "Transfer number, voucher, etc.",
+    "Amount ($:amount) cannot exceed balance ($:balance).": "Amount ($:amount) cannot exceed balance ($:balance)."
 }
